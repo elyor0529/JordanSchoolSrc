@@ -11,6 +11,7 @@ export class SchoolFeeService {
 
   public selectedSchoolId:any;
   public selectedSchoolDesc:any;
+  public selectedYearId:any;
   private apiUrl = environment.apiBaseUrl + 'SchoolFee';
 
   constructor(private http: HttpClient) { }

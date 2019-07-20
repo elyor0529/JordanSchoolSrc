@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LookupTypeApiService {
 
-  apiUrl='http://localhost:15783/api/LkpLookupType';
+  apiUrl='http://localhost:52579/api/LkpLookupType';
 
   constructor(private http: HttpClient) { }
 

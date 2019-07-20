@@ -47,7 +47,7 @@ export class SchoolFeeDialogComponent implements OnInit {
     this.form = this.fb.group({
       id: [0],
       schoolId: [this.service.selectedSchoolId, [Validators.required]],
-      yearId: [1, [Validators.required]],
+      yearId: [this.service.selectedYearId, [Validators.required]],
       finItemId: [1],
       value: [0]
     });
@@ -58,14 +58,14 @@ export class SchoolFeeDialogComponent implements OnInit {
   }
 
   submit() {
-
+    console.log(' begin submit');
     if (!this.form.valid) {
       console.log("not valid");
-
+     
       this.validator.markFormTouched(this.form);
       return;
     }
-
+    console.log('submit');
     this.loading = true;
     this.edit ? this.updateSchoolFee() : this.addSchoolFee();
 
@@ -76,6 +76,9 @@ export class SchoolFeeDialogComponent implements OnInit {
   addSchoolFee() {
     this.service.addSchoolFee(this.form.value).subscribe(
       res => {
+
+        console.log('adddd in add');
+        
        // this.router.navigateByUrl(this.returnUrl);
        this.event.emit(this.form.value);
        
@@ -87,6 +90,7 @@ export class SchoolFeeDialogComponent implements OnInit {
 
 
   updateSchoolFee() {
+    console.log('update');
     this.service.updateSchoolFee(this.id, this.form.value).subscribe(
       res => {
         this.router.navigateByUrl(this.returnUrl);

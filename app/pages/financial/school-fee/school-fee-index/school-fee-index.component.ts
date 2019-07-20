@@ -7,6 +7,7 @@ import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialo
 import { SchoolFeeService } from '../school-fee.service';
 import { SchoolService } from 'src/app/pages/addLookups/schools/school.service';
 import { SchoolFeeDialogComponent } from '../school-fee-dialog/school-fee-dialog.component';
+import { YearService } from 'src/app/pages/addLookups/years/year.service';
 
 @Component({
   selector: 'app-school-fee-index',
@@ -22,13 +23,14 @@ export class SchoolFeeIndexComponent implements OnInit {
   loading = false;
   finItemList: any;
   schoolList: any;
+  yearsList: any;
 
 
 
   cols = [
     { field: "id", header: "#" },
-   // { field: "schoolDesc", header: "  المدرسة    " },
-   // { field: "yearDesc", header: " السنة  " },
+    // { field: "schoolDesc", header: "  المدرسة    " },
+    { field: "yearDesc", header: " السنة  " },
     { field: "finItemDesc", header: " البند " },
     { field: "value", header: " القيمة  " }
   ]
@@ -39,6 +41,7 @@ export class SchoolFeeIndexComponent implements OnInit {
   constructor(private service: SchoolFeeService,
     private dialog: MatDialog,
     private schoolFeeService: SchoolFeeService,
+    private yearService: YearService,
     private schoolService: SchoolService) {
     this.dataSource = new MatTableDataSource<SchoolFee>();
   }
@@ -58,6 +61,12 @@ export class SchoolFeeIndexComponent implements OnInit {
   getSchoolList() {
     return this.schoolService.schoolList().subscribe(result => this.schoolList = result);
   }
+
+
+  getYearsList() {
+    return this.yearService.getYearsList().subscribe(result => this.yearsList = result);
+  }
+
 
   deleteFinItem(schoolFee: SchoolFee) {
     this.loading = true;
@@ -86,14 +95,19 @@ export class SchoolFeeIndexComponent implements OnInit {
     this.service.selectedSchoolId = filterValue;
 
     this.schoolService.getSchool(filterValue).subscribe(res => {
-       this.service.selectedSchoolDesc = res.aname
-      console.log('fffff'+filterValue);
-      console.log('fffff'+res.aname);
-      
+      this.service.selectedSchoolDesc = res.aname
+
     }, err => console.log(err),
       () => this.loading = false);
-  
+
   }
+
+
+  onYearChanged(filterValue: number) {
+    this.dataSource.filter = filterValue + "";
+    this.service.selectedYearId = filterValue;
+  }
+
 
 
   private handleSuccess() {
@@ -111,7 +125,8 @@ export class SchoolFeeIndexComponent implements OnInit {
   ngOnInit() {
     this.getSchoolFeeList();
     this.getSchoolList();
-    
+    this.getYearsList();
+
     this.dataSource.filterPredicate = (data: SchoolFee, filter: string) => {
       return data.schoolId == +filter;
     }

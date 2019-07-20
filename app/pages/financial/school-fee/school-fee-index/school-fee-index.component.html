@@ -34,6 +34,22 @@
 
     </mat-form-field>
   </div>
+
+
+  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+
+    <mat-form-field appearance="outline">
+      <mat-label>السنة</mat-label>
+      <mat-select matInput   placeholder="السنة"
+        (selectionChange)="onYearChanged($event.value)">
+        <mat-option *ngFor="let op of yearsList" [value]="op.id">
+          {{op.id}} | {{op.aName}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+
 </div>
 
     <div fxLayout fxLayoutAlign="center center">
