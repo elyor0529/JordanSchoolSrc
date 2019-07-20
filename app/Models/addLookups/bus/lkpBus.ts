@@ -5,5 +5,5 @@ export class LkpBus{
 mobile:string;
 morningSuper:string;
 evningSuper:string;
-schoolId:number
+schoolId:number 
 }
