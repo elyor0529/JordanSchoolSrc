@@ -1,0 +1,89 @@
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل بند مالي'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+  <mat-panel-title>
+    تعريف البنود المالية
+    </mat-panel-title>
+    <mat-panel-description>
+       ادخل بيانات البنود المالية 
+    </mat-panel-description>
+  </div>
+<div class="p-2"> 
+
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+    <mat-card>  
+        <mat-card-header fxLayoutAlign="center">
+            <mat-card-subtitle>
+              <h2></h2>
+            </mat-card-subtitle>
+          </mat-card-header>
+      
+      <mat-card-content fxLayout="column" fxLayoutAlign="center">
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+         
+          <mat-form-field fxFlex appearance="outline" >
+              <mat-label>اسم البند</mat-label>
+            <input matInput formControlName="arDesc"  type="text" placeholder="اسم البند ">
+            <mat-error *ngIf="validator.hasErrors(name)"> 
+              Required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex appearance="outline">
+              <mat-label> اسم البند - انجليزي  </mat-label>
+            <input matInput formControlName="laDesc"  type="text" placeholder="   اسم البند - انجليزي ">
+          </mat-form-field>
+
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>خصم/اضافة</mat-label>
+            <mat-select matInput formControlName="cdTypeId" placeholder="خصم/اضافة">
+              <mat-option *ngFor="let op of cdTypeList" [value]="op.id">
+                {{op.id}} | {{op.aname}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+     
+        </div>
+        
+
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+            
+ 
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> قيمة/نسبة  </mat-label>
+                <mat-select matInput formControlName="vpTypeId" placeholder="   قيمة/نسبة">
+                  <mat-option *ngFor="let op of vpTypeList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+             
+        </div>
+        
+
+
+      </mat-card-content>
+      <mat-card-actions>
+        <a [routerLink]="returnUrl" mat-button>
+          عودة
+        </a>
+        <button mat-raised-button color="primary" type="submit" >
+          تخزين
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+</div>

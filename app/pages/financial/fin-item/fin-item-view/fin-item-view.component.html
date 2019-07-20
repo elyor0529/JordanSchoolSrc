@@ -1,0 +1,51 @@
+<app-content-header [icon]="'store_mall_directory'" [title]="'عرض تفاصيل البند المالي'" [hideBreadcrumb]="false"
+  [hasBgImage]="true" [class]="'pb-4'">
+</app-content-header>
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+
+
+      
+       <!-- cdTypeDesc: string;
+      
+      vpTypeDesc: string; -->
+
+
+    <!--Card 1-->
+    <div class="p-2">
+      <mat-card>
+        <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+            <h3>رقم ولي الامر </h3>
+            <h3 fxFlex appearance="outline">
+              {{finItem.id}}
+            </h3>
+          </div>
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+            <h3> الاسـم بالـعربيـــة:</h3>
+            <h3 fxFlex appearance="Placeholder">
+              {{finItem.arDesc}}
+            </h3>
+
+            <h3> الاسم بالانجليزية: </h3>
+            <h3 fxFlex appearance="Placeholder">
+              {{finItem.laDesc}}
+            </h3>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    
+ <!-- Actions Card -->
+ <div class="p-2">
+    <mat-card>
+      <mat-card-actions>
+        <a [routerLink]="returnUrl" mat-button>
+          عودة
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  </div>
+</div>

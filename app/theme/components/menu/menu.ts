@@ -81,6 +81,13 @@ export const verticalMenuItems = [
     new Menu (500, '    القبول ', '', null, 'admissions-index',  null, true, 0),
     new Menu (501, '   قبول الطلبة ', '/admissions/index', null, 'admissions-index',  null, false, 500),
 
+    //Financial
+    new Menu (430, '  المالية', '', null, 'reg',  null, true, 0),
+    new Menu (431, ' بنود المالية', '/financial/finItem/index', null, 'fin-item-index',  null, false, 430),
+    new Menu (432, '  مالية المدرسة  ', '/financial/schoolFee/index', null, 'school-fee-index',  null, false, 430),
+    new Menu (433, '   مالية الصفوف    ', '/financial/classFee/index', null, 'class-fee-index',  null, false, 430),
+    new Menu (434, '   مالية الطالب    ', '/financial/studentFee/index', null, 'student-fee-index',  null, false, 430),
+
 ]
 
 export const horizontalMenuItems = [ 
