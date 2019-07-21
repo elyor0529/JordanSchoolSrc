@@ -9,6 +9,10 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
+  public  sUserId:any;
+  public  sSchoolId:any;
+  public  sSchoolName:any;
+  
   private apiUrl = environment.apiBaseUrl + 'Users/checkLogin';
 constructor(private http: HttpClient) { }
 

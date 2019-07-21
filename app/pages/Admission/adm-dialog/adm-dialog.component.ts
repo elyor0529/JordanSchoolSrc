@@ -122,7 +122,11 @@ export class AdmDialogComponent implements OnInit {
       .subscribe(res => (this.classList = res));
   }
   getTourList() {
-    return this.tourService.tourList().subscribe(res => (this.tourList = res));
+    return this.tourService.tourList().subscribe(res => {
+      this.tourList = res;
+        try { this.formGroup.get("tourId").setValue(res[0].id) } catch(error) { };
+    });
+  
   }
   getBusList() {
     return this.busService.busList().subscribe(res => (this.busList = res));
@@ -166,7 +170,7 @@ export class AdmDialogComponent implements OnInit {
       note: [null],
       classPrice: [0],
       totalPrice: [0],
-      studAge:[0]
+      studAge: [0]
     });
   }
 
@@ -207,6 +211,8 @@ export class AdmDialogComponent implements OnInit {
 
   private fillLookups(res: any) {
     res.forEach((element: Lkplookup[]) => {
+      let defVal;
+      let value;
       //console.log("Loop");
       switch (element[0].typeId) {
         case LookupTypes.MartialStatus:
@@ -232,6 +238,9 @@ export class AdmDialogComponent implements OnInit {
           break;
         case LookupTypes.Nationalities:
           this.nationalList = element;
+          defVal = element.findIndex(i => i.defaultValue === 1);
+          try { value = element[defVal].id; } catch (error) { };
+          this.formGroup.get("nationalityId").setValue(value);
           break;
         case LookupTypes.EducationLevel:
           this.educationList = element;
@@ -247,15 +256,23 @@ export class AdmDialogComponent implements OnInit {
           break;
         case LookupTypes.ClassSeq:
           this.classSeqList = element;
+           defVal = element.findIndex(i => i.defaultValue === 1);
+          try { value = element[defVal].id; } catch(error){}
+          this.formGroup.get("classSeqId").setValue(value);
           break;
         case LookupTypes.TourType:
           this.tourTypeList = element;
+          defVal = element.findIndex(i => i.defaultValue === 1);
+          try { value = element[defVal].id; }catch(error){}
+          this.formGroup.get("tourTypeId").setValue(value);
+
         default:
           break;
       }
     });
   }
-
+  // this.tourTypeList.findIndex(
+  //       i => i.id === this.tourTypeValue
   private getLookups() {
     this.lookup
       .getLookupsByType2([
@@ -311,8 +328,7 @@ export class AdmDialogComponent implements OnInit {
       let amtPrice = this.classList[Index].amt;
       this.classPrice = amtPrice;
       this.totalPrice = this.tourPrice + this.classPrice;
-    }
-    catch (error) {
+    } catch (error) {
       this.classPrice = 0;
       this.totalPrice = this.tourPrice + this.classPrice;
     }
@@ -369,7 +385,6 @@ export class AdmDialogComponent implements OnInit {
 
   @Output() dateChange: EventEmitter<MatDatepickerInputEvent<any>>;
   calcStudAge() {
-    
     let classAge: number;
     var timeDiff;
     let b: Date = this.formGroup.get("birthDate").value;
@@ -388,26 +403,26 @@ export class AdmDialogComponent implements OnInit {
 
     let index = this.classList.findIndex(i => i.age === this.studAge);
     try {
-console.log("Try")
-     // if (this.classList[Index] == null) {
-        //Index = this.classList.findIndex(i => i.age === 0);
-        // classAge = 0;
-     // }
-     // else {
-        classAge = this.classList[index].id;
-        this.classValue = classAge;
-      
-     // }
-    }
-    catch (error) {
-      console.log("Catch")
+      console.log("Try");
+      // if (this.classList[Index] == null) {
+      //Index = this.classList.findIndex(i => i.age === 0);
+      // classAge = 0;
+      // }
+      // else {
+      classAge = this.classList[index].id;
+      this.classValue = classAge;
+
+      // }
+    } catch (error) {
+      console.log("Catch");
       index = this.classList.findIndex(i => i.age === 0);
-     // classAge = this.classList[index].id;
+      // classAge = this.classList[index].id;
     }
     //this.formGroup.get("classId").setValue(classAge);
     this.classValue = classAge;
     this.onClassChange();
-    console.log("index=" + index + "  classAge=" + classAge+"  age="+this.studAge);
-
+    console.log(
+      "index=" + index + "  classAge=" + classAge + "  age=" + this.studAge
+    );
   }
 }

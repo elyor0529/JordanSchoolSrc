@@ -6,5 +6,6 @@ export class users{
     password: string;
     email: string;
     locale: string;
-    
+    schoolId: number;
+    schoolName: string;
 }

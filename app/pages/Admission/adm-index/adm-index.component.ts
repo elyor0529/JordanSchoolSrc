@@ -14,6 +14,9 @@ import { analytics } from "../../dashboard/dashboard.data";
 import { FormControl } from "@angular/forms";
 import { ReplaySubject, Subject } from "rxjs";
 import { log } from "util";
+import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialog.component";
+import { UsersService } from "../../users/users.service";
+import { LoginService } from '../../login/login.service';
 
 @Component({
   selector: "app-adm-index",
@@ -44,11 +47,12 @@ export class AdmIndexComponent implements OnInit {
   totalPrice: number;
   currentYear: any;
   currentYearId: number;
+  schoolName: any;
 
   cols = [
     { field: "id", header: "#" },
     { field: "firstName", header: "إسم الطالب " },
-    { field: "birthDate", header: "تاريخ الميلاد  " , type:"date"},
+    { field: "birthDate", header: "تاريخ الميلاد  ", type: "date" },
     { field: "genderName", header: "الجنس  " },
     { field: "className", header: "  الصف" },
     { field: "classPrice", header: "سعر الصف" },
@@ -59,7 +63,7 @@ export class AdmIndexComponent implements OnInit {
     { field: "tourTypeName", header: " نوع إشتراك الباص" },
     { field: "tourPrice", header: "مبلغ إشتراك الباص" },
     { field: "totalPrice", header: "المبلغ المطلوب" },
-    {field:"yearId",header:"yearId", type:"hidden"}
+    { field: "yearId", header: "yearId", type: "hidden" }
   ];
   dataSource: MatTableDataSource<Admission> = new MatTableDataSource<
     Admission
@@ -74,11 +78,20 @@ export class AdmIndexComponent implements OnInit {
   constructor(
     private service: AdmService,
     private parentService: RegParentService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: LoginService
   ) {
+  
+    
+    this.userService.getUser("admin", "admin").subscribe(res => {
+      this.schoolName = res.schoolName;
+    });
+   // this.schoolName = this.userService.sSchoolName;
+    console.log("scjoolName"+this.schoolName);
+
     this.getCurrentYear();
     this.currentYear = this.service.sCurrentYear;
-    console.log(  this.currentYear);
+    console.log(this.currentYear);
     //this.getAdmList();
     this.getParentList();
     // this.selected=this.service.sSelected;
@@ -109,8 +122,14 @@ export class AdmIndexComponent implements OnInit {
   getCurrentYear() {
     return this.service
       .getCurrentYear()
-      .subscribe(res => (this.service.sCurrentYear = res.aName,this.currentYear= res.aName,
-        this.service.sCurrentYearId = res.id, this.currentYearId=res.id));
+      .subscribe(
+        res => (
+          (this.service.sCurrentYear = res.aName),
+          (this.currentYear = res.aName),
+          (this.service.sCurrentYearId = res.id),
+          (this.currentYearId = res.id)
+        )
+      );
   }
 
   onParentChanged(filterValue: string) {
@@ -123,6 +142,7 @@ export class AdmIndexComponent implements OnInit {
     // console.log(fatherName);
     //  this.service.currentParentIdParam.subscribe(p => this.parentId = p);
     //this.dataSource.filter = filterValue+"";
+    //this.dataSource.
     this.service.getByParent(filterValue).subscribe(res => {
       this.dataSource.data = res;
       //   res[0]!=null? this.fatherName=res[0].parentId:this.fatherName="";
@@ -166,22 +186,25 @@ export class AdmIndexComponent implements OnInit {
     //     left: '0'
     // };
     dialogConfig.direction = "rtl";
-    dialogConfig.data = { id: 0, classPrice:0, totalPrice:0 };
+    dialogConfig.data = { id: 0, classPrice: 0, totalPrice: 0 };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
       res != null ? this.onParentChanged(res.parentId) : "";
     });
   }
 
-  updateStud(id,classPrice,totalPrice,yearId: number,elementYear: number) {
-
+  updateStud(id, classPrice, totalPrice, yearId: number, elementYear: number) {
     console.log("yearId=" + yearId + "  elementYear=" + elementYear);
     if (yearId != elementYear) return;
 
-     const dialogConfig = new MatDialogConfig();
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.direction = "rtl";
-    dialogConfig.data = { id: id, classPrice:classPrice, totalPrice:totalPrice };
+    dialogConfig.data = {
+      id: id,
+      classPrice: classPrice,
+      totalPrice: totalPrice
+    };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
       res != null ? this.onParentChanged(res.parentId) : "";
@@ -209,5 +232,40 @@ export class AdmIndexComponent implements OnInit {
     this.onParentChanged("" + data.parentId);
   }
 
-  //Update
+  //Delete
+
+  openDeleteDialog(adm: Admission) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {
+        // name: `${adm.firstName}`,
+        name: `${adm.yearId}`
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.deleteStudent(adm);
+      }
+    });
+  }
+
+  deleteStudent(adm: Admission) {
+    this.loading = true;
+    this.service.admDelete(adm.id).subscribe(
+      res => {
+        this.handleSuccess();
+      },
+      err => {
+        this.handleErrors(), (this.loading = false);
+      },
+      () => (this.loading = false)
+    );
+  }
+
+  // this.parentId
+  private handleSuccess() {
+    // this.getAdmList();
+    this.onParentChanged(this.parentId);
+  }
+
+  private handleErrors() {}
 }
