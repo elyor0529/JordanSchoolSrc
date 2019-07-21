@@ -19,7 +19,8 @@ constructor(private http: HttpClient) { }
 
 
 getUser(userName:string, password:string):Observable<users>{
-  return this.http.get<users>(`${this.apiUrl}/${userName}/${password}`,environment.httpOptions);
+  return this.http.get<users>(`${this.apiUrl}/${userName}/${password}`, environment.httpOptions)
+  .
 } 
 
 
