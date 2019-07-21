@@ -31,12 +31,8 @@
           {{op.id}} | {{op.aname}}
         </mat-option>
       </mat-select>
-
     </mat-form-field>
-  </div>
 
-
-  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
 
     <mat-form-field appearance="outline">
       <mat-label>السنة</mat-label>
@@ -46,17 +42,23 @@
           {{op.id}} | {{op.aName}}
         </mat-option>
       </mat-select>
-
     </mat-form-field>
-  </div>
 
-</div>
 
     <div fxLayout fxLayoutAlign="center center">
       <mat-form-field fxFlex="40%">
         <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="بحث">
       </mat-form-field>
     </div>
+    
+  </div>
+
+
+ 
+
+</div>
+
+   
 
     <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container *ngFor="let col of cols" [matColumnDef]="col.field">
@@ -76,7 +78,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
 
-          <a mat-icon-button matTooltip="تعديل" [routerLink]="['/sections/edit/' + element.id  ]">
+          <a mat-icon-button matTooltip="تعديل"  (click)="updateSchoolFee(element.id) ">
             <mat-icon aria-hidden="true" aria-label="Files">
               edit
             </mat-icon>

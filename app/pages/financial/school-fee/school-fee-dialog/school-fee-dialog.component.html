@@ -1,5 +1,4 @@
-
-<h2 mat-dialog-title>   
+<h2 mat-dialog-title>
    {{ SchoolDesc }}
 </h2>
 
@@ -11,48 +10,61 @@
          <div class="p-2">
             <div class="p-2">
                <mat-card>
-                  <!-- <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
-                     <mat-form-field fxFlex color="accent" appearance="outline">
-                        <input matInput formControlName="schoolId" type="text" placeholder=" المدرسه   ">
-                     </mat-form-field>
-                  </div> -->
 
-                  <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
-                     <mat-form-field fxFlex color="accent" appearance="outline">
-                        <input matInput formControlName="yearId" type="text" placeholder=" السنة   ">
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+
+                     <mat-form-field appearance="outline">
+                        <mat-label>المدرسه</mat-label>
+                        <mat-select matInput formControlName="schoolId" placeholder="المدرسه">
+                           <mat-option *ngFor="let op of schoolList" [value]="op.id">
+                              {{op.id}} | {{op.aname}}
+                           </mat-option>
+                        </mat-select>
+
                      </mat-form-field>
                   </div>
+
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+
+                     <mat-form-field appearance="outline">
+                        <mat-label>السنة</mat-label>
+                        <mat-select matInput formControlName="yearId" placeholder="السنة">
+                           <mat-option *ngFor="let op of yearList" [value]="op.id">
+                              {{op.id}} | {{op.aName}}
+                           </mat-option>
+                        </mat-select>
+
+                     </mat-form-field>
+                  </div>
+
                </mat-card>
                <mat-card>
 
 
-                     
-                           <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
-                         
-                             <mat-form-field appearance="outline">
-                               <mat-label>البند</mat-label>
-                               <mat-select matInput   placeholder="البند"  >
-                                 <mat-option *ngFor="let op of finItemList" [value]="op.id">
-                                   {{op.id}} | {{op.arDesc}}
-                                 </mat-option>
-                               </mat-select>
-                         
-                             </mat-form-field>
-                           </div>
-                          
-<!-- 
-               <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
-                  <mat-form-field fxFlex color="accent" appearance="outline">
-                     <input matInput formControlName="finItemId" type="text" placeholder=" البند   ">
-                  </mat-form-field>
-               </div> -->
+
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+
+                     <mat-form-field appearance="outline">
+                        <mat-label>البند</mat-label>
+                        <mat-select matInput formControlName="finItemId" placeholder="البند">
+                           <mat-option *ngFor="let op of finItemList" [value]="op.id">
+                              {{op.id}} | {{op.arDesc}}
+                           </mat-option>
+                        </mat-select>
+
+                     </mat-form-field>
+                  </div>
 
 
-               <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
-                  <mat-form-field fxFlex color="accent" appearance="outline">
-                     <input matInput formControlName="value" type="text" placeholder="  القيمة ">
-                  </mat-form-field>
-               </div>
+
+
+
+
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+                     <mat-form-field fxFlex color="accent" appearance="outline">
+                        <input matInput formControlName="value" type="text" placeholder="  القيمة ">
+                     </mat-form-field>
+                  </div>
 
                </mat-card>
 
@@ -69,9 +81,9 @@
       <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
          عودة
       </button>
-      <button [type]="submit" mat-raised-button color="primary" >
-      <!-- (click)="submitSchoolFee()" -->
-      <!-- > -->
+      <button [type]="submit" mat-raised-button color="primary">
+         <!-- (click)="submitSchoolFee()" -->
+         <!-- > -->
          تخزين
       </button>
    </mat-dialog-actions>

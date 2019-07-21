@@ -14,6 +14,6 @@ export class YearService {
   constructor(private http:HttpClient) { }
 
   getYearsList(){
-    return this.http.get<LkpYear>(this.apiUrl,environment.httpOptions);
+    return this.http.get<LkpYear[]>(this.apiUrl,environment.httpOptions);
   }
 }

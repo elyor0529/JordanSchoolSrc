@@ -29,7 +29,7 @@ export class SchoolFeeIndexComponent implements OnInit {
 
   cols = [
     { field: "id", header: "#" },
-    // { field: "schoolDesc", header: "  المدرسة    " },
+     { field: "schoolDesc", header: "  المدرسة    " },
     { field: "yearDesc", header: " السنة  " },
     { field: "finItemDesc", header: " البند " },
     { field: "value", header: " القيمة  " }
@@ -145,11 +145,26 @@ export class SchoolFeeIndexComponent implements OnInit {
 
     dialogConfig.autoFocus = true;
     dialogConfig.direction = "rtl";
+    dialogConfig.data = { id: 0,};
     const dialogRef = this.dialog.open(SchoolFeeDialogComponent, dialogConfig);
     //dialogRef.afterClosed().subscribe(res => {
     // this.onParentChanged(res.parentId);
     //});
   }
+
+
+  updateSchoolFee(schoolFeeId) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.direction = "rtl";
+    console.log('schoolFeeId'+schoolFeeId);
+    
+    dialogConfig.data = { id: schoolFeeId };
+    const dialogRef = this.dialog.open(SchoolFeeDialogComponent, dialogConfig);
+  }
+
+  
+
 
 }
 

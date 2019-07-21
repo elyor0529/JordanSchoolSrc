@@ -1,11 +1,15 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidationBase } from 'JordanSchoolSrc1807/app/validationBase';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SchoolFeeService } from '../school-fee.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FinItem } from 'src/app/Models/financial/fin-item';
 import { FinItemService } from '../../fin-item/fin-item.service';
+import { LkpSchool } from 'JordanSchoolSrc1807/app/Models/addLookups/schools/lkpSchool';
+import { SchoolService } from 'src/app/pages/addLookups/schools/school.service';
+import { LkpYear } from 'src/app/Models/addLookups/year/LkpYear';
+import { YearService } from 'src/app/pages/addLookups/years/year.service';
 
 @Component({
   selector: 'app-school-fee-dialog',
@@ -22,33 +26,31 @@ export class SchoolFeeDialogComponent implements OnInit {
   returnUrl = '/financial/schoolFee/index';
   id: number;
   finItemList: FinItem[];
+  schoolList: LkpSchool[];
+  yearList: LkpYear[];
   @Output() event=new EventEmitter<FinItem>(true);
-
-
   constructor(
     private fb: FormBuilder,
     public validator: ValidationBase,
     private router: Router,
     private service: SchoolFeeService,
     private finItemService: FinItemService,
+    private schoolService: SchoolService,
+    private yearService: YearService,
     private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<SchoolFeeDialogComponent>
-
+    public dialogRef: MatDialogRef<SchoolFeeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.initForm();
     this.SchoolDesc = this.service.selectedSchoolDesc;
-
   }
-
-
-
 
   initForm() {
     this.form = this.fb.group({
       id: [0],
       schoolId: [this.service.selectedSchoolId, [Validators.required]],
       yearId: [this.service.selectedYearId, [Validators.required]],
-      finItemId: [1],
+      finItemId: [],
       value: [0]
     });
   }
@@ -57,66 +59,65 @@ export class SchoolFeeDialogComponent implements OnInit {
     this.finItemService.getFinItemList().subscribe(res => this.finItemList = res);
   }
 
-  submit() {
-    console.log(' begin submit');
-    if (!this.form.valid) {
-      console.log("not valid");
-     
-      this.validator.markFormTouched(this.form);
-      return;
-    }
-    console.log('submit');
-    this.loading = true;
-    this.edit ? this.updateSchoolFee() : this.addSchoolFee();
 
+  getSchoolList() {
+    this.schoolService.schoolList().subscribe(res => this.schoolList = res);
   }
 
 
+  getYearList() {
+    this.yearService.getYearsList().subscribe(res => this.yearList = res);
+  }
+
+  submit() {
+    if (!this.form.valid) {
+      this.validator.markFormTouched(this.form);
+      return;
+    }
+    this.loading = true;
+    this.edit ? this.updateSchoolFee() : this.addSchoolFee();
+  }
 
   addSchoolFee() {
     this.service.addSchoolFee(this.form.value).subscribe(
       res => {
-
-        console.log('adddd in add');
-        
-       // this.router.navigateByUrl(this.returnUrl);
        this.event.emit(this.form.value);
-       
         this.dialogRef.close(this.form.value);
       },
       err => console.log('errrrrrr'+err)
     );
   }
 
-
   updateSchoolFee() {
     console.log('update');
     this.service.updateSchoolFee(this.id, this.form.value).subscribe(
       res => {
-        this.router.navigateByUrl(this.returnUrl);
+        this.dialogRef.close(this.form.value);
+      //  this.router.navigateByUrl(this.returnUrl);
       },
       err => console.log(err)
     );
   }
 
-
   setupUpdate() {
-    this.route.params.subscribe(params => {
-      if (!params.id) {
-        return;
-      }
-
-      this.id = +params.id;
+    // this.route.params.subscribe(params => {
+    //   if (!params.id) {
+    //     return;
+    //   }
+    console.log(this.data);
+    if (!this.data.id) return;
+    //  this.id = +params.id;
+    this.id = this.data.id;
       this.edit = true;
       this.loading = true;
       this.service.getSchoolFeeById(this.id).subscribe(res => {
         this.form = this.validator.patchForm(this.form, res);
+        console.log('res'+res.finItemId+this.form);
+        
       }, err => console.log(err),
         () => this.loading = false);
-    });
+  //  });
   }
-
-
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -124,8 +125,9 @@ export class SchoolFeeDialogComponent implements OnInit {
 
   ngOnInit() {
     this.setupUpdate();
-
     this.getFinItemList();
+    this.getSchoolList();
+    this. getYearList();
   }
 
 }
