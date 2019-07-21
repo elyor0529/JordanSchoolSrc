@@ -147,9 +147,9 @@ export class SchoolFeeIndexComponent implements OnInit {
     dialogConfig.direction = "rtl";
     dialogConfig.data = { id: 0,};
     const dialogRef = this.dialog.open(SchoolFeeDialogComponent, dialogConfig);
-    //dialogRef.afterClosed().subscribe(res => {
-    // this.onParentChanged(res.parentId);
-    //});
+    dialogRef.afterClosed().subscribe(res => {
+      res != null ?  this.onYearChanged(this.service.selectedYearId):"";
+    });
   }
 
 
