@@ -40,12 +40,18 @@ export const routes: Routes = [
             {path:'buses',loadChildren:'./pages/addLookups/Buses/bus.module#BusModule', data:{breadcrumb:'الباصات'}},
             {path:'tours',loadChildren:'./pages/addLookups/tours/tour.module#TourModule', data:{breadcrumb:'الجولات المدرسية'}},
             {path:'classes',loadChildren:'./pages/addLookups/classes/class.module#ClassModule', data:{breadcrumb:' الصفوف الدراسية'}},
-
+ 
             //Registration Menu
             {path:'parents',loadChildren:'./pages/Reg/parents/reg-parent.module#RegParentModule', data:{breadcrumb:' تسجيل أولاياء الامور'}},
             {path:'students',loadChildren:'./pages/Reg/student/student.module#StudentModule', data:{breadcrumb:' تسجيل الطلاب'}},
             //Admission
             {path:'admissions',loadChildren:'./pages/Admission/adm.module#AdmModule', data:{breadcrumb:'  القبول'}},
+               //Financial
+               {path:'financial/finItem',loadChildren:'./pages/financial/fin-item/fin-item.module#FinItemModule', data:{breadcrumb:'    بنود المالية'}},
+               {path:'financial/schoolFee',loadChildren:'./pages/financial/school-fee/school-fee.module#SchoolFeeModule', data:{breadcrumb:'    مالية المدرسة  '}},
+               {path:'financial/classFee',loadChildren:'./pages/financial/class-fee/class-fee.module#ClassFeeModule', data:{breadcrumb:'     مالية الصفوف  '}},
+              {path:'financial/studentFee',loadChildren:'./pages/financial/student-fee/student-fee.module#StudentFeeModule', data:{breadcrumb:'     مالية الطالب  '}}
+  
 
         ]
     },

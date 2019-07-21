@@ -34,7 +34,10 @@ export enum LookupTypes {
   Years=33,
   Terms=34,
   ClassSeq=35,
-  TourType=36
+  TourType=36,
+  CDType = 37,
+  VPType = 38,
+  YearType=39
 }
 
   export enum MessageType {
