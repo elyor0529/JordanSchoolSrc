@@ -39,7 +39,15 @@ export class LoginComponent {
      // console.log("valid=" + this.validLogin+"   dd="+dd);
 
       this.service.getUser(userName, password).subscribe(res => {
-        if (res != null) this.router.navigate(['../admissions/index']);
+        if (res != null)
+        {
+          this.service.sUserId = res.id;
+          this.service.sSchoolId = res.schoolId;
+          this.service.sSchoolName = res.schoolName;
+          console.log(this.service.sSchoolName);
+          this.router.navigate(['../admissions/index']);
+          
+        }
         else
           this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
           

@@ -4,7 +4,8 @@ export class Lkplookup {
     aname:string;
     lname:string;
     typeId:number;
-    value:string;
-
+    value: string;
+    defaultValue: number;
+//Yaseen
 
 }

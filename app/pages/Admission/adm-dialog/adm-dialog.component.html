@@ -1,6 +1,4 @@
-<app-content-header [title]="" [hideBreadcrumb]="false" [hasBgImage]="false" [class]="'pb-4'">
 
-</app-content-header>
 <h2 mat-dialog-title>إسم ولي الامر:
     {{fatherName}}
 </h2>
@@ -86,10 +84,8 @@
 
                         </div>
                         <!--Part 2-->
-                    </mat-card>
-                </div>
-                <div class="p-2">
-                    <mat-card>
+                   
+               
                         <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>القسم</mat-label>
@@ -104,9 +100,9 @@
                             </mat-form-field>
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>الصف</mat-label>
-                                <mat-select matInput formControlName="classId" [(ngModel)]="classValue"
+                                <mat-select [disabled]="true" matInput formControlName="classId" [(ngModel)]="classValue"
                                     (selectionChange)="onClassChange()" placeholder="الصف" required>
-                                    <mat-option *ngFor="let op of classList" [value]="op.id">
+                                    <mat-option  *ngFor="let op of classList" [value]="op.id">
                                         {{op.id}} | {{op.aname}}
                                     </mat-option>
                                 </mat-select>
@@ -132,9 +128,9 @@
                     <mat-card>
                         <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
                             <mat-form-field fxFlex appearance="outline">
-                                <mat-label>مكان الجولة الصباحية</mat-label>
+                                <mat-label>مكان الجولة </mat-label>
                                 <mat-select matInput formControlName="tourId" [(ngModel)]="tourValue"
-                                    (selectionChange)="onTourChange()" placeholder="الجولة الصباحية">
+                                    (selectionChange)="onTourChange()" placeholder="مكان الجولة ">
                                     <mat-option *ngFor="let op of tourList" [value]="op.id">
                                         {{op.tourName}} | {{op.tourFullPrice}} | {{op.tourHalfPrice}}
                                     </mat-option>
