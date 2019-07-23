@@ -39,8 +39,8 @@ import { FormTemplateComponent } from './form-template/form-template.component';
     SectionHeaderComponent,
     FormTemplateComponent,
   ],
-  imports: [
-    BrowserModule,
+  imports: [ 
+   BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,

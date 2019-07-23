@@ -43,7 +43,9 @@ import { ScannerComponent } from './pages/scanner/scanner.component';
 import { ScannerSelectDeviceDialogComponent } from './pages/scanner/scanner-select-device-dialog/scanner-select-device-dialog.component';
 import { ScannerAppDialogComponent } from './pages/scanner/scanner-app-dialog/scanner-app-dialog.component';
 import { MatFormFieldModule, MatSelectModule } from '@angular/material';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
  
 @NgModule({
@@ -67,8 +69,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatFormFieldModule,
-    NgxMatSelectSearchModule
+    MatFormFieldModule
+    
     
    ],
   declarations: [

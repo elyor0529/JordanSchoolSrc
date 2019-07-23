@@ -148,7 +148,8 @@ export class SchoolFeeIndexComponent implements OnInit {
     dialogConfig.data = { id: 0,};
     const dialogRef = this.dialog.open(SchoolFeeDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
-      res != null ?  this.onYearChanged(this.service.selectedYearId):"";
+     // res != null ?  this.onYearChanged(this.service.selectedYearId):"";
+     this.getSchoolFeeList();
     });
   }
 

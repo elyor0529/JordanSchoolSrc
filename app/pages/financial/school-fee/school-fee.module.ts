@@ -9,11 +9,14 @@ import { schoolFeeRoutes } from './school-fee.routing';
 import { SchoolFeeService } from './school-fee.service';
 import { SchoolFeeDialogComponent } from './school-fee-dialog/school-fee-dialog.component';
 
+
+
+
 @NgModule({
-  declarations: [
+  declarations: [ 
     SchoolFeeIndexComponent,
     SchoolFeeFormComponent,
-    SchoolFeeDialogComponent
+    SchoolFeeDialogComponent 
   ],
   entryComponents: [
     SchoolFeeDialogComponent
@@ -23,7 +26,8 @@ import { SchoolFeeDialogComponent } from './school-fee-dialog/school-fee-dialog.
     SharedModule,
     RouterModule.forChild(schoolFeeRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [SchoolFeeService]
 })

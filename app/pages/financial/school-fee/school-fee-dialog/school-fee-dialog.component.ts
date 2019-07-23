@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ValidationBase } from 'JordanSchoolSrc1807/app/validationBase';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SchoolFeeService } from '../school-fee.service';
@@ -47,11 +47,11 @@ export class SchoolFeeDialogComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      id: [0],
+      id:  [0],
       schoolId: [this.service.selectedSchoolId, [Validators.required]],
       yearId: [this.service.selectedYearId, [Validators.required]],
-      finItemId: [],
-      value: [0]
+      finItemId: [1],
+    value:[0, [Validators.min(1), Validators.max(2000)],[Validators.required]]
     });
   }
 
@@ -128,6 +128,8 @@ export class SchoolFeeDialogComponent implements OnInit {
     this.getFinItemList();
     this.getSchoolList();
     this. getYearList();
+
+ 
   }
 
 }
