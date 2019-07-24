@@ -11,15 +11,19 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdmDialogComponent } from './adm-dialog/adm-dialog.component';
+import { LoginService } from '../login/login.service';
+import { AdmParentComponent } from './adm-parent/adm-parent.component';
 
 @NgModule({
   declarations: [
    AdmIndexComponent,
    AdmFormComponent,
-   AdmDialogComponent
+   AdmDialogComponent,
+   AdmParentComponent
   ],
   entryComponents:[
-    AdmDialogComponent
+    AdmDialogComponent,
+    AdmParentComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,6 @@ import { AdmDialogComponent } from './adm-dialog/adm-dialog.component';
     NgxMatSelectSearchModule
 
   ],
-  providers:[AdmService]
+  providers:[AdmService,LoginService]
 })
 export class AdmModule { }

@@ -7,6 +7,11 @@
         <h2> {{currentYear}} </h2>
       </td>
       <td><h2>{{schoolName}}</h2></td>
+      <td>
+        <button mat-raised-button color="warn"  (click)="addNewParent()">
+          <mat-icon>add_circle_outline</mat-icon> إضافة ولي أمر جديد
+        </button>
+      </td>
     </tr>
   </table>
 
@@ -37,6 +42,10 @@
 
           </mat-select>
         </mat-form-field>
+        <mat-form-field fxFlex="20%" appearance="standard">
+          <mat-label> مجموع المبلغ للدفع </mat-label>
+          <input matInput readonly [(ngModel)]="parentTotalPrice" type="text" placeholder=" مجموع المبلغ للدفع">
+        </mat-form-field>
       </div>
 
     </div>
@@ -45,7 +54,7 @@
       <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
         <mat-form-field fxFlex appearance="standard">
           <mat-label> إسم الاب </mat-label>
-          <input matInput readonly [(ngModel)]="fatherName" type="text" placeholder="إسم الاب">
+          <input matInput readonly [(ngModel)]="fatherFirstName" type="text" placeholder="إسم الاب">
         </mat-form-field>
         <mat-form-field fxFlex appearance="standard">
           <mat-label> إسم الجد </mat-label>
@@ -163,7 +172,7 @@
 
 
         <mat-cell *matCellDef="let element">
-          <a [hidden]="currentYearId != element.yearId" mat-icon-button matTooltip="تعديل" (click)="updateStud(element.id,element.classPrice,element.totalPrice,
+          <a [hidden]="currentYearId != element.yearId" mat-icon-button matTooltip="تعديل" (click)="updateStud(element.id,element.totalPrice,
            currentYearId, element.yearId)">
             <mat-icon aria-hidden="true" aria-label="Files">
               edit

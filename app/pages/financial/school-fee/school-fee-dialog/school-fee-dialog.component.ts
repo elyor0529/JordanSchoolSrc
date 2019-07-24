@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ValidationBase } from 'JordanSchoolSrc1807/app/validationBase';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SchoolFeeService } from '../school-fee.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FinItem } from 'src/app/Models/financial/fin-item';
 import { FinItemService } from '../../fin-item/fin-item.service';
+import { ValidationBase } from 'src/app/validationBase';
 
 @Component({
   selector: 'app-school-fee-dialog',

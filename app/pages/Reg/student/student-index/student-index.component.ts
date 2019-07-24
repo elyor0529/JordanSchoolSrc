@@ -14,11 +14,11 @@ export class StudentIndexComponent implements OnInit {
   dataSource:any;
   loading=false;
   cols=[
-    {field:"index", header:"index"},
+    //{field:"index", header:"index"},
     {field:"id", header:"#"},
-    {field:"studNo", header:"رقم الطالب"},
+   // {field:"studNo", header:"رقم الطالب"},
     //{field:"firstName", header:"إسم الطالب"},
-    {field:"parentId", header:"ولي الامر"},
+   // {field:"parentId", header:"ولي الامر"},
     {field:"studFullName", header:"إسم الطالب"}
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -3,6 +3,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { MenuService } from '../menu/menu.service';
+import { LoginService } from 'src/app/pages/login/login.service';
+import { users } from 'src/app/Models/Users/users';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,11 +19,13 @@ export class SidenavComponent implements OnInit {
   };
   public menuItems:Array<any>;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public menuService:MenuService){
+  constructor(public appSettings: AppSettings, public menuService: MenuService,
+    private loginService:LoginService) {
       this.settings = this.appSettings.settings; 
   }
 
   ngOnInit() {
+    this.login();
     this.menuItems = this.menuService.getVerticalMenuItems();    
   }
 
@@ -53,4 +57,21 @@ export class SidenavComponent implements OnInit {
     }
   }
 
+
+  schoolName: any;
+  currentYear: any;
+  login() {
+    
+    
+   let data = (JSON.parse(localStorage.getItem('token'))) as users;
+   
+  
+    this.schoolName = data.schoolName;
+    this.currentYear = data.yearName;
+   
+
+
+   //this.currentYear = data..
+  
+  }
 }

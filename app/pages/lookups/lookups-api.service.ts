@@ -17,7 +17,8 @@ import { map, groupBy, mergeMap, toArray } from 'rxjs/operators';
 export class LookupsApiService {
 
 
-  apiUrl='http://localhost:52579/api/LkpLookup';
+  private apiUrl = environment.apiBaseUrl + 'LkpLookup';
+  //apiUrl='http://localhost:52579/api/LkpLookup';
   //GetByParentId
   lookupFilter: LookupFilter;
   constructor(private http:HttpClient,  private dialog: MatDialog) {

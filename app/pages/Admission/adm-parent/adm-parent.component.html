@@ -1,0 +1,164 @@
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+      <div class="p-2">
+        <mat-card>
+          <mat-card-content fxLayout="column" fxLayoutAlign="center">
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+
+
+
+              <mat-form-field fxFlex appearance="outline" class="input-full-width">
+                <mat-label>الاسم الاول</mat-label>
+                <input matInput formControlName="firstName" type="text" placeholder="الاسم الاول ">
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  Required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline" class="input-full-width">
+                <mat-label>الاسم الثاني</mat-label>
+                <input matInput formControlName="secondName" type="text" placeholder="الاسم الثاني ">
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  Required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline" class="input-full-width">
+                <mat-label>إسم العائلة </mat-label>
+                <input matInput formControlName="familyName" type="text" placeholder="إسم العائلة  ">
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  Required
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>الديانة</mat-label>
+                <mat-select matInput formControlName="religionId" placeholder="الديانة">
+                  <mat-option *ngFor="let op of religionsList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>الجنسية</mat-label>
+                <mat-select matInput formControlName="nationalityId" placeholder="الجنسية">
+                  <mat-option *ngFor="let op of nationalList" [value]="op.id">
+                    {{op.value}} | {{op.aname}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> عمل ولي الامر </mat-label>
+                <input matInput formControlName="parentWork" type="text" placeholder="  عمل ولي الامر">
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+
+      <div class="p-2">
+        <mat-card>
+          <mat-card-content>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>المدينة</mat-label>
+                <mat-select matInput formControlName="cityId" placeholder="المدينة">
+                  <mat-option *ngFor="let op of citiesList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> اللواء</mat-label>
+                <input matInput formControlName="locality1" type="text" placeholder="  اللواء">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> التجمع</mat-label>
+                <input matInput formControlName="locality2" type="text" placeholder="  التجمع">
+              </mat-form-field>
+
+            </div>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> الحي </mat-label>
+                <input matInput formControlName="address" type="text" placeholder="  الحي">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> العنوان - الشارع </mat-label>
+                <input matInput formControlName="street" type="text" placeholder="  الشارع">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> رقم العمارة </mat-label>
+                <input matInput formControlName="buildingNo" type="text" placeholder="  رقم العمارة">
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+
+
+      <!-- Card No6-->
+      <div class="p-2">
+        <mat-card>
+          <mat-card-content>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> الهاتف الارضي </mat-label>
+                <input matInput formControlName="tel" type="text" placeholder="    الهاتف الارضي">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> رقم خلوي الاب </mat-label>
+                <input matInput formControlName="fatherMobile" type="text" placeholder="    رقم خلوي الاب">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> رقم خلوي الام </mat-label>
+                <input matInput formControlName="motherMobile" type="text" placeholder="    رقم خلوي الام">
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> ولي الامر المسؤول عن الرسائل</mat-label>
+                <mat-select matInput formControlName="smsParent" placeholder="مسؤول الرسائل">
+                  <mat-option *ngFor="let op of relationList " [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> رقم الخلوي المعتمد للرسائل </mat-label>
+                <input matInput formControlName="smsMobile" type="text" placeholder="  خلوي الرسائل">
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+     
+
+          <mat-dialog-actions>
+
+            <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
+              عودة
+            </button>
+            <button [type]="submit" mat-raised-button color="primary" (click)="submit2()">
+              تخزين
+            </button>
+          </mat-dialog-actions>
+       
+    </form>
+  </div>
+</div>

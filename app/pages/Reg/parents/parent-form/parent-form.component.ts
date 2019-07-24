@@ -22,37 +22,26 @@ export class ParentFormComponent implements OnInit {
 
   martial: Lkplookup[];
   martialList: Lkplookup[];
-
   cities: Lkplookup[];
   citiesList: Lkplookup[];
-
   religions: Lkplookup[];
   religionsList: Lkplookup[];
-
   nationalList:Lkplookup[];
-
   countries: Lkplookup[];
   countriesList: Lkplookup[];
-
   idTypes: Lkplookup[];
   idTypesList: Lkplookup[];
-
   healthStatus: Lkplookup[];
   healthStatusList: Lkplookup[];
-
   bloodType: Lkplookup[];
   bloodTypeList: Lkplookup[];
-
   personTitles: Lkplookup[];
   personTitlesList: Lkplookup[];
-
   genders: Lkplookup[];
   genderList: Lkplookup[];
-
   educationList: Lkplookup[];
-
   relationList: Lkplookup[];
-  
+
   lookupFilter: LookupFilter;
   form:FormGroup;
   loading = false;

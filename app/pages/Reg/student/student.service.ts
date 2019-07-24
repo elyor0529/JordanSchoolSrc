@@ -17,7 +17,7 @@ import { Student } from 'src/app/Models/Reg/Students/students';
   export class StudentService {
 
 
-     apiUrl= environment.apiBaseUrl+"RegStud";
+     apiUrl= environment.apiBaseUrl+"AdmStud";
 
     constructor(private http:HttpClient){}
 

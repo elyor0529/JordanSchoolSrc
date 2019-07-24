@@ -35,5 +35,5 @@ export class Admission {
   brotherDescountType: number;
   busNote: string;
   note: string;
-  totalPrice: number;
+  totalPrice: number
 }

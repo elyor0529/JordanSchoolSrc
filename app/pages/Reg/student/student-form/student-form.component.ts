@@ -102,8 +102,8 @@ export class StudentFormComponent implements OnInit {
       schoolId:[''],
       sectionId:[''],
 
-      joinClassId:[''],
-      joinClassSeqId: [''],
+      classId:[''],
+      classSeqId: [''],
       image: [''],
       email: [''],
       studFace: [''],
