@@ -87,6 +87,7 @@ export const verticalMenuItems = [
     new Menu (432, '  مالية المدرسة  ', '/financial/schoolFee/index', null, 'school-fee-index',  null, false, 430),
     new Menu (433, '   مالية الصفوف    ', '/financial/classFee/index', null, 'class-fee-index',  null, false, 430),
     new Menu (434, '   مالية الطالب    ', '/financial/studentFee/index', null, 'student-fee-index',  null, false, 430),
+    new Menu (435, '    الدفعات      ', '/financial/payment/index', null, 'payment-index',  null, false, 430),
 
 ]
 

@@ -1,0 +1,112 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+   <mat-dialog-content>
+      <div fxLayout="column" class="p-4">
+         <div class="p-2">
+            <div class="p-2">
+               <mat-card>
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+                     <!-- parent list -->
+                     <mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
+                        <mat-label>  ولي الامر</mat-label>
+                        <mat-select placeholder=" ولي الامر" [(value)]="selected"
+                           (selectionChange)="onParentChanged($event.value)">
+                           <mat-option>
+                              <ngx-mat-select-search placeholder=" ولي الامر">
+                              </ngx-mat-select-search>
+                           </mat-option>
+                           <mat-option *ngFor="let op of parentList" [value]="op.id">
+                              {{ op.fatherName }}
+                           </mat-option>
+                        </mat-select>
+                     </mat-form-field>
+                  </div>
+               </mat-card>
+               <mat-card>
+                  <div>
+                     <!-- voucherDate -->
+                     <!-- <mat-form-field fxFlex color="accent" appearance="outline">
+                        <mat-label>تاريخ السند</mat-label>
+                        <input matInput formControlName="voucherDate" type="text" placeholder="  تاريخ السند ">
+                     </mat-form-field> -->
+
+                     <!-- <mat-form-field class="demo-full-width margin-top" [class]="fieldClass" [formGroup]="group" appearance="outline"> -->
+                           <mat-form-field fxFlex color="accent" appearance="outline">
+                           <!-- <mat-label> {{field.label[0].label}} </mat-label> -->
+                           <mat-label>تاريخ السند</mat-label>
+                           <input matInput [matDatepicker]="picker" formControlName="voucherDate"  >
+                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                           <mat-datepicker #picker></mat-datepicker>
+                           <!-- <mat-hint>{{field.hintLabel[0].label }}</mat-hint> -->
+                           <!-- <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error"> -->
+                               <!-- <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message[0].label}}</mat-error> -->
+                           <!-- </ng-container> -->
+                       </mat-form-field>
+
+
+                     <!-- voucherId -->
+                     <mat-form-field fxFlex color="accent" appearance="outline">
+                        <mat-label>رقم السند</mat-label>
+                        <input matInput formControlName="voucherId" type="text" placeholder="  رقم السند ">
+                     </mat-form-field>
+
+                  </div>
+               </mat-card>
+
+               <mat-card>
+                  <!-- voucherTypeId -->
+                  <mat-form-field fxFlex color="accent" appearance="outline">
+                     <mat-label>نوع السند </mat-label>
+                     <mat-select matInput formControlName="voucherTypeId" placeholder="نوع السند" required>
+                        <mat-option *ngFor="let op of voucherTypeList" [value]="op.id">
+                           {{op.id}} | {{op.aname}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+
+                  <!-- voucherStatusId -->
+                  <mat-form-field fxFlex color="accent" appearance="outline">
+                     <mat-label>حالة السند </mat-label>
+                     <mat-select matInput formControlName="voucherStatusId" placeholder="حالة السند" required>
+                        <mat-option *ngFor="let op of VoucherStatusList" [value]="op.id">
+                           {{op.id}} | {{op.aname}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+
+               </mat-card>
+
+               <mat-card>
+
+
+                  <!-- credi -->
+
+                  <mat-form-field fxFlex color="accent" appearance="outline">
+                     <mat-label> المبلغ المدفوع </mat-label>
+                     <input matInput formControlName="credit" type="text" placeholder="  المبلغ المدفوع   ">
+                  </mat-form-field>
+                  <!-- debit -->
+                  <mat-form-field fxFlex color="accent" appearance="outline">
+                     <mat-label> المبلغ المقبوض </mat-label>
+                     <input matInput formControlName="debit" type="text" placeholder="  المبلغ المستلم   ">
+                  </mat-form-field>
+
+               </mat-card>
+            </div>
+         </div>
+      </div>
+   </mat-dialog-content>
+
+
+
+   <mat-dialog-actions>
+      <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
+         عودة
+      </button>
+      <button [type]="submit" mat-raised-button color="primary" > 
+      <!-- [disabled]="form.invalid"> -->
+         <!-- (click)="submitSchoolFee()" -->
+         <!-- > -->
+         تخزين
+      </button>
+   </mat-dialog-actions>
+</form>

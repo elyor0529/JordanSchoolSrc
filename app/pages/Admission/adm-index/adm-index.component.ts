@@ -78,7 +78,7 @@ export class AdmIndexComponent implements OnInit {
 
   message: string;
 
-  constructor(
+  constructor( 
     private service: AdmService,
     private parentService: RegParentService,
     public dialog: MatDialog,

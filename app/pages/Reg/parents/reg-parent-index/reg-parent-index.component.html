@@ -1,10 +1,5 @@
-
-<app-content-header 
-[icon]="'store_mall_directory'" 
-[title]="' أولياء الامور'" 
-[hideBreadcrumb]="false"
-[hasBgImage]="true" 
-[class]="'pb-4'">
+<app-content-header [icon]="'store_mall_directory'" [title]="' أولياء الامور'" [hideBreadcrumb]="false"
+  [hasBgImage]="true" [class]="'pb-4'">
 </app-content-header>
 <!--
 <app-content-header [icon]="" [title]="" [hideBreadcrumb]="false" [hasBgImage]="false" [class]="'pb-4'">
@@ -28,17 +23,17 @@
           </mat-form-field>
     </div>
     </div>
-  -->  
+  -->
 <div fxLayout="column" class="p-2">
-    
-       
-    <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
-       
-         
-      
-    </div>
-    </div>
- <mat-divider></mat-divider>   
+
+
+  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+
+
+
+  </div>
+</div>
+<mat-divider></mat-divider>
 <mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
   <div fxLayout="row">
     <a mat-raised-button color="accent" [routerLink]="['../add']">
@@ -51,19 +46,19 @@
 <div fxLayout="column" class="p-2">
   <div class="p-2">
 
-    <div class="spinner-container" *ngIf="loading"> 
+    <div class="spinner-container" *ngIf="loading">
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">   
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container *ngFor="let col of cols" [matColumnDef]="col.field">
         <mat-header-cell *matHeaderCellDef>
           {{ col.header }}
         </mat-header-cell>
         <mat-cell *matCellDef="let item">
-          
-              {{ item[col.field] }}
-           
+
+          {{ item[col.field] }}
+
         </mat-cell>
       </ng-container>
 
@@ -72,28 +67,28 @@
           Actions
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-         
+
           <a mat-icon-button matTooltip="تعديل" [routerLink]="['/parents/edit/' + element.id  ]">
             <mat-icon aria-hidden="true" aria-label="Files">
               edit
-            </mat-icon> 
-          </a> 
+            </mat-icon>
+          </a>
           <button mat-icon-button color="warn" matTooltip="حذف" (click)="openDeleteDialog(element)">
-              <mat-icon aria-hidden="true" aria-label="Delete">
-                delete
-              </mat-icon>
-            </button>
-          <button  mat-icon-button color="info" matTooltip="تفاصيل" [routerLink]="['/parents/view/' + element.id  ]">
-              <mat-icon aria-hidden="false" aria-label="info">
-                info
-              </mat-icon>
-            </button>
+            <mat-icon aria-hidden="true" aria-label="Delete">
+              delete
+            </mat-icon>
+          </button>
+          <button mat-icon-button color="info" matTooltip="تفاصيل" [routerLink]="['/parents/view/' + element.id  ]">
+            <mat-icon aria-hidden="false" aria-label="info">
+              info
+            </mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
- 
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
-    </div>
+  </div>
 </div>

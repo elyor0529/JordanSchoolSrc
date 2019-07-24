@@ -50,7 +50,8 @@ export const routes: Routes = [
                {path:'financial/finItem',loadChildren:'./pages/financial/fin-item/fin-item.module#FinItemModule', data:{breadcrumb:'    بنود المالية'}},
                {path:'financial/schoolFee',loadChildren:'./pages/financial/school-fee/school-fee.module#SchoolFeeModule', data:{breadcrumb:'    مالية المدرسة  '}},
                {path:'financial/classFee',loadChildren:'./pages/financial/class-fee/class-fee.module#ClassFeeModule', data:{breadcrumb:'     مالية الصفوف  '}},
-              {path:'financial/studentFee',loadChildren:'./pages/financial/student-fee/student-fee.module#StudentFeeModule', data:{breadcrumb:'     مالية الطالب  '}}
+              {path:'financial/studentFee',loadChildren:'./pages/financial/student-fee/student-fee.module#StudentFeeModule', data:{breadcrumb:'     مالية الطالب  '}},
+              {path:'financial/payment',loadChildren:'./pages/financial/payment/payment.module#PaymentModule', data:{breadcrumb:'     الدفعات    '}}
   
 
         ]

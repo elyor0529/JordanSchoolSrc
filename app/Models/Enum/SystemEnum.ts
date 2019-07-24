@@ -37,7 +37,9 @@ export enum LookupTypes {
   TourType=36,
   CDType = 37,
   VPType = 38,
-  YearType=39
+  YearType=39,
+  VoucherType=40,
+  VoucherStatus=41
 }
 
   export enum MessageType {

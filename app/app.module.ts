@@ -47,6 +47,8 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 
+
+
  
 @NgModule({
   imports: [
@@ -69,8 +71,8 @@ import { LoginService } from './pages/login/login.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatFormFieldModule,
-    NgxMatSelectSearchModule
+    MatFormFieldModule
+    
     
    ],
   declarations: [
