@@ -6,7 +6,6 @@ export class Lkplookup {
     typeId:number;
     value: string;
     defaultValue: number;
-    ///5454
-
+   
 
 }
