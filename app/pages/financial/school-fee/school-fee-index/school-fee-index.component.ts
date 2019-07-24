@@ -133,10 +133,7 @@ export class SchoolFeeIndexComponent implements OnInit {
   };
 
 
-  xxx() {
-
-  }
-
+ 
 
   addNewSchoolFee() {
 
