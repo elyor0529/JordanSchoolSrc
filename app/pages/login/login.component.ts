@@ -50,7 +50,7 @@ export class LoginComponent {
       // let dd:boolean=this.checkLogin(userName, password);
       // console.log("valid=" + this.validLogin+"   dd="+dd);
       //this.service.getLogin(userName, password);
-   /*   this.service.getUser(userName, password).subscribe(res => {
+      this.service.getUser(userName, password).subscribe(res => {
         console.log(res);
         if (res != null) {
           localStorage.setItem("token", JSON.stringify(res));
@@ -65,23 +65,23 @@ export class LoginComponent {
           return;
         }
       });
-*/
+
       this.service.login(userName, password);
       //let data = JSON.parse(localStorage.getItem("token")) as users;
       //console.log("----");
       //console.log(data);
       console.log("compo1:" + this.service.sSchoolName);
-      if (this.service.sUserId  != null) {
-        // this.service.sUserId = data.id;
-        // this.service.sSchoolId = data.schoolId;
-        // this.service.sSchoolName = data.schoolName;
-        this.router.navigate(["../admissions/index"]);
+      // if (this.service.sUserId  != null) {
+      //   // this.service.sUserId = data.id;
+      //   // this.service.sSchoolId = data.schoolId;
+      //   // this.service.sSchoolName = data.schoolName;
+      //   this.router.navigate(["../admissions/index"]);
 
-      } else {
-        this.service.sUserId = null;
-        this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
-        return;
-      }
+      // } else {
+      //   this.service.sUserId = null;
+      //   this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
+      //   return;
+      // }
     }
   }
 
@@ -103,7 +103,7 @@ export class LoginComponent {
         var xx = my_object.schoolName;
         // console.log("xx=" + xx);
         // console.log(my_object);
-        // console.log( data);
+         console.log( data);
       },
       error => console.log("error"),
       () => {

@@ -6,16 +6,16 @@
       <td>
         <h2> {{currentYear}} </h2>
       </td>
-      <td><h2>{{schoolName}}</h2></td>
       <td>
-        <button mat-raised-button color="warn"  (click)="addNewParent()">
+        <h2>{{schoolName}}</h2>
+      </td>
+      <td>
+        <button mat-raised-button color="warn" (click)="addNewParent()">
           <mat-icon>add_circle_outline</mat-icon> إضافة ولي أمر جديد
         </button>
       </td>
     </tr>
   </table>
-
-
 </div>
 
 <mat-card>
@@ -39,12 +39,20 @@
             <mat-option *ngFor="let op of parentList" [value]="op.id">
               {{ op.fatherName }}
             </mat-option>
- 
+
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex="20%" appearance="standard">
+          <mat-label> مجموع المبلغ المستحق </mat-label>
+          <input matInput readonly [(ngModel)]="parentTotalPrice" type="text" placeholder=" المبلغ المستحق">
+        </mat-form-field>
+        <mat-form-field fxFlex="20%" appearance="standard">
+          <mat-label> مجموع الخصميات </mat-label>
+          <input matInput readonly [(ngModel)]="parentTotalDescount" type="text" placeholder="   مجموع الخصميات">
+        </mat-form-field>
+        <mat-form-field fxFlex="20%" appearance="standard">
           <mat-label> مجموع المبلغ للدفع </mat-label>
-          <input matInput readonly [(ngModel)]="parentTotalPrice" type="text" placeholder=" مجموع المبلغ للدفع">
+          <input matInput readonly [(ngModel)]="parentNetTotalAmt" type="text" placeholder=" مجموع المبلغ للدفع">
         </mat-form-field>
       </div>
 
@@ -163,7 +171,20 @@
           </ng-container>
         </mat-cell>
 
+        <mat-footer-cell *matFooterCellDef>
+          <ng-container [ngSwitch]="col.type">
+
+            <p *ngSwitchDefault>
+              {{ col.header }}
+            </p>
+
+
+          </ng-container>
+
+
+        </mat-footer-cell>
       </ng-container>
+
 
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
@@ -189,8 +210,20 @@
 
       </ng-container>
 
+      <mat-footer-cell *matFooterCellDef>
+        <ng-container>
+
+          <td mat-footer-cell *matFooterCellDef> bbbbbbb </td>
+
+        </ng-container>
+
+
+      </mat-footer-cell>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">
+        <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
+
       </mat-row>
     </mat-table>
   </div>

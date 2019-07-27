@@ -51,6 +51,8 @@ export class AdmIndexComponent implements OnInit {
   currentYearId: number;
   schoolName: any;
   parentTotalPrice: number;
+  parentTotalDescount: number;
+  parentNetTotalAmt: number;
 
   cols = [
     { field: "id", header: "#" },
@@ -62,15 +64,16 @@ export class AdmIndexComponent implements OnInit {
     { field: "classSeqName", header: "الشعبة" },
     // { field: "descountType", header: "نوع الخصم" },
     //{ field: "descountValue", header: "قيمة الخصم" },
-    { field: "tourName", header: "مشترك بالباص - المنطقة" },
-    { field: "tourTypeName", header: " نوع إشتراك الباص" },
-    { field: "tourPrice", header: "مبلغ إشتراك الباص" },
-    { field: "totalPrice", header: "المبلغ المطلوب" },
-    { field: "yearId", header: "yearId", type: "hidden" }
+    { field: "tourName", header: " المنطقة" },
+    { field: "tourTypeName", header: " إشتراك الباص" },
+    { field: "tourPrice", header: "مبلغ الباص" },
+    { field: "yearId", header: "yearId", type: "hidden" },
+    { field: "studentBrotherSeq", header: "ترتيب الابناء" },
+    { field: "descountValue", header: "قيمة الخصم" },
+    { field: "yearIdx", header: "yearIdx", type: "hidden" },
+    { field: "totalPrice", header: "المبلغ المطلوب" }
   ];
-  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<
-    Admission
-  >();
+  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<Admission>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = this.cols
     .map(col => col.field)
@@ -78,7 +81,7 @@ export class AdmIndexComponent implements OnInit {
 
   message: string;
 
-  constructor( 
+  constructor(
     private service: AdmService,
     private parentService: RegParentService,
     public dialog: MatDialog,
@@ -96,11 +99,11 @@ export class AdmIndexComponent implements OnInit {
 
     this.schoolName = this.loginService.sSchoolName;
 
-   // console.log("xxsLoginData=" + this.schoolName);
+    // console.log("xxsLoginData=" + this.schoolName);
 
     this.getCurrentYear();
     this.currentYear = this.service.sCurrentYear;
-  //  console.log(this.currentYear);
+    //  console.log(this.currentYear);
     //this.getAdmList();
     this.getParentList(1);
     // this.selected=this.service.sSelected;
@@ -127,7 +130,7 @@ export class AdmIndexComponent implements OnInit {
       this.parentList = res;
       let index = this.parentList.findIndex(i => i.fatherName === parentName);
       if (index != -1) {
-      //  this.selected = this.parentList[index].id;
+        //  this.selected = this.parentList[index].id;
         this.onParentChanged(this.selected);
       }
     });
@@ -181,6 +184,8 @@ export class AdmIndexComponent implements OnInit {
         this.fatherMobile = res[0].fatherMobile;
         this.motherMobile = res[0].motherMobile;
         this.parentTotalPrice = res[0].parentTotalPrice;
+        this.parentTotalDescount = res[0].parentTotalDescount;
+        this.parentNetTotalAmt = res[0].parentNetTotalAmt;
 
         this.service.sParentName = this.fatherName;
         this.showSaveButton = true;
@@ -202,15 +207,16 @@ export class AdmIndexComponent implements OnInit {
     //     left: '0'
     // };
     dialogConfig.direction = "rtl";
-    dialogConfig.data = { id: 0,  totalPrice: 0 };
+    dialogConfig.data = { id: 0, totalPrice: 0 };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
-      res != null ? this.onParentChanged(res.parentId) : "";
+      // res != null ? this.onParentChanged(res.parentId) : "";
+      this.calcDescount();
     });
   }
 
   updateStud(id, totalPrice, yearId: number, elementYear: number) {
-   // console.log("yearId=" + yearId + "  elementYear=" + elementYear);
+    // console.log("yearId=" + yearId + "  elementYear=" + elementYear);
     if (yearId != elementYear) return;
 
     const dialogConfig = new MatDialogConfig();
@@ -218,12 +224,13 @@ export class AdmIndexComponent implements OnInit {
     dialogConfig.direction = "rtl";
     dialogConfig.data = {
       id: id,
-     // classPrice: classPrice,
+      // classPrice: classPrice,
       totalPrice: totalPrice
     };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
-      res != null ? this.onParentChanged(res.parentId) : "";
+      // res != null ? this.onParentChanged(res.parentId) : "";
+      this.calcDescount();
     });
   }
   addNewStudent2() {
@@ -304,9 +311,17 @@ export class AdmIndexComponent implements OnInit {
       parentName = res.firstName + " " + res.secondName + " " + res.familyName;
       //console.log("id=" + res.id + "   parentName=" + parentName);
       this.getParentList(parentName);
-
-     
+      this.calcDescount();
     });
-  
+  }
+
+  calcDescount() {
+    this.service
+      .calcDescount(this.parentId)
+      .subscribe(res => this.onParentChanged(this.parentId));
+  }
+
+  sumClassPrice() {
+    return this.dataSource.data.map(t => t.classPrice).reduce((acc, value) => acc + value, 0);
   }
 }

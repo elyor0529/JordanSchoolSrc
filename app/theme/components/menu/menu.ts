@@ -76,7 +76,8 @@ export const verticalMenuItems = [
     //Registration Menus
     new Menu (400, '  التسجيل', '', null, 'reg',  null, true, 0),
     new Menu (401, '  تسجيل أولياء الامور', '/parents/index', null, 'reg-parent-index',  null, false, 400),
-    new Menu (402, '  تسجيل الطلاب ', '/students/index', null, 'student-index',  null, false, 400),
+    new Menu(402, '  تسجيل الطلاب ', '/students/index', null, 'student-index', null, false, 400),
+    new Menu (402, '  تثبيت الطلاب ', '/regStuds/index', null, 'regStuds-index',  null, false, 400),
     //Admissions
     new Menu (500, '    القبول ', '', null, 'admissions-index',  null, true, 0),
     new Menu (501, '   قبول الطلبة ', '/admissions/index', null, 'admissions-index',  null, false, 500),

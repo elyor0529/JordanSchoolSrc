@@ -35,9 +35,9 @@ export enum LookupTypes {
   Terms=34,
   ClassSeq=35,
   TourType=36,
-  CDType = 37,
-  VPType = 38,
-  YearType=39,
+  CDType = 37, //نوع البند المالي (له/عليه)
+  VPType = 38, // نوع البند المالي   : نسبة/قيمة
+  YearType=39,//  
   VoucherType=40,
   VoucherStatus=41
 }

@@ -43,7 +43,9 @@ export const routes: Routes = [
  
             //Registration Menu
             {path:'parents',loadChildren:'./pages/Reg/parents/reg-parent.module#RegParentModule', data:{breadcrumb:' تسجيل أولاياء الامور'}},
-            {path:'students',loadChildren:'./pages/Reg/student/student.module#StudentModule', data:{breadcrumb:' تسجيل الطلاب'}},
+            { path: 'students', loadChildren: './pages/Reg/student/student.module#StudentModule', data: { breadcrumb: ' تسجيل الطلاب' } },
+            {path:'regStuds',loadChildren:'./pages/Reg/registration/reg-stud.module#RegStudModule', data:{breadcrumb:' تسجيل الطلاب'}},
+
             //Admission
             {path:'admissions',loadChildren:'./pages/Admission/adm.module#AdmModule', data:{breadcrumb:'  القبول'}},
                //Financial

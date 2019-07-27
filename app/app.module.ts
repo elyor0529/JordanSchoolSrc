@@ -48,7 +48,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 
 
-
  
 @NgModule({
   imports: [
@@ -95,7 +94,8 @@ import { LoginService } from './pages/login/login.service';
     FormExampleComponent,
     ScannerComponent,
     ScannerSelectDeviceDialogComponent,
-    ScannerAppDialogComponent
+    ScannerAppDialogComponent,
+   
   ],
   
   entryComponents:[

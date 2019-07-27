@@ -1,20 +1,12 @@
-export class Admission {
+export class StudReg {
   id: number;
-  firstName: string;
   parentId: number;
-  fatherFullName: string;
-  fatherFirstName: string;
-  fatherSecondName: string;
-  fatherFamilyName: string;
-  studNo: number;
+  firstName: string;
+  admId: number;
   schoolId: number;
   sectionId: number;
   entryDate: Date;
-  nationalityId: number;
-  religionId: number;
   birthDate: Date;
-  genderId: number;
-  genderName: string;
   yearId: number;
   classId: number;
   classPrice: number;
@@ -36,5 +28,7 @@ export class Admission {
   busNote: string;
   note: string;
   totalPrice: number;
+  newClassId: number;
+  studExist: number;
   
 }
