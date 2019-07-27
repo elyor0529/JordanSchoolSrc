@@ -5,6 +5,7 @@ import { FinItemService } from '../../fin-item/fin-item.service';
 import { FinItem } from 'src/app/Models/financial/fin-item';
 import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 import { StudentFeeService } from '../student-fee.service';
+import { RegParentService } from 'src/app/pages/Reg/parents/reg-parent.service';
 
 @Component({
   selector: 'app-student-fee-index',
@@ -19,23 +20,28 @@ export class StudentFeeIndexComponent implements OnInit {
   loading = false;
   finItemList: any;
 
+  parentList: any;
+  selected: any;
+  parentId: any;
  
 
   cols = [
-    { field: "id", header: "#" },
-    { field: "studentId", header: " رقم الطالب    " },
-    { field: "yearId", header: "السنة  " },
-    { field: "finItemId", header: " البند " },
-    { field: "value", header: "  القيمة   " },
+    { field: "studentId", header: "#" },
+    { field: "studentName", header: "  الطالب    " },
+    { field: "db", header: "عليه  " },
+    { field: "cr", header: " له " },
+    { field: "total", header: "  المجموع   " },
   ]
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns: string[] = this.cols.map(col => col.field).concat('actions');
+  public displayedColumns: string[] = this.cols.map(col => col.field);//.concat('actions');
 
   constructor(private service: StudentFeeService,
     private dialog: MatDialog,
-    private studentFeeService: StudentFeeService, ) {
+    private studentFeeService: StudentFeeService,
+    private parentService: RegParentService) {
+    this.getParentList();
     this.dataSource = new MatTableDataSource<StudentFee>();
   }
 
@@ -51,6 +57,22 @@ export class StudentFeeIndexComponent implements OnInit {
     )
   }
 
+  GetStudFeesListByParent(id) {
+    return this.service.GetStudFeesListByParent(id).subscribe(res => this.dataSource.data = res);
+  }
+
+  getParentList() {
+    return this.parentService.getParentsList().subscribe(res => {
+      this.parentList = res;
+    });
+  }
+  onParentChanged(filterValue) {
+    this.selected = filterValue;
+    this.parentId = filterValue;
+    this.service.GetStudFeesListByParent(filterValue).subscribe(res => {
+      this.dataSource.data = res;
+    });
+  }
 
   deleteStudentFee(studentFee: StudentFee) {
     this.loading = true;
@@ -88,7 +110,7 @@ export class StudentFeeIndexComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getStudentFeeList();
+   // this.getStudentFeeList();
 
   };
 

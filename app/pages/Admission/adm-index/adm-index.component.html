@@ -193,8 +193,8 @@
 
 
         <mat-cell *matCellDef="let element">
-          <a [hidden]="currentYearId != element.yearId" mat-icon-button matTooltip="تعديل" (click)="updateStud(element.id,element.totalPrice,
-           currentYearId, element.yearId)">
+          <a [hidden]="currentYearId != element.yearId" mat-icon-button matTooltip="تعديل" 
+          (click)="updateStud(element.id,element.totalPrice,currentYearId, element.yearId)">
             <mat-icon aria-hidden="true" aria-label="Files">
               edit
             </mat-icon>
