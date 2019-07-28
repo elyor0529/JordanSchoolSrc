@@ -8,5 +8,7 @@ export class StudentFee {
     studentName: string;
     db: number;
     cr: number;
-    total:number
+    total: number
+    //
+    finItemName:string
 }

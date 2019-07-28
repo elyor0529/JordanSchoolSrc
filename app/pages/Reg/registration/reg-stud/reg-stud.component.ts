@@ -8,6 +8,8 @@ import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
 import { RegParentService } from '../../parents/reg-parent.service';
 import { Class } from 'src/app/Models/addLookups/classes/class';
 import { users } from 'src/app/Models/Users/users';
+import { StudRegVw } from 'src/app/Models/Reg/YearlyStudReg/StudRegVw';
+
 
 @Component({
   selector: 'app-reg-stud',
@@ -19,8 +21,9 @@ export class RegStudComponent implements OnInit {
 
   
  
-  public displayedColumns = ['id', 'firstName', 'className', 'newClassName', 'classPrice',
-    'approvedId','tourName','tourTypeName','tourPrice'].concat("actions");;
+  public displayedColumns = ['id', 'firstName', 'className', 'nextClassName', 'nextClassPrice',
+     'tourPrice', 'descountValue',
+  'approvedId'].concat("actions");;
   // public displayedColumns: string[] = this.cols
   // .map(col => col.field)
   // .concat("actions");
@@ -64,7 +67,7 @@ export class RegStudComponent implements OnInit {
   // //  { field: "yearIdx", header: "yearIdx", type: "hidden" },
   // //  { field: "totalPrice", header: "المبلغ المطلوب" },
   // ];
-  dataSource: StudReg[];// MatTableDataSource<StudReg>;// = new MatTableDataSource<StudReg>();
+  dataSource: StudRegVw[];// MatTableDataSource<StudReg>;// = new MatTableDataSource<StudReg>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // public displayedColumns: string[] = this.cols
   //   .map(col => col.field)
@@ -132,10 +135,10 @@ export class RegStudComponent implements OnInit {
   }
   // Confirm the Registration
 
-  confirmStudReg(id,classId, newClassId) {
+  confirmStudReg(id,newClassId) {
     
-    console.log("id=" + id + "  year=" + this.currentYearId +"    this.currentYearName="+this.currentYear+ "  classId=" + classId+"   newClassId="+newClassId);
-    return this.service.ConfirmStudReg(id, this.currentYearId, classId, newClassId).subscribe(res => {
+    console.log("id=" + id + "  year=" + this.currentYearId +"    this.currentYearName="+this.currentYear+ "     newClassId="+newClassId);
+    return this.service.ConfirmStudReg(id, this.currentYearId, newClassId).subscribe(res => {
       this.onParentChanged(this.selected);
       let msg = res;
     })
@@ -149,14 +152,18 @@ export class RegStudComponent implements OnInit {
     }
   
     getTotalClassPrice() {
-      return this.dataSource.map(t =>t.classPrice).reduce((acc, value) => acc + value, 0);
+      return this.dataSource.map(t =>t.nextClassPrice).reduce((acc, value) => acc + value, 0);
     }
     getTotalTourPrice() {
       return this.dataSource.map(t =>t.tourPrice).reduce((acc, value) => acc + value, 0);
     }
   
+    getDescountValue() {
+      return this.dataSource.map(t =>t.descountValue).reduce((acc, value) => acc + value, 0);
+    }
+  
   getTotalPrice() {
-   return  this.getTotalClassPrice() + this.getTotalTourPrice();
+    return this.getTotalClassPrice() + this.getTotalTourPrice() - this.getDescountValue();
   }
     
   

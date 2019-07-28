@@ -146,7 +146,7 @@
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> # </th>
-            <td mat-cell *matCellDef="let transaction"> {{transaction.id}} </td>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.studentId}} </td>
             <td mat-footer-cell *matFooterCellDef> المجموع </td>
           </ng-container>
 
@@ -162,23 +162,23 @@
         <td mat-cell *matCellDef="let transaction"> {{transaction.className}} </td>
         <td mat-footer-cell *matFooterCellDef>  </td>
       </ng-container>
-      <ng-container matColumnDef="newClassName">
+      <ng-container matColumnDef="nextClassName">
           <th mat-header-cell *matHeaderCellDef> الصف الدراسي الجديد </th>
-          <td mat-cell *matCellDef="let transaction"> {{transaction.studExist>1?transaction.className:transaction.newClassName}} </td>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.nextClassName}} </td>
           <td mat-footer-cell *matFooterCellDef>  </td>
         </ng-container>
   
      
-      <ng-container matColumnDef="classPrice">
-        <th mat-header-cell *matHeaderCellDef> رسوم الصف </th>
-        <td mat-cell *matCellDef="let transaction"> {{transaction.classPrice}} </td>
+      <ng-container matColumnDef="nextClassPrice">
+        <th mat-header-cell *matHeaderCellDef> رسوم الصف الجديد </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.nextClassPrice}} </td>
         <td mat-footer-cell *matFooterCellDef> {{getTotalClassPrice()}}</td>
       </ng-container>
       
       <ng-container matColumnDef="tourName">
           <th mat-header-cell *matHeaderCellDef>  منطقة الباص </th>
           <td mat-cell *matCellDef="let transaction"> {{transaction.tourName}} </td>
-          <td mat-footer-cell *matFooterCellDef>+ </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
  
         <ng-container matColumnDef="tourTypeName">
@@ -192,6 +192,12 @@
           <td mat-cell *matCellDef="let transaction"> {{transaction.tourPrice}} </td>
           <td mat-footer-cell *matFooterCellDef>{{getTotalTourPrice()}} </td>
         </ng-container>
+          
+      <ng-container matColumnDef="descountValue">
+          <th mat-header-cell *matHeaderCellDef>    خصم الاخوة </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.descountValue}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{getDescountValue()}} </td>
+        </ng-container>
       <ng-container matColumnDef="approvedId">
           <th mat-header-cell *matHeaderCellDef> المقعد محجوز </th>
           <td mat-cell *matCellDef="let transaction"> {{transaction.approvedId>=1?'نعم':'لا'}} </td>
@@ -202,7 +208,7 @@
             تثبيت/ ترفيع الطالب/ حجز مقعد
           </th>
           <td mat-cell *matCellDef="let transaction">{{transaction.actions}} 
-               <button mat-raised-button color="basic" [disabled]="transaction.approvedId>=1?true:false" matTooltip="تثبيت التسجيل" (click)="confirmStudReg(transaction.id, transaction.classId,transaction.newClassId)">
+               <button mat-raised-button color="basic" [disabled]="transaction.approvedId>=1?true:false" matTooltip="تثبيت التسجيل" (click)="confirmStudReg(transaction.studentId, transaction.nextClassId)">
                     <mat-icon aria-hidden="true" [color]="transaction.studExist>1?'disabled':'warn'">
                      check_circle_outline
                         
@@ -210,7 +216,7 @@
                     </mat-icon>
                   </button>
                 </td> 
-                <td mat-footer-cell *matFooterCellDef>= {{getTotalPrice()}}  </td> 
+                <td mat-footer-cell *matFooterCellDef> {{getTotalPrice()}}  </td> 
 
                
                   

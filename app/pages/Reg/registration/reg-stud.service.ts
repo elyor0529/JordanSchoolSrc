@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { StudReg } from 'src/app/Models/Reg/YearlyStudReg/StudReg';
+import { StudRegVw } from 'src/app/Models/Reg/YearlyStudReg/StudRegVw';
+
 
 
 
@@ -25,12 +27,12 @@ import { StudReg } from 'src/app/Models/Reg/YearlyStudReg/StudReg';
     return this.http.get<regParents[]>(this.apiUrl,environment.httpOptions);
     }
 
-   getParentChildrens(id):Observable<StudReg[]>{
-  return this.http.get<StudReg[]>(`${this.apiUrl+"/GetParentChildrens"}/${id}`,environment.httpOptions);
+   getParentChildrens(parentId):Observable<StudRegVw[]>{
+  return this.http.get<StudRegVw[]>(`${this.apiUrl+"/GetParentChildrensVw"}/${parentId}`,environment.httpOptions);
   }
   
-  ConfirmStudReg(id,year,classId, newClassId):Observable<number>{
-    return this.http.get<number>(`${this.apiUrl+"/ConfirmStudReg"}/${id}/${year}/${classId}/${newClassId}`,environment.httpOptions);
+  ConfirmStudReg(id,year,newClassId):Observable<number>{
+    return this.http.get<number>(`${this.apiUrl+"/ConfirmStudReg"}/${id}/${year}/${newClassId}`,environment.httpOptions);
   }
 
 
