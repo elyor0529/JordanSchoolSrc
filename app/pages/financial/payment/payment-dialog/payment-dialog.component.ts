@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { RegParentService } from 'src me finnancial/app/pages/Reg/parents/reg-parent.service';
+import { RegParentService } from 'src/app/pages/Reg/parents/reg-parent.service';
 import { Lkplookup } from 'src/app/Models/Lookups/lkplookup';
 import { LookupTypes } from 'src/app/Models/Enum/SystemEnum';
 import { LookupsApiService } from 'src/app/pages/lookups/lookups-api.service';

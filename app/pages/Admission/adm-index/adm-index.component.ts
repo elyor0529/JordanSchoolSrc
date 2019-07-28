@@ -1,3 +1,4 @@
+import { AdmParentComponent } from "./../adm-parent/adm-parent.component";
 import { AdmDialogComponent } from "./../adm-dialog/adm-dialog.component";
 import { regParents } from "./../../../Models/Reg/Parents/reg-parents";
 import { RegParentService } from "./../../Reg/parents/reg-parent.service";
@@ -16,7 +17,8 @@ import { ReplaySubject, Subject } from "rxjs";
 import { log } from "util";
 import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialog.component";
 import { UsersService } from "../../users/users.service";
-import { LoginService } from '../../login/login.service';
+import { LoginService } from "../../login/login.service";
+import { users } from "src/app/Models/Users/users";
 
 @Component({
   selector: "app-adm-index",
@@ -24,7 +26,7 @@ import { LoginService } from '../../login/login.service';
   styleUrls: ["./adm-index.component.scss"]
 })
 export class AdmIndexComponent implements OnInit {
-  parentList: regParents;
+  parentList: regParents[];
   schoolList: any;
   loading = false;
   parentId: any;
@@ -48,6 +50,9 @@ export class AdmIndexComponent implements OnInit {
   currentYear: any;
   currentYearId: number;
   schoolName: any;
+  parentTotalPrice: number;
+  parentTotalDescount: number;
+  parentNetTotalAmt: number;
 
   cols = [
     { field: "id", header: "#" },
@@ -59,15 +64,16 @@ export class AdmIndexComponent implements OnInit {
     { field: "classSeqName", header: "الشعبة" },
     // { field: "descountType", header: "نوع الخصم" },
     //{ field: "descountValue", header: "قيمة الخصم" },
-    { field: "tourName", header: "مشترك بالباص - المنطقة" },
-    { field: "tourTypeName", header: " نوع إشتراك الباص" },
-    { field: "tourPrice", header: "مبلغ إشتراك الباص" },
-    { field: "totalPrice", header: "المبلغ المطلوب" },
-    { field: "yearId", header: "yearId", type: "hidden" }
+    { field: "tourName", header: " المنطقة" },
+    { field: "tourTypeName", header: " إشتراك الباص" },
+    { field: "tourPrice", header: "مبلغ الباص" },
+    { field: "yearId", header: "yearId", type: "hidden" },
+    { field: "studentBrotherSeq", header: "ترتيب الابناء" },
+    { field: "descountValue", header: "قيمة الخصم" },
+    { field: "yearIdx", header: "yearIdx", type: "hidden" },
+    { field: "totalPrice", header: "المبلغ المطلوب" }
   ];
-  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<
-    Admission
-  >();
+  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<Admission>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = this.cols
     .map(col => col.field)
@@ -75,25 +81,31 @@ export class AdmIndexComponent implements OnInit {
 
   message: string;
 
-  constructor( 
+  constructor(
     private service: AdmService,
     private parentService: RegParentService,
     public dialog: MatDialog,
-    private userService: LoginService
+    private loginService: LoginService
   ) {
-  
-    
-    this.userService.getUser("admin", "admin").subscribe(res => {
-      this.schoolName = res.schoolName;
-    });
-   // this.schoolName = this.userService.sSchoolName;
-    console.log("scjoolName"+this.schoolName);
+    // this.userService.getUser("admin", "admin").subscribe(res => {
+    //   this.schoolName = res.schoolName;
+    // });
+    // this.schoolName = this.userService.sSchoolName;
+
+    let data = JSON.parse(localStorage.getItem("token")) as users;
+    this.loginService.sUserId = data.id;
+    this.loginService.sSchoolId = data.schoolId;
+    this.loginService.sSchoolName = data.schoolName;
+
+    this.schoolName = this.loginService.sSchoolName;
+
+    // console.log("xxsLoginData=" + this.schoolName);
 
     this.getCurrentYear();
     this.currentYear = this.service.sCurrentYear;
-    console.log(this.currentYear);
+    //  console.log(this.currentYear);
     //this.getAdmList();
-    this.getParentList();
+    this.getParentList(1);
     // this.selected=this.service.sSelected;
     //  this.onParentChanged(this.selected);
     //   console.log("++ "+this.selected);
@@ -113,10 +125,15 @@ export class AdmIndexComponent implements OnInit {
       .admissionList()
       .subscribe(res => (this.dataSource.data = res));
   }
-  getParentList() {
-    return this.parentService
-      .getParentsList()
-      .subscribe(res => (this.parentList = res));
+  getParentList(parentName) {
+    return this.parentService.getParentsList().subscribe(res => {
+      this.parentList = res;
+      let index = this.parentList.findIndex(i => i.fatherName === parentName);
+      if (index != -1) {
+        //  this.selected = this.parentList[index].id;
+        this.onParentChanged(this.selected);
+      }
+    });
   }
 
   getCurrentYear() {
@@ -153,22 +170,26 @@ export class AdmIndexComponent implements OnInit {
     // console.log(index);
 
     this.service.getStudParent(filterValue).subscribe(res => {
-      this.fatherName = res[0].fatherFullName;
-      this.parentId = res[0].id;
-      this.fatherFirstName = res[0].fatherFirstName;
-      this.fatherSecondName = res[0].fatherSecondName;
-      this.fatherFamilyName = res[0].fatherFamilyName;
-      this.fatherReligionName = res[0].religionName;
-      this.fatherNationalityName = res[0].nationalityName;
-      this.fatherCityName = res[0].cityName;
-      this.fatherAddress = res[0].address;
-      this.fatherTel = res[0].tel;
-      this.fatherMobile = res[0].fatherMobile;
-      this.motherMobile = res[0].motherMobile;
+      if (res != null) {
+        this.fatherName = res[0].fatherFullName;
+        this.parentId = res[0].id;
+        this.fatherFirstName = res[0].fatherFirstName;
+        this.fatherSecondName = res[0].fatherSecondName;
+        this.fatherFamilyName = res[0].fatherFamilyName;
+        this.fatherReligionName = res[0].religionName;
+        this.fatherNationalityName = res[0].nationalityName;
+        this.fatherCityName = res[0].cityName;
+        this.fatherAddress = res[0].address;
+        this.fatherTel = res[0].tel;
+        this.fatherMobile = res[0].fatherMobile;
+        this.motherMobile = res[0].motherMobile;
+        this.parentTotalPrice = res[0].parentTotalPrice;
+        this.parentTotalDescount = res[0].parentTotalDescount;
+        this.parentNetTotalAmt = res[0].parentNetTotalAmt;
 
-      this.service.sParentName = this.fatherName;
-      this.showSaveButton = true;
-
+        this.service.sParentName = this.fatherName;
+        this.showSaveButton = true;
+      }
       // console.log( this.parentId);
       // console.log(res);
     });
@@ -186,15 +207,16 @@ export class AdmIndexComponent implements OnInit {
     //     left: '0'
     // };
     dialogConfig.direction = "rtl";
-    dialogConfig.data = { id: 0, classPrice: 0, totalPrice: 0 };
+    dialogConfig.data = { id: 0, totalPrice: 0 };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
-      res != null ? this.onParentChanged(res.parentId) : "";
+      // res != null ? this.onParentChanged(res.parentId) : "";
+      this.calcDescount();
     });
   }
 
-  updateStud(id, classPrice, totalPrice, yearId: number, elementYear: number) {
-    console.log("yearId=" + yearId + "  elementYear=" + elementYear);
+  updateStud(id, totalPrice, yearId: number, elementYear: number) {
+    // console.log("yearId=" + yearId + "  elementYear=" + elementYear);
     if (yearId != elementYear) return;
 
     const dialogConfig = new MatDialogConfig();
@@ -202,12 +224,13 @@ export class AdmIndexComponent implements OnInit {
     dialogConfig.direction = "rtl";
     dialogConfig.data = {
       id: id,
-      classPrice: classPrice,
+      // classPrice: classPrice,
       totalPrice: totalPrice
     };
     const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
-      res != null ? this.onParentChanged(res.parentId) : "";
+      // res != null ? this.onParentChanged(res.parentId) : "";
+      this.calcDescount();
     });
   }
   addNewStudent2() {
@@ -268,4 +291,37 @@ export class AdmIndexComponent implements OnInit {
   }
 
   private handleErrors() {}
+
+  // Add Parent
+
+  addNewParent() {
+    const dialogConfig = new MatDialogConfig();
+    var parentName: any;
+
+    //dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    //   dialogConfig.position = {
+    //     'top': '0',
+    //     left: '0'
+    // };
+    dialogConfig.direction = "rtl";
+    // dialogConfig.data = { id: 0, classPrice: 0, totalPrice: 0 };
+    const dialogRef = this.dialog.open(AdmParentComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res => {
+      parentName = res.firstName + " " + res.secondName + " " + res.familyName;
+      //console.log("id=" + res.id + "   parentName=" + parentName);
+      this.getParentList(parentName);
+      this.calcDescount();
+    });
+  }
+
+  calcDescount() {
+    this.service
+      .calcDescount(this.parentId)
+      .subscribe(res => this.onParentChanged(this.parentId));
+  }
+
+  sumClassPrice() {
+    return this.dataSource.data.map(t => t.classPrice).reduce((acc, value) => acc + value, 0);
+  }
 }

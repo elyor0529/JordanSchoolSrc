@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PaymentIndexComponent } from './payment-index/payment-index.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
-import { SharedModule } from 'JordanSchoolSrc1807/app/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { paymentRoutes } from './payment.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

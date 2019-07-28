@@ -48,4 +48,7 @@ export class regParents{
         parentEmail: string;
         parentFace: string;
         note: string;
+        parentTotalPrice: number;
+        parentTotalDescount: number;
+        parentNetTotalAmt: number;
 }

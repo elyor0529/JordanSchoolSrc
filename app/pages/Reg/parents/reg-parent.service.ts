@@ -19,9 +19,9 @@ import { environment } from 'src/environments/environment';
     constructor(private http:HttpClient){}
 
 
-    getParentsList():Observable<regParents>{
+    getParentsList():Observable<regParents[]>{
 
-    return this.http.get<regParents>(this.apiUrl,environment.httpOptions);
+    return this.http.get<regParents[]>(this.apiUrl,environment.httpOptions);
     }
     
 addParent(model:regParents):Observable<regParents>{

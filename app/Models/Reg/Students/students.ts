@@ -16,8 +16,8 @@ export class Student{
     joinTermId:number;
     schoolId:number;
     sectionId:number;
-    joinClassId:number;
-    joinClassSeqId:number;
+    classId:number;
+    classSeqId:number;
     image:string;
     email:string;
     studFace:string;

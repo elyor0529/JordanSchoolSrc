@@ -59,6 +59,9 @@ getStudParent(id:string):Observable<regParents[]>{
 getCurrentYear():Observable<AcdimicYears>{
   return this.http.get<AcdimicYears>(`${this.CurrentYearApiUrl+"/CurrentYear"}`,environment.httpOptions);
 }
+calcDescount(id:string):Observable<Admission[]>{
+  return this.http.get<Admission[]>(`${this.apiUrl+"/UpdateStudSeq"}/${id}`,environment.httpOptions);
+}
 
 
 private messageSource = new BehaviorSubject('default message');

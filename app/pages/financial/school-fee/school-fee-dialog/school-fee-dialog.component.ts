@@ -1,12 +1,14 @@
+
+
 import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ValidationBase } from 'JordanSchoolSrc1807/app/validationBase';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SchoolFeeService } from '../school-fee.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FinItem } from 'src/app/Models/financial/fin-item';
 import { FinItemService } from '../../fin-item/fin-item.service';
-import { LkpSchool } from 'JordanSchoolSrc1807/app/Models/addLookups/schools/lkpSchool';
+import { ValidationBase } from 'src/app/validationBase';
+import { LkpSchool } from 'src/app/Models/addLookups/schools/lkpSchool';
 import { SchoolService } from 'src/app/pages/addLookups/schools/school.service';
 import { LkpYear } from 'src/app/Models/addLookups/year/LkpYear';
 import { YearService } from 'src/app/pages/addLookups/years/year.service';

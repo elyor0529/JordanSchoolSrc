@@ -1,0 +1,232 @@
+<app-content-header [icon]="" [title]="" [hideBreadcrumb]="false" [hasBgImage]="false" [class]="'pb-4'">
+</app-content-header>
+
+
+
+<mat-card>
+    <mat-card-content>
+  
+<div fxLayoutAlign="center">
+  <table>
+    <tr>
+      <td>
+        <h2> {{currentYear}} </h2>
+      </td>
+      <td> 
+        <h2>{{schoolName}}</h2>
+      </td>
+    </tr>
+  </table>
+</div>
+</mat-card-content>
+</mat-card>
+
+
+<mat-divider></mat-divider>
+
+<mat-card>
+  <mat-card-content>
+
+      <div fxLayout="column" class="p-1">
+          <div fxLayout.xs="column" fxLayoutGap="20px">
+              <mat-card-header fxLayoutAlign="start">
+                  <mat-card-subtitle>
+                    <h3> إختر ولي الامر
+                    </h3>
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
+                    <mat-label>إختر ولي الامر</mat-label>
+                    <mat-select placeholder=" ولي الامر" [(value)]="selected" (selectionChange)="onParentChanged($event.value)">                   
+                      <mat-option *ngFor="let op of parentList" [value]="op.id">
+                        {{ op.fatherName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>             
+
+          </div>
+      </div>
+
+  </mat-card-content>
+</mat-card>
+
+
+
+  
+
+<mat-divider></mat-divider>
+
+<div fxLayout="column" class="p-2">
+  <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+  </div>
+</div>
+<mat-divider></mat-divider>
+
+<!-- 
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+ 
+    <div class="spinner-container" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container *ngFor="let col of cols" [matColumnDef]="col.field">
+
+
+        <mat-header-cell  *matHeaderCellDef>
+          <ng-container  [ngSwitch]="col.type">
+            <p *ngSwitchCase="'hidden'">
+
+            </p> 
+            <p  *ngSwitchDefault>
+              {{ col.header }}
+            </p>
+
+          </ng-container>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          <ng-container [ngSwitch]="col.type">
+            <p *ngSwitchCase="'date'">
+              {{ item[col.field]  | date: 'dd/MM/yyyy' }}
+            </p>
+            <p *ngSwitchCase="'new'">
+                
+            </p>
+            
+            <p *ngSwitchDefault>
+              {{ item[col.field] }}
+            </p>
+          </ng-container>
+        </mat-cell>
+
+      </ng-container>
+      
+
+      <ng-container matColumnDef="actions">  
+        <mat-header-cell *matHeaderCellDef>
+          تثبيت/ ترفيع الطالب/ حجز مقعد
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+              <button mat-raised-button color="basic" matTooltip="تثبيت التسجيل" (click)="confirmStudReg(element.id,element.yearId, element.newClassId)">
+                  <mat-icon aria-hidden="true" color="warn" >
+                      check_circle_outline
+                  </mat-icon>
+                </button>
+           </mat-cell>
+           <mat-cell *matCellDef="let element">
+              <button mat-raised-button color="basic" matTooltip="تثبيت التسجيل" [disabled]="!confirmStudReg(element.id,element.yearId, element.newClassId)"  (click)="confirmStudReg(element.id,element.yearId, element.newClassId)">
+                  <mat-icon aria-hidden="true" color="warn" >
+                      check_circle_outline
+                  </mat-icon>
+                </button>
+           </mat-cell>
+
+      </ng-container>
+ 
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </div>
+  
+</div> -->
+
+<mat-divider></mat-divider>
+
+
+<mat-card>
+  <mat-card-content>
+
+<div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+       
+       
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.id}} </td>
+            <td mat-footer-cell *matFooterCellDef> المجموع </td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> إسم الطالب </th>
+              <td mat-cell *matCellDef="let transaction"> {{transaction.firstName}} </td>
+              <td mat-footer-cell *matFooterCellDef>  </td>
+            </ng-container>
+
+        
+      <ng-container matColumnDef="className">
+        <th mat-header-cell *matHeaderCellDef> الصف الدراسي القديم </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.className}} </td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+      <ng-container matColumnDef="newClassName">
+          <th mat-header-cell *matHeaderCellDef> الصف الدراسي الجديد </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.studExist>1?transaction.className:transaction.newClassName}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+  
+     
+      <ng-container matColumnDef="classPrice">
+        <th mat-header-cell *matHeaderCellDef> رسوم الصف </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.classPrice}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{getTotalClassPrice()}}</td>
+      </ng-container>
+      
+      <ng-container matColumnDef="tourName">
+          <th mat-header-cell *matHeaderCellDef>  منطقة الباص </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.tourName}} </td>
+          <td mat-footer-cell *matFooterCellDef>+ </td>
+        </ng-container>
+ 
+        <ng-container matColumnDef="tourTypeName">
+            <th mat-header-cell *matHeaderCellDef>   نوع إشتراك الباص </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.tourTypeName}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+          </ng-container>
+        
+      <ng-container matColumnDef="tourPrice">
+          <th mat-header-cell *matHeaderCellDef>   رسوم الباص </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.tourPrice}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalTourPrice()}} </td>
+        </ng-container>
+      <ng-container matColumnDef="approvedId">
+          <th mat-header-cell *matHeaderCellDef> المقعد محجوز </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.approvedId>=1?'نعم':'لا'}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+      <ng-container matColumnDef="actions">  
+          <th mat-header-cell *matHeaderCellDef>
+            تثبيت/ ترفيع الطالب/ حجز مقعد
+          </th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.actions}} 
+               <button mat-raised-button color="basic" [disabled]="transaction.approvedId>=1?true:false" matTooltip="تثبيت التسجيل" (click)="confirmStudReg(transaction.id, transaction.classId,transaction.newClassId)">
+                    <mat-icon aria-hidden="true" [color]="transaction.studExist>1?'disabled':'warn'">
+                     check_circle_outline
+                        
+                      
+                    </mat-icon>
+                  </button>
+                </td> 
+                <td mat-footer-cell *matFooterCellDef>= {{getTotalPrice()}}  </td> 
+
+               
+                  
+                     
+                             
+        </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+</mat-card-content>
+</mat-card>
+
+
+
+
+  

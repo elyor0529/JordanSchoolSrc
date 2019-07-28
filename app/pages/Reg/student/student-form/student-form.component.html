@@ -169,13 +169,13 @@
                   
               <mat-form-field fxFlex appearance="outline">
                 <mat-label> الصف</mat-label>
-                <input matInput formControlName="joinClassId"  type="text" placeholder="  الصف">
+                <input matInput formControlName="classId"  type="text" placeholder="  الصف">
               </mat-form-field>
   
 
               <mat-form-field fxFlex appearance="outline">
                   <mat-label> الشعبة</mat-label>
-                  <mat-select matInput formControlName="joinClassSeqId" placeholder=" الشعبة">
+                  <mat-select matInput formControlName="classSeqId" placeholder=" الشعبة">
                     <mat-option *ngFor="let op of classSeqList" [value]="op.id">
                       {{op.id}} | {{op.aname}}
                       </mat-option>
