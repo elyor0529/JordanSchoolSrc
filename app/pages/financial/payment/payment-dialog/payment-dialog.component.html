@@ -8,14 +8,14 @@
                      <!-- parent list -->
                      <mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
                         <mat-label>  ولي الامر</mat-label>
-                        <mat-select placeholder=" ولي الامر" [(value)]="selected"
-                           (selectionChange)="onParentChanged($event.value)">
+                        <mat-select placeholder=" ولي الامر" [(value)]="selected">
+                           <!-- (selectionChange)="onParentChanged($event.value)"> -->
                            <mat-option>
                               <ngx-mat-select-search placeholder=" ولي الامر">
                               </ngx-mat-select-search>
                            </mat-option>
                            <mat-option *ngFor="let op of parentList" [value]="op.id">
-                              {{ op.fatherName }}
+                              {{ op.fatherName }} 
                            </mat-option>
                         </mat-select>
                      </mat-form-field>
@@ -102,10 +102,8 @@
       <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
          عودة
       </button>
-      <button [type]="submit" mat-raised-button color="primary" > 
+      <button [type]="submit" mat-raised-button color="primary" (click)="submit1()">
       <!-- [disabled]="form.invalid"> -->
-         <!-- (click)="submitSchoolFee()" -->
-         <!-- > -->
          تخزين
       </button>
    </mat-dialog-actions>
