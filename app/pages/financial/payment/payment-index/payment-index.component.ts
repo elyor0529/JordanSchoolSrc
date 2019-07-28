@@ -74,7 +74,7 @@ export class PaymentIndexComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.direction = "rtl";
-
+    dialogConfig.data = { id: 0,};
     const dialogRef = this.dialog.open(PaymentDialogComponent, dialogConfig)
 
     dialogRef.afterClosed().subscribe(res => {
