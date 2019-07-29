@@ -1,4 +1,25 @@
 
+<mat-card>
+    <mat-card-content>
+  
+<div fxLayoutAlign="center">
+  <table>
+    <tr>
+      <td>
+        <h2> {{currentYear}} </h2>
+      </td>
+      <td> 
+        <h2>{{schoolName}}</h2>
+      </td>
+    </tr>
+  </table>
+</div>
+</mat-card-content>
+</mat-card>
+
+
+<mat-divider></mat-divider>
+
 
 
 <mat-card>
@@ -29,9 +50,16 @@
   
   <mat-divider></mat-divider>
   
+
+  
 <div fxLayout="column" class="p-2">
   <div class="p-2">
+<mat-label><h2>
+  مالية الطالب
+ 
 
+</h2>
+</mat-label>
     <div class="spinner-container" *ngIf="loading">
       <mat-spinner></mat-spinner>
     </div>
@@ -50,22 +78,10 @@
 
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
-          Actions
+          التفاصيل
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-
-          <a mat-icon-button matTooltip="تعديل" [routerLink]="['/sections/edit/' + element.id  ]">
-            <mat-icon aria-hidden="true" aria-label="Files">
-              edit
-            </mat-icon>
-          </a>
-
-          <button mat-icon-button color="warn" matTooltip="حذف" (click)="openDeleteDialog(element)">
-            <mat-icon aria-hidden="true" aria-label="Delete">
-              delete
-            </mat-icon>
-          </button>
-          <button mat-icon-button color="info" matTooltip="تفاصيل" [routerLink]="['/sections/view/' + element.id  ]">
+          <button mat-icon-button color="info" matTooltip="تفاصيل البنود المالية" (click)="GetStudFeesDtl(element.studentId,element.studentName)">
             <mat-icon aria-hidden="false" aria-label="info">
               info
             </mat-icon>
@@ -77,5 +93,48 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
+  </div>
+</div>
+
+
+<mat-divider></mat-divider>
+  
+
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+
+    
+<mat-card>
+    <mat-card-content>
+    <mat-label><h2>
+        تفاصيل البنود المالية
+       
+        </h2>
+      </mat-label>
+      <mat-label style="color: red"><h3>
+          إسم الطالب: 
+          {{studName}}
+          </h3>
+        </mat-label>
+
+    <mat-table #table [dataSource]="dataSourceDtl" class="mat-elevation-z8">
+      <ng-container *ngFor="let col of colsDtl" [matColumnDef]="col.field">
+        <mat-header-cell *matHeaderCellDef>
+          {{ col.header }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+
+          {{ item[col.field] }}
+
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumnsDtl"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsDtl;">
+      </mat-row>
+    </mat-table>
+    </mat-card-content>
+</mat-card>
   </div>
 </div>
