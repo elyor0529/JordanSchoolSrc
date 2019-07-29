@@ -131,7 +131,7 @@ export class SchoolFeeIndexComponent implements OnInit {
       return data.schoolId == +filter;
     }
   };
-
+ 
 
  
 

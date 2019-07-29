@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+<form [formGroup]="formGroup" (ngSubmit)="submit()" novalidate="novalidate">
    <mat-dialog-content>
       <div fxLayout="column" class="p-4">
          <div class="p-2">
@@ -8,7 +8,7 @@
                      <!-- parent list -->
                      <mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
                         <mat-label>  ولي الامر</mat-label>
-                        <mat-select placeholder=" ولي الامر" [(value)]="selected">
+                        <mat-select matInput formControlName="regParentId" placeholder=" ولي الامر" [(value)]="selected" required>
                            <!-- (selectionChange)="onParentChanged($event.value)"> -->
                            <mat-option>
                               <ngx-mat-select-search placeholder=" ولي الامر">
@@ -21,8 +21,8 @@
                      </mat-form-field>
                   </div>
                </mat-card>
-               <mat-card>
-                  <div>
+               <mat-card>  
+                  <div> 
                      <!-- voucherDate -->
                      <!-- <mat-form-field fxFlex color="accent" appearance="outline">
                         <mat-label>تاريخ السند</mat-label>
@@ -85,10 +85,10 @@
                      <input matInput formControlName="credit" type="text" placeholder="  المبلغ المدفوع   ">
                   </mat-form-field>
                   <!-- debit -->
-                  <mat-form-field fxFlex color="accent" appearance="outline">
+                  <!-- <mat-form-field fxFlex color="accent" appearance="outline">
                      <mat-label> المبلغ المقبوض </mat-label>
                      <input matInput formControlName="debit" type="text" placeholder="  المبلغ المستلم   ">
-                  </mat-form-field>
+                  </mat-form-field> -->
 
                </mat-card>
             </div>
@@ -102,7 +102,7 @@
       <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
          عودة
       </button>
-      <button [type]="submit" mat-raised-button color="primary" (click)="submit1()">
+      <button [type]="submit" mat-raised-button color="primary" (click)="submitPayment()">
       <!-- [disabled]="form.invalid"> -->
          تخزين
       </button>
