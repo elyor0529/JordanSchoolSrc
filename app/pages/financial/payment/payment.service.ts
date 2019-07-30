@@ -2,21 +2,32 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/Models/financial/payment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
 
-  private apiUrl = environment.apiBaseUrl + 'Payment';
 
+
+
+  private apiUrl = environment.apiBaseUrl + 'Payment';
+  public selectedParentId:any;
+  public selectedYearId:any;
+  private parenetIdParam=new BehaviorSubject('');
+  
   constructor(private http:HttpClient) { }
 
 
 
   getPaymentList(){
    return this.http.get<Payment[]>(this.apiUrl,environment.httpOptions);
+  }
+
+
+  getByParentIdYearId() {
+    return this.http.get<Payment[]>(this.apiUrl,environment.httpOptions);
   }
 
   
@@ -35,5 +46,9 @@ export class PaymentService {
   updatePayment(id:number, model:Payment):Observable<void>{
     return this.http.put<void>(`${this.apiUrl}/${id}`,model,environment.httpOptions);
   }
+
+ 
+
+
 
 }

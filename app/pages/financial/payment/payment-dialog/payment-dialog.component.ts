@@ -54,14 +54,14 @@ export class PaymentDialogComponent implements OnInit {
     this.formGroup = this.fb.group(
       {
         id: [0],
-        regParentId: [3, [Validators.required]],
+        regParentId: [this.service.selectedParentId, [Validators.required]],
         voucherId: [1],
         voucherDate: [this.dateFormatted],
         voucherTypeId: [],
         voucherStatusId: [],
-        yearId: [1],
+        yearId: [this.service.selectedYearId],
         debit: [10], 
-        credit: [10],
+        credit: [10],  
         note: ['add your note']
       }
     );

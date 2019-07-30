@@ -72,7 +72,11 @@ export class SchoolFeeIndexComponent implements OnInit {
     this.loading = true;
     this.service.deleteSchoolFee(schoolFee.id).subscribe(
       res => this.handleSuccess(),
-      err => { this.handleErrors(), this.loading = false },
+
+      err => { 
+        this.handleErrors(), 
+        this.loading = false },
+        
       () => this.loading = false
     );
   }
