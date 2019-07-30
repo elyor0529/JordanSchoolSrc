@@ -77,10 +77,17 @@
                   <input matInput formControlName="idNum" name="idNum"  type="text" placeholder="الرقم الوطني">
                 </mat-form-field>
 
+            
             <mat-form-field fxFlex appearance="outline">
-              <mat-label>تاريخ الميلاد</mat-label>
-              <input matInput formControlName="birthDate"  type="text" placeholder=" تاريخ الميلاد">
-            </mat-form-field>
+              <mat-label> تاريخ الميلاد</mat-label>
+              <input matInput [matDatepicker]="birthDate" formControlName="birthDate" type="text"
+                  placeholder=" تاريخ الميلاد"  (focus)="birthDate.open()"
+                  required>
+              <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+              <mat-datepicker #birthDate></mat-datepicker>
+             
+              
+          </mat-form-field>
 
                 
             <mat-form-field fxFlex appearance="outline">
