@@ -18,19 +18,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class PaymentDialogComponent implements OnInit {
 
-  public form: FormGroup;
-  parentList: any; 
+  public formGroup: FormGroup;
+  parentList: any;
   public myDate = new Date();
   public dateFormatted: string;
-  voucherTypeList:Lkplookup[];
-  VoucherStatusList:Lkplookup[];
+  voucherTypeList: Lkplookup[];
+  VoucherStatusList: Lkplookup[];
   loading = false;
-  edit=false;
+  edit = false;
   id: number;
-  public dialogRef: MatDialogRef<PaymentDialogComponent>;
-  @Output() event=new EventEmitter<Payment>(true);
+  @Output() event = new EventEmitter<Payment>(true);
 
-  
+
 
   constructor(
     private fb: FormBuilder,
@@ -39,25 +38,30 @@ export class PaymentDialogComponent implements OnInit {
     private parentService: RegParentService,
     private lookupService: LookupsApiService,
     private service: PaymentService,
+    public dialogRef: MatDialogRef<PaymentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.initForm();
     this.dateFormatted = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.initForm();
+
 
   }
 
 
   initForm() {
-    this.form = this.fb.group(
+   // console.log(regParentId);
+    
+    this.formGroup = this.fb.group(
       {
         id: [0],
-        RegParentId: ['', [Validators.required]],
-        voucherId: [0],
+        regParentId: [this.service.selectedParentId, [Validators.required]],
+        voucherId: [1],
         voucherDate: [this.dateFormatted],
         voucherTypeId: [],
         voucherStatusId: [],
-        debit: [0],
-        credit: [0],
+        yearId: [this.service.selectedYearId],
+        debit: [10], 
+        credit: [10],  
         note: ['add your note']
       }
     );
@@ -69,24 +73,29 @@ export class PaymentDialogComponent implements OnInit {
   }
 
 
-  
+
   setupUpdate() {
     console.log(this.data);
     if (!this.data.id) return;
     this.id = this.data.id;
-      this.edit = true;
-      this.loading = true;
-      this.service.getPaymentById(this.id).subscribe(res => {
-        this.form = this.validator.patchForm(this.form, res);
-      }, err => console.log(err),
-        () => this.loading = false);
+    this.edit = true;
+    this.loading = true;
+    this.service.getPaymentById(this.id).subscribe(res => {
+      this.formGroup = this.validator.patchForm(this.formGroup, res);
+    }, err => console.log(err),
+      () => this.loading = false);
   }
 
   closeDialog(): void {
+    console.log('didi wah');
+
     this.dialogRef.close();
   }
 
 
+  submit() {
+    //null;
+  }
 
   private getLookups() {
     this.lookupService.getLookupsByType2([
@@ -94,26 +103,39 @@ export class PaymentDialogComponent implements OnInit {
       LookupTypes.VoucherStatus
     ])
       .subscribe(
-        res => {this.fillLookups(res)},
+        res => { this.fillLookups(res) },
         _err => { console.log("Error") },
-        () => { console.log("complete")
+        () => {
+          console.log("complete")
         });
   }
 
   private fillLookups(data: any) {
     data.forEach((element: Lkplookup[]) => {
+      let defVal;
+      let value;
       switch (element[0].typeId) {
-        case LookupTypes.VoucherType:this.voucherTypeList = element; break;
-        case LookupTypes.VoucherStatus:this.VoucherStatusList = element; default: break;
+        case LookupTypes.VoucherType: this.voucherTypeList = element;
+          defVal = element.findIndex(i => i.defaultValue === 1);
+          try { value = element[defVal].id; } catch (error) { };
+          this.formGroup.get("voucherTypeId").setValue(value);
+          break;
+
+        case LookupTypes.VoucherStatus: this.VoucherStatusList = element; default:
+            defVal = element.findIndex(i => i.defaultValue === 1);
+            try { value = element[defVal].id; } catch (error) { };
+            this.formGroup.get("voucherStatusId").setValue(value);
+            break;
       }
     });
   }
 
 
-  
-  submit() {
-    if (!this.form.valid) {
-      this.validator.markFormTouched(this.form);
+
+  submitPayment() {
+    
+    if (!this.formGroup.valid) {
+      this.validator.markFormTouched(this.formGroup);
       return;
     }
     this.loading = true;
@@ -121,21 +143,21 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   addPayment() {
-    this.service.addPayment(this.form.value).subscribe(
+    this.service.addPayment(this.formGroup.value).subscribe(
       res => {
-       this.event.emit(this.form.value);
-        this.dialogRef.close(this.form.value);
+        this.event.emit(this.formGroup.value);
+        this.dialogRef.close(this.formGroup.value);
       },
-      err => console.log('errrrrrr'+err)
+      err => console.log('errrrrrr' + err)
     );
   }
 
   updatePayment() {
     console.log('update');
-    this.service.updatePayment(this.id, this.form.value).subscribe(
+    this.service.updatePayment(this.id, this.formGroup.value).subscribe(
       res => {
-        this.dialogRef.close(this.form.value);
-      //  this.router.navigateByUrl(this.returnUrl);
+        this.dialogRef.close(this.formGroup.value);
+        //  this.router.navigateByUrl(this.returnUrl);
       },
       err => console.log(err)
     );
