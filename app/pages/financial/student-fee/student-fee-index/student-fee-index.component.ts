@@ -84,7 +84,7 @@ export class StudentFeeIndexComponent implements OnInit {
 
   GetStudFeesListByParent(id) {
     return this.service
-      .GetStudFeesListByParent(id)
+      .GetStudFeesListByParent(this.currentYearId,id)
       .subscribe(res => {
         this.dataSource.data = res;
         
@@ -111,7 +111,7 @@ export class StudentFeeIndexComponent implements OnInit {
   onParentChanged(filterValue) {
     this.selected = filterValue;
     this.parentId = filterValue;
-    this.service.GetStudFeesListByParent(filterValue).subscribe(res => {
+    this.service.GetStudFeesListByParent(this.currentYearId, filterValue).subscribe(res => {
       this.dataSource.data = res;
       let index = this.parentList.findIndex(p => p.id === this.parentId)
       this.parentName = this.parentList[index].fatherName;

@@ -16,9 +16,9 @@ export class StudentFeeService {
     return this.http.get<StudentFee[]>(this.apiUrl, environment.httpOptions);
   }
 
-  GetStudFeesListByParent(id: number): Observable<StudentFee[]> {
+  GetStudFeesListByParent(yearId,id: number): Observable<StudentFee[]> {
     return this.http.get<StudentFee[]>(
-      `${this.apiUrl + "/GetStudFeesListByParent"}/${id}`,
+      `${this.apiUrl + "/GetStudFeesListByParent"}/${yearId}/${id}`,
       environment.httpOptions
     );
   }
