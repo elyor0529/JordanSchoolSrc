@@ -6,7 +6,7 @@
                <mat-card>
                   <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
                      <!-- parent list -->
-                     <mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
+                     <mat-form-field fxFlex="60%" class="mat-select" appearance="outline"  >
                         <mat-label>  ولي الامر</mat-label>
                         <mat-select matInput formControlName="regParentId" placeholder=" ولي الامر" [(value)]="selected" required>
                            <!-- (selectionChange)="onParentChanged($event.value)"> -->
@@ -52,8 +52,7 @@
                   </div>
                </mat-card>
 
-               <mat-card>
-                  <!-- voucherTypeId -->
+               <!-- <mat-card>
                   <mat-form-field fxFlex color="accent" appearance="outline">
                      <mat-label>نوع السند </mat-label>
                      <mat-select matInput formControlName="voucherTypeId" placeholder="نوع السند" required>
@@ -63,7 +62,6 @@
                      </mat-select>
                   </mat-form-field>
 
-                  <!-- voucherStatusId -->
                   <mat-form-field fxFlex color="accent" appearance="outline">
                      <mat-label>حالة السند </mat-label>
                      <mat-select matInput formControlName="voucherStatusId" placeholder="حالة السند" required>
@@ -73,7 +71,7 @@
                      </mat-select>
                   </mat-form-field>
 
-               </mat-card>
+               </mat-card> -->
 
                <mat-card>
 

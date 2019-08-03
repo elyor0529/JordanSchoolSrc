@@ -1,6 +1,7 @@
 export class Payment {
     id: number;
     voucherId: string;
+    regParentId:number;
     fatherName:string;
     yearDesc:string;
     voucherTypeId: number;

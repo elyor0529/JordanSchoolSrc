@@ -26,7 +26,7 @@ export class PaymentService {
   }
 
 
-  getByParentIdYearId() {
+  getByParentIdYearId() { 
     return this.http.get<Payment[]>(this.apiUrl,environment.httpOptions);
   }
 
@@ -37,6 +37,7 @@ export class PaymentService {
 
   addPayment(model: Payment): Observable<Payment> {
     return this.http.post<Payment>(this.apiUrl, model, environment.httpOptions);
+    
   }
 
   deletePayment(id: number): Observable<void> {
