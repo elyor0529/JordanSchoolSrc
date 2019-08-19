@@ -23,8 +23,9 @@ export class PaymentDialogComponent implements OnInit {
   error:any;
   public myDate = new Date();
   public dateFormatted: string;
-  voucherTypeList: Lkplookup[];
+  VoucherTypeList: Lkplookup[];
   VoucherStatusList: Lkplookup[];
+  PaymentMethodList: Lkplookup[];
   loading = false;
   edit = false;
   id: number;
@@ -60,9 +61,13 @@ export class PaymentDialogComponent implements OnInit {
         voucherDate: [this.dateFormatted],
         voucherTypeId: [],
         voucherStatusId: [],
+        paymentMethodId:[],
         yearId: [this.service.selectedYearId],
-        debit: [10],
-        credit: [10],
+        debit: [0],
+        credit: [0],
+        transferNo:[''],
+        transferDate:[''],
+        visaCardNo:[],
         note: ['add your note']
       }
     );
@@ -102,7 +107,8 @@ export class PaymentDialogComponent implements OnInit {
   private getLookups() {
     this.lookupService.getLookupsByType2([
       LookupTypes.VoucherType,
-      LookupTypes.VoucherStatus
+      LookupTypes.VoucherStatus,
+      LookupTypes.PaymentMethod
     ])
       .subscribe(
         res => { this.fillLookups(res) },
@@ -117,7 +123,7 @@ export class PaymentDialogComponent implements OnInit {
       let defVal;
       let value;
       switch (element[0].typeId) {
-        case LookupTypes.VoucherType: this.voucherTypeList = element;
+        case LookupTypes.VoucherType: this.VoucherTypeList = element;
           defVal = element.findIndex(i => i.defaultValue === 1);
           try { value = element[defVal].id; } catch (error) { };
           this.formGroup.get("voucherTypeId").setValue(value);
@@ -128,6 +134,14 @@ export class PaymentDialogComponent implements OnInit {
           try { value = element[defVal].id; } catch (error) { };
           this.formGroup.get("voucherStatusId").setValue(value);
           break;
+
+          case LookupTypes.PaymentMethod: this.PaymentMethodList = element; 
+            defVal = element.findIndex(i => i.defaultValue === 1);
+            try { value = element[defVal].id; } catch (error) { };
+            this.formGroup.get("paymentMethodId").setValue(value);
+            break;
+
+
       }
     });
   }
