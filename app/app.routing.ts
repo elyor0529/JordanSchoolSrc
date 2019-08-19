@@ -8,8 +8,6 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { FormExampleComponent } from './pages/form-example/form-example.component';
 
-
-
 export const routes: Routes = [
     { path: '', loadChildren: './pages/login/login.module#LoginModule' },
     { 
@@ -53,8 +51,11 @@ export const routes: Routes = [
                {path:'financial/schoolFee',loadChildren:'./pages/financial/school-fee/school-fee.module#SchoolFeeModule', data:{breadcrumb:'    مالية المدرسة  '}},
                {path:'financial/classFee',loadChildren:'./pages/financial/class-fee/class-fee.module#ClassFeeModule', data:{breadcrumb:'     مالية الصفوف  '}},
               {path:'financial/studentFee',loadChildren:'./pages/financial/student-fee/student-fee.module#StudentFeeModule', data:{breadcrumb:'     مالية الطالب  '}},
-              {path:'financial/payment',loadChildren:'./pages/financial/payment/payment.module#PaymentModule', data:{breadcrumb:'     الدفعات    '}}
+              {path:'financial/payment',loadChildren:'./pages/financial/payment/payment.module#PaymentModule', data:{breadcrumb:'     الدفعات    '}},
   
+               //Reports
+            {path:'reports',loadChildren:'./pages/reports/rep.module#RepModule', data:{breadcrumb:'  التقارير'}},
+            
 
         ]
     },

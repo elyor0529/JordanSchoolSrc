@@ -22,16 +22,16 @@ export class SchoolIndexComponent implements OnInit {
 cols=[
   {field:"id", header:"#"},
   {field:"aname", header:"الاسم بالعربية"},
-  {field:"lname", header:"الاسم بالانجليزية"},
-  {field:"cityId", header:"المدينة"},
-  {field:"citesLookup.aname", header:"إسم المدينة"},
-  {field:"tel", header:"الهاتف"},
-  {field:"mobile",header:"الموبايل"},
-  {field:"fax",header:"فاكس"},
-  {field:"address", header:"العنون"},
-  {field:"webPage", header:"الصفحة الالكترونية"},
-  {field:"faceBook", header:"فيسبوك"},
-  {field:"city", header:"City"}
+  //{field:"lname", header:"الاسم بالانجليزية"},
+  {field:"city", header:"المدينة"},
+  
+  {field:"arDescription", header:"الوصف"},
+  //{field:"mobile",header:"الموبايل"},
+ // {field:"fax",header:"فاكس"},
+  //{field:"address", header:"العنون"},
+ // {field:"webPage", header:"الصفحة الالكترونية"},
+ // {field:"faceBook", header:"الوصف"},
+ 
 ];
  @ViewChild(MatPaginator) paginator: MatPaginator;
 public displayedColumns: string[] = this.cols.map(col => col.field).concat('actions');

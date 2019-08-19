@@ -24,6 +24,12 @@ import { environment } from 'src/environments/environment';
     return this.http.get<regParents[]>(this.apiUrl,environment.httpOptions);
     }
     
+  
+    getParentsList2():Observable<any>{
+
+      return this.http.get<regParents>(this.apiUrl,environment.httpOptions);
+  }
+  
 addParent(model:regParents):Observable<regParents>{
     return this.http.post<regParents>(this.apiUrl,model,environment.httpOptions);
 }

@@ -9,14 +9,14 @@ import { environment } from 'src/environments/environment';
 })
 export class LookupTypeApiService {
 
-  apiUrl='http://localhost:52579/api/LkpLookupType';
-
+  apiUrl=environment.apiBaseUrl + 'LkpLookupType';
+  
   constructor(private http: HttpClient) { }
 
   LookupTypes():Observable<LkpLookupType[]>{
     return this.http.get<LkpLookupType[]>(this.apiUrl, environment.httpOptions );
 
-  }
+  } 
 
   
 

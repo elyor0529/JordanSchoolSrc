@@ -1,0 +1,333 @@
+<div>
+  <button mat-icon-button color="primary" style="margin: auto 15px;" (click)="print(page)">
+    print
+  </button>
+</div>
+
+
+<div class="print-container">
+  <div class="report-page" #page>
+    <div class="form41-header">
+      <div>
+        <h4>
+          <strong>
+            مـجـمــــوعة مـدارس الـجـامعـــــة
+          </strong>
+        </h4>
+        <h6>
+          {{schoolName}}
+        </h6>
+      </div>
+
+      <div class="logo">
+        <img [src]="" class="img" width="60%" />
+      </div>
+
+      <div class="text-end">
+        <h4>
+          <strong>
+            ALJAMI'A SCHOOLES GROUP
+          </strong>
+        </h4>
+        <h6>
+          {{schoolLName}}
+        </h6>
+      </div>
+    </div>
+    <div class="form41-gpa-info">
+      <div>
+        <label class="header-label">
+          الصف:
+        </label>
+        <div>
+          {{ selectedStudData.className }}
+        </div>
+      </div>
+      <div>
+        <label class="header-label">
+          الشعبة:
+        </label>
+        <div class="info-span">
+          {{ selectedStudData.classSeqName }}
+        </div>
+      </div>
+      <div>
+        <label class="header-label">
+          التاريخ:
+        </label>
+        <div class="info-span">
+          {{ selectedStudData.approvedDate | date: ' dd / MM / yyyy' }} .م
+        </div>
+      </div>
+    </div>
+
+
+    <div>
+      <div>
+        <table class="fullTable">
+
+
+          <tr>
+            <td style="width: 100%;border:none;">
+              <div class="form41-gpa-info">
+                <div>
+                  <label class="header-label">
+                    السنة الدراسية:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.yearName}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    رقم الطالب:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.studId}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    تاريخ الميلاد:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.birthDate | date: ' dd / MM / yyyy' }} .م
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    الجنسية:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.nationalityName  }}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 100%;border:none;">
+              <div class="form41-gpa-info">
+                <div>
+                  <label class="header-label">
+                    إســـم الطالب:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.studName}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    الـديانــــــة:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.religionName}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    الرقم الوطني:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.idNum}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    حالة الطالب:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.studStatusName}}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 100%;border:none;">
+              <div class="form41-gpa-info">
+                <div>
+                  <label class="header-label">
+                    الهاتف الارضي :
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.tel}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    موبايل الاب:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.fatherMobile}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    موبايل الام:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.motherMobile}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    الموبايل المعتمد:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.smsParentName}}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 100%;border:none;">
+              <div class="form41-gpa-info">
+                <div>
+                  <label class="header-label">
+                    رقـــم الباص :
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.busNo}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    نوع الجولة:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.tourTypeIdName}}
+                  </div>
+                </div>
+                <div>
+                  <label class="header-label">
+                    ملاحظات الباص:
+                  </label>
+                  <div class="info-span">
+                    {{ selectedStudData.busNote}}
+                  </div>
+                </div>
+                
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    <div class="form41-gpa-info">
+      <div>
+        <label class="header-label">
+          معلومات القسط المدرسي
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <table class="fullTable">
+
+
+        <tr>
+          <td style="width: 100%;border:none;">
+
+            <div class="form41-gpa-info">
+              <div>
+                <label class="header-label">
+                  قسط الباص:
+                </label>
+                <div class="info-span">
+                  {{ selectedStudData.tourPrice}}
+                </div>
+              </div>
+              <div>
+                <label class="header-label">
+                  قسط المدرسة :
+                </label>
+                <div class="info-span">
+                  {{ selectedStudData.classPrice}}
+                </div>
+              </div>
+              <div>
+                <label class="header-label">
+                  رصيد سابق:
+                </label>
+                <div class="info-span">
+                  0
+                </div>
+              </div>
+
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="form41-gpa-info">
+      <div>
+        <label class="header-label">
+          معلومات الخصميات إذا وجدت
+        </label>
+      </div>
+    </div>
+    <div>
+      <table class="fullTable">
+
+        <tr>
+          <td style="width: 100%;border:none;">
+
+            <div class="form41-gpa-info">
+              <div>
+                <label class="header-label">
+                  قيمة الخصم:
+                </label>
+                <div class="info-span">
+                  {{ selectedStudData.descountValue  }}
+                </div>
+              </div>
+              <div>
+                <label class="header-label">
+                  نسبة الخصم :
+                </label>
+                <div class="info-span">
+                  %{{ selectedStudData.studentBrotherValue}}
+                </div>
+              </div>
+              <div>
+                <label class="header-label">
+                  نوع الخصم:
+                </label>
+                <div class="info-span">
+                  {{ selectedStudData.studentBrotherDescountType}}
+                </div>
+              </div>
+
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div style="padding-top: 20px">
+      <table class="summaryTable"> 
+        <tr>
+          <td colspan="2" style="border:none; text-align: right">
+            <div style="padding-right: 10px">
+              مجموع الاقساط (الدراسي + الباص + رصيد مدور + رسوم إضافية إن وجدت ) بعد الخصم:
+            
+           <strong>
+            {{ selectedStudData.totalValue }}
+          </strong>
+          </div>
+        </tr>
+      </table>
+    </div>
+
+
+
+
+
+
+  </div>
+</div>

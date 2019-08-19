@@ -18,7 +18,7 @@
        
           <mat-form-field appearance="outline"  >
               <mat-label>المدرسة</mat-label> 
-              <mat-select matInput formControlName="schoolId" placeholder="المدرسة" 
+              <mat-select placeholder="المدرسة" 
               (selectionChange)="onSchoolChange($event.value)">
                 <mat-option *ngFor="let op of schoolList" [value]="op.id">
                   {{op.id}} | {{op.aname}}
@@ -73,17 +73,20 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
          
-          <a mat-icon-button matTooltip="تعديل" [routerLink]="['/sections/edit/' + element.id  ]">
+          <a mat-icon-button matTooltip="تعديل" [routerLink]="['/tours/edit/' + element.id  ]">
             <mat-icon aria-hidden="true" aria-label="Files">
               edit
             </mat-icon>
           </a> 
 
-          <button  mat-icon-button color="info" matTooltip="تفاصيل" [routerLink]="['/sections/view/' + element.id  ]">
-              <mat-icon aria-hidden="false" aria-label="info">
-                info
-              </mat-icon>
-            </button>
+          
+          <button mat-icon-button color="warn" matTooltip="Delete" (click)="openDeleteDialog(element)">
+            <mat-icon aria-hidden="true" aria-label="Delete">
+              delete
+            </mat-icon>
+          </button>
+
+         
         </mat-cell>
       </ng-container>
  

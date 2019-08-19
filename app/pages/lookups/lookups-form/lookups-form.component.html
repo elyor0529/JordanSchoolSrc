@@ -8,33 +8,42 @@
       <mat-card>
         <mat-card-header fxLayoutAlign="center">
           <mat-card-subtitle>
-            <h2>Add Lookup</h2>
+            <h2>إضافة الثوابت</h2>
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content fxLayout="column" fxLayoutAlign="center">  
+           
+         
+          
+              
+
           <mat-form-field>
-            <input matInput formControlName="id" name="id" type="text" placeholder="#">
-            
-          </mat-form-field>   
-          <mat-form-field>
-            <input matInput formControlName="aname" name="aname" type="text" placeholder="Arabic Name">
-            
+              <mat-label> الاسم بالعربية * </mat-label>
+            <input matInput formControlName="aname" name="aname" type="text" placeholder="الاسم بالعربية ">
+            <mat-error *ngIf="validator.hasErrors(name)"> 
+                حقل إجباري
+              </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput formControlName="lname" name="lname" type="text" placeholder="Eng Address">
+              <mat-label> الاسم بالانجليزية </mat-label>
+            <input matInput formControlName="lname" name="lname" type="text" placeholder="الاسم بالانجليزية ">
           </mat-form-field>
           <mat-form-field>
-            <input matInput formControlName="value" name="value" type="text" placeholder="Value">
+              <mat-label> القيمة </mat-label>
+            <input matInput formControlName="value" name="value" type="text" placeholder="القيمة">
           </mat-form-field>
           <mat-form-field>
-             
-                  <mat-select  formControlName="typeId" name="typeId" placeholder=" " >
+              <mat-label>   النوع </mat-label>
+                  <mat-select  formControlName="typeId" name="typeId" placeholder=" النوع" 
+                  [(ngModel)]="typeId" >
                  
                       <mat-option *ngFor="let op of typeList" [value]="op.id">
                        {{op.id}} | {{ op.name }} 
                       </mat-option>
                   </mat-select>
-             
+                  <mat-error *ngIf="validator.hasErrors(name)"> 
+                      حقل إجباري
+                    </mat-error>
            <!-- <input matInput formControlName="typeId" name="typeId" type="text" placeholder="TypedId">
            -->
           </mat-form-field>
@@ -42,11 +51,11 @@
         </mat-card-content>
         <mat-card-actions>
           <a [routerLink]="returnUrl" mat-button>
-            Return
+            رجوع
           </a>
           <button mat-raised-button color="primary" type="submit" >
             
-              Save
+              تخزين
            
             <!-- <loader *ngIf="loading"></loader> -->
           </button>

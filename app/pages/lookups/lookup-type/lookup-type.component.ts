@@ -14,8 +14,8 @@ public dataSource:LkpLookupType[];
 public List: LkpLookupType[];
 
 public cols=[
-  {header:"ID", field:"id"},
-  {header:"Name", field:"name"}
+  {header:"#", field:"id"},
+  {header:"الاسم", field:"name"}
 ];
 
 public displayedColumns: string[] = this.cols.map(col => col.field);

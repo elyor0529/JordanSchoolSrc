@@ -1,6 +1,6 @@
 import { LoginComponent } from './pages/login/login.component';
 
-import {  HttpClient, HttpClientModule } from '@angular/common/http';
+import {  HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,8 +46,8 @@ import { ScannerAppDialogComponent } from './pages/scanner/scanner-app-dialog/sc
 import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
-
-
+import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
+import { TextMaskModule } from 'angular2-text-mask';
  
 @NgModule({
   imports: [
@@ -70,7 +70,9 @@ import { LoginService } from './pages/login/login.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxMatSelectSearchModule,
+    TextMaskModule
     
     
    ],
@@ -94,8 +96,7 @@ import { LoginService } from './pages/login/login.service';
     FormExampleComponent,
     ScannerComponent,
     ScannerSelectDeviceDialogComponent,
-    ScannerAppDialogComponent,
-   
+    ScannerAppDialogComponent   
   ],
   
   entryComponents:[
@@ -107,7 +108,12 @@ import { LoginService } from './pages/login/login.service';
     LoginService,
     AppSettings,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    { provide: OverlayContainer, useClass: CustomOverlayContainer }
+    { provide: OverlayContainer, useClass: CustomOverlayContainer },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true
+  }
   ],
   bootstrap: [
     AppComponent

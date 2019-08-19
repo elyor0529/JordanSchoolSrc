@@ -5,15 +5,20 @@ import { CommonModule } from '@angular/common';
 import { TourIndexComponent } from './tour-index/tour-index.component';
 import { tourRoutes } from './tour.routing';
 import { TourService } from './tour.service';
+import { TourFormComponent } from './tour-form/tour-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    TourIndexComponent
+    TourIndexComponent,
+    TourFormComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(tourRoutes)
+    RouterModule.forChild(tourRoutes),
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers:[TourService]

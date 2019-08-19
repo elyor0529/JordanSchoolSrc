@@ -8,6 +8,7 @@ export class users{
     locale: string;
     schoolId: number;
     schoolName: string;
+    schoolLName: string;
     yearId: number;
     yearName: string;
 }

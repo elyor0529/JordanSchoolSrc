@@ -29,7 +29,7 @@
 <mat-card>
   <mat-card-content>
     <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
-      <mat-label>إختر ولي الامر</mat-label>
+      <mat-label>إختر ولي الامر</mat-label> 
       <mat-select placeholder=" ولي الامر" [(value)]="selected" (selectionChange)="onParentChanged($event.value)">
         <mat-option>
           <ngx-mat-select-search placeholder=" ولي الامر">
@@ -54,7 +54,7 @@
 
     <div fxLayout fxLayoutAlign="center center">
       <mat-form-field fxFlex="40%">
-        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="بحث">
+       
       </mat-form-field>
     </div>
 

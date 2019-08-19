@@ -1,7 +1,7 @@
 import { Menu } from './menu.model';
 
 export const verticalMenuItems = [ 
-    new Menu (991, 'Dashboard', '/', null, 'dashboard', null, false, 0),
+    new Menu (1, 'Dashboard', '/', null, 'dashboard', null, false, 0),
   /*  new Menu (992, 'Users', '/users', null, 'supervisor_account', null, false, 0), 
     new Menu (993, 'UI Features', null, null, 'computer', null, true, 0),   
     new Menu (994, 'Buttons', '/ui/buttons', null, 'keyboard', null, false, 3),  
@@ -80,7 +80,7 @@ export const verticalMenuItems = [
     new Menu (402, '  تثبيت الطلاب ', '/regStuds/index', null, 'playlist_add_check',  null, false, 400),
     //Admissions
     new Menu (500, '    القبول ', '', null, 'folder_shared',  null, true, 0),
-    new Menu (501, '   قبول الطلبة ', '/admissions/index', null, 'contact_mail',  null, false, 500),
+    new Menu (501, '  تسجيل الطلبة الجدد ', '/admissions/index', null, 'contact_mail',  null, false, 500),
 
     //Financial
     new Menu (430, '  المالية', '', null, 'money',  null, true, 0),
@@ -89,6 +89,10 @@ export const verticalMenuItems = [
     new Menu (433, '   مالية الصفوف    ', '/financial/classFee/index', null, 'featured_play_list',  null, false, 430),
     new Menu (434, '   مالية الطالب    ', '/financial/studentFee/index', null, 'recent_actors',  null, false, 430),
     new Menu (435, '    الدفعات      ', '/financial/payment/index', null, 'library_books',  null, false, 430),
+
+    //Reports
+    new Menu (600, 'التقارير ', null, null, 'library_books',  null, true, 0),
+    new Menu (601, 'التقارير', '/reports/index', null, 'library_books',  null, false, 600),
 
 ]
 

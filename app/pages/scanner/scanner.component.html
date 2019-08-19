@@ -1,9 +1,6 @@
   <!-- <ng-container>{{checkCalls()}}</ng-container> -->
+<!---->
 
-<button mat-button (click)="startScan()" *ngIf="!isBase">
-  New scan
-  <img src="/assets/img/app/scanner.png" alt="" style="height: 19px;margin-left: 10px;">
-</button>
  <div *ngFor="let src of imageToView">
   <img [src]="src"    [@slideAnimation] alt="">
  </div>
@@ -16,19 +13,6 @@
     <img *ngFor="let img of imagesScanned" [src]="getImageSrc(img)" alt="" (click)="this.selectedImg = img">
   </div>
 
-  <button mat-button (click)="shareFiles()" *ngIf="calls.length >0">
-    Share Files
-    <img src="assets/images/send.svg" alt="" style="height: 19px;margin-left: 10px;">
-  </button>
-</ng-container>
-
-<ng-container *ngIf="imagesShared?.length > 0">
-  <h1 *ngIf="!isBase">
-    Shared files
-  </h1>
-  <div class="scanned-list">
-    <img *ngFor="let img of imagesShared" [src]="getImageSrc(img)" alt="" (click)="this.selectedImg = img">
-  </div>
 </ng-container>
 
 

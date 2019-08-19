@@ -2,7 +2,8 @@ import { lkpTour } from './../../../../Models/addLookups/tours/lkpTour';
 import { SchoolService } from './../../schools/school.service';
 import { TourService } from './../tour.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-tour-index',
@@ -24,7 +25,8 @@ cols=[
 ]
 
 
-  constructor(private service:TourService, private schoolService:SchoolService) {
+  constructor(private service:TourService, private schoolService:SchoolService,
+    private dialog: MatDialog) {
 this.dataSource=new MatTableDataSource<lkpTour>();
 
    }
@@ -51,5 +53,37 @@ this.dataSource=new MatTableDataSource<lkpTour>();
   onSchoolChange(value){
     this.dataSource=this.dataSource2.filter(f=>f.schoolId==value);
   }
+
+  
+deleteTour(tour: lkpTour) {
+  this.loading = true;
+  this.service.deleteTour(tour.id).subscribe(
+    res => this.handleSuccess(),
+    err => {this.handleErrors(),this.loading = false},
+    () => this.loading = false
+  );
+}
+  
+  
+openDeleteDialog(model: lkpTour) {
+  const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    data: {
+      name: `${model.id}`
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      this.deleteTour(model);
+    }
+  });
+}
+  
+private handleSuccess() {
+  this.getTourList();
+}
+
+private handleErrors() {
+}
+  
 
 }

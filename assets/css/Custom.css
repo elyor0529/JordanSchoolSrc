@@ -1,0 +1,134 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+.smart-form footer .btn,
+input,
+body {
+    font-family: 'Droid Arabic Kufi', sans-serif !important;
+}
+
+/* .jarviswidget > header {
+    color: #ffffff !important;
+    background: #474544 !important;
+} */
+
+.select2-results li {
+    padding: 10px 1px;
+}
+
+/* .select2-results{
+    height:100%;
+} */
+
+.jarviswidget .widget-body {
+    min-height: 50px !important;
+}
+
+.jarviswidget {
+    margin: 0px;
+}
+
+.smart-style-1 .btn-header>:first-child>a {
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    color: #fff !important;
+    cursor: pointer !important;
+}
+
+.smart-style-1 #header {
+    background: #01579B linear-gradient(320deg, #1E88E5, #01579B);
+}
+
+.smart-style-1 #logo-group {
+    background: rgba(0, 0, 0, 0.18) !important;
+}
+
+.smart-style-1 .jarviswidget-color-blueDark>header {
+    background: #01579B linear-gradient(320deg, #1E88E5, #01579B);
+    border-color: #01579B !important;
+}
+
+.smart-rtl nav ul li a.active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.smart-form {
+    color: #000;
+}
+
+#logo img {
+    width: auto;
+    max-width: 110px;
+    height: auto;
+    padding-left: 3px;
+    max-height: 100%;
+}
+
+.smart-rtl #logo {
+    margin-left: 0;
+    color: #fff;
+    margin-top: 5px;
+    margin-right: 9px;
+}
+
+.smart-style-1 #logo-group span#activity {
+    background: #01579B linear-gradient(320deg, #1E88E5, #01579B);
+    border: 1px solid #01579B;
+    color: #fff;
+}
+
+.smart-rtl .jarviswidget-ctrls .button-icon {
+    border-left: none;
+    background: rgba(0, 0, 0, 0.18);
+    border-right: 1px solid rgba(0, 0, 0, .09);
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* for grid td with multi data */
+
+.header {
+    background: #ddd;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.botClose {
+    left: 10px;
+    right: auto;
+}
+
+.text-error {
+    color: #b70d0d;
+}
+
+body:not(.menu-on-top).desktop-detected {
+    min-height: 690px !important;
+}
+
+app-root,
+app-main-layout,
+app-auth-layout,
+app-locked,
+#extr-page {
+    min-height: calc(100vh - 50px);
+}

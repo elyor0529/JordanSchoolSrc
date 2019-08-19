@@ -16,6 +16,7 @@ import { map, groupBy, mergeMap, toArray } from 'rxjs/operators';
 })
 export class LookupsApiService {
 
+  public sTypeId: any;
 
   private apiUrl = environment.apiBaseUrl + 'LkpLookup';
   //apiUrl='http://localhost:52579/api/LkpLookup';
@@ -36,7 +37,7 @@ export class LookupsApiService {
 
   
   getLookupsByType(id): Observable<any> {
-    return this.http.get<any>(this.apiUrl+'/GetListByType/'+id,  environment.httpOptions);
+    return this.http.get<any>(this.apiUrl+'/GetByParentId/'+id,  environment.httpOptions);
   } 
 
   

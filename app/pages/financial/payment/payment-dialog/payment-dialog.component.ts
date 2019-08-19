@@ -29,6 +29,7 @@ export class PaymentDialogComponent implements OnInit {
   loading = false;
   edit = false;
   id: number;
+  selected: any;
   @Output() event = new EventEmitter<Payment>(true);
 
 

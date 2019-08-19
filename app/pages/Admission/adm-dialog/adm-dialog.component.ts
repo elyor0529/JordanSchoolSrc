@@ -31,6 +31,7 @@ import {
 import { SectionService } from "../../addLookups/sections/section.service";
 import { formatDate } from "@angular/common";
 
+ 
 @Component({
   selector: "app-adm-dialog",
   templateUrl: "./adm-dialog.component.html",
@@ -49,6 +50,7 @@ export class AdmDialogComponent implements OnInit {
   tourTypeValue: any;
   tourPrice: any = 0;
   classValue: any;
+  sectionValue: any;
   classPrice: any = 0;
   totalPrice: any = 0;
   studAge: any = 0;
@@ -151,10 +153,10 @@ export class AdmDialogComponent implements OnInit {
       studNo: [null],
       schoolId: [13, [Validators.required]],
       sectionId: [null, [Validators.required]],
-      nationalityId: [null, [Validators.required]],
+     // nationalityId: [null, [Validators.required]],
       fatherName: [this.fatherName],
       entryDate: [null],
-      religionId: [null, [Validators.required]],
+     // religionId: [null, [Validators.required]],
       birthDate: [null],
       genderId: [null, [Validators.required]],
       yearId: [this.service.sCurrentYearId],
@@ -162,7 +164,7 @@ export class AdmDialogComponent implements OnInit {
       classSeqId: [null],
       tourId: [null],
       tourTypeId: [null],
-      busId: [null],
+      //busId: [null],
       tourPrice: [0],
       studentBrotherSeq: [null],
       brotherDescountType: [null],
@@ -309,9 +311,7 @@ export class AdmDialogComponent implements OnInit {
     let n = -1;
 
     let tourIndex = this.tourList.findIndex(i => i.id === this.tourValue);
-    let tourTypeIndex = this.tourTypeList.findIndex(
-      i => i.id === this.tourTypeValue
-    );
+    let tourTypeIndex = this.tourTypeList.findIndex(i => i.id === this.tourTypeValue);
     let tourFullPrice = this.tourList[tourIndex].tourFullPrice;
     let tourHalfPrice = this.tourList[tourIndex].tourHalfPrice;
     if (tourTypeIndex >= 0 && tourIndex >= 0) {
@@ -319,6 +319,14 @@ export class AdmDialogComponent implements OnInit {
       else this.tourPrice = tourHalfPrice;
     }
     this.totalPrice = this.tourPrice + this.classPrice;
+    
+  }
+
+  resetTourType() {
+   let value;
+   let defVal =this.tourTypeList.findIndex(i => i.defaultValue === 2);   
+   try { value = this.tourTypeList[defVal].id; }catch(error){}
+   this.formGroup.get("tourTypeId").setValue(value); 
   }
 
   /// Class Calculations
@@ -326,6 +334,7 @@ export class AdmDialogComponent implements OnInit {
     try {
       let Index = this.classList.findIndex(i => i.id === this.classValue);
       let amtPrice = this.classList[Index].amt;
+      this.sectionValue = this.classList[Index].sectionId;
       this.classPrice = amtPrice;
       this.totalPrice = this.tourPrice + this.classPrice;
     } catch (error) {
@@ -425,4 +434,11 @@ export class AdmDialogComponent implements OnInit {
       "index=" + index + "  classAge=" + classAge + "  age=" + this.studAge
     );
   }
+
+  public mask = {
+    guide: true,
+    showMask : true,
+    mask: [/\d/, /\d/, '/', /\d/, /\d/, '/',/\d/, /\d/,/\d/, /\d/]
+  };
+
 }
