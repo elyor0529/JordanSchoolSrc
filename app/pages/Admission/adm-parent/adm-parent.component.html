@@ -13,21 +13,21 @@
                 <mat-label>الاسم الاول</mat-label>
                 <input matInput formControlName="firstName" type="text" placeholder="الاسم الاول ">
                 <mat-error *ngIf="validator.hasErrors(name)">
-                  Required
+                  هذا الحقل إجباري
                 </mat-error>
               </mat-form-field>
               <mat-form-field fxFlex appearance="outline" class="input-full-width">
                 <mat-label>الاسم الثاني</mat-label>
                 <input matInput formControlName="secondName" type="text" placeholder="الاسم الثاني ">
                 <mat-error *ngIf="validator.hasErrors(name)">
-                  Required
+                  هذا الحقل إجباري
                 </mat-error>
               </mat-form-field>
               <mat-form-field fxFlex appearance="outline" class="input-full-width">
                 <mat-label>إسم العائلة </mat-label>
                 <input matInput formControlName="familyName" type="text" placeholder="إسم العائلة  ">
                 <mat-error *ngIf="validator.hasErrors(name)">
-                  Required
+                  هذا الحقل إجباري
                 </mat-error>
               </mat-form-field>
 
@@ -42,6 +42,9 @@
                     {{op.id}} | {{op.aname}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  هذا الحقل إجباري
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex appearance="outline">
@@ -138,10 +141,6 @@
                     {{op.id}} | {{op.aname}}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label> رقم الخلوي المعتمد للرسائل </mat-label>
-                <input matInput formControlName="smsMobile" type="text" placeholder="  خلوي الرسائل">
               </mat-form-field>
             </div>
           </mat-card-content>

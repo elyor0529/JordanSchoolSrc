@@ -18,6 +18,7 @@ export class LoginComponent {
   public settings: Settings;
   validLogin: boolean = false;
   msgLogin: any;
+  loading = false;
 
   constructor(
     public appSettings: AppSettings,
@@ -41,12 +42,13 @@ export class LoginComponent {
 
   public onSubmit(values: Object): void {
     if (this.form.valid) {
+      this.loading = true;
       this.msgLogin = "";
       let userName: string = this.form.get("email").value;
       let password: string = this.form.get("password").value;
 
       // this.checkLogin(userName, password);
-      console.log("userName=" + userName + "   password=" + password);
+     // console.log("userName=" + userName + "   password=" + password);
       // let dd:boolean=this.checkLogin(userName, password);
       // console.log("valid=" + this.validLogin+"   dd="+dd);
       //this.service.getLogin(userName, password);
@@ -59,18 +61,21 @@ export class LoginComponent {
           // this.service.sSchoolId = data.schoolId;
           // this.service.sSchoolName = data.schoolName;
           // console.log(this.service.sSchoolName);
-          this.router.navigate(["../admissions/index"]);
+          this.router.navigate(["../dashboard"]);
         } else {
-        this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
+          this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
+          this.loading = false;
           return;
         }
-      });
+      },
+        err => this.loading = false,
+      ()=>this.loading = false);
 
       this.service.login(userName, password);
       //let data = JSON.parse(localStorage.getItem("token")) as users;
       //console.log("----");
       //console.log(data);
-      console.log("compo1:" + this.service.sSchoolName);
+     // console.log("compo1:" + this.service.sSchoolName);
       // if (this.service.sUserId  != null) {
       //   // this.service.sUserId = data.id;
       //   // this.service.sSchoolId = data.schoolId;

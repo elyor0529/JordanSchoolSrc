@@ -23,7 +23,7 @@ export class PaymentIndexComponent implements OnInit {
   parentList: any;
   yearsList: any;
   parentId: any;
-
+  selected: any;
   cols = [
     { field: "id", header: "#" },
     //  { field: "regParentId", header: "    رقم الاب    " },

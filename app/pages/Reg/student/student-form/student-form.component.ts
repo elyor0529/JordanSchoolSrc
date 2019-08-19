@@ -56,10 +56,8 @@ export class StudentFormComponent implements OnInit {
     this.initForm();
   }
 
-
   //Add
-  
-  addStudent() {
+    addStudent() {
     this.service.addStudent(this.form.value).subscribe(
       res => {
         this.router.navigateByUrl(this.returnUrl);
@@ -131,10 +129,7 @@ export class StudentFormComponent implements OnInit {
        
         this.service.getStudent(this.id).subscribe(res => {
           this.form = this.validator.patchForm(this.form, res);
-       // this.validator.patchForm
-       /* this.form.patchValue({id:res.id,
-          fisrtName:res.firstName, parentId:res.parentId, studNo:res.studNo});
-*/
+      
           console.log(res);
         }, err => console.log(err),
         () => this.loading = false);

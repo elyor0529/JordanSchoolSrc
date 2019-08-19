@@ -17,7 +17,7 @@
                 </mat-form-field>
                 <mat-form-field class="w-100">
                     <mat-icon matPrefix class="mat-icon-sm mb-2 mr-2 secondary-text-color">lock</mat-icon>
-                    <input matInput placeholder="كلمة المرور" formControlName="password">
+                    <input matInput type="password" placeholder="كلمة المرور" formControlName="password">
                     <mat-error *ngIf="form.controls.password.errors?.required">يجب إدخال كلمة المرور</mat-error>
                     <mat-error *ngIf="form.controls.password.hasError('minlength')">طول كلمة المرور غير كافي (4) أحرف على الاقل</mat-error>
                 </mat-form-field>               

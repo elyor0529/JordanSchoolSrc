@@ -23,7 +23,7 @@ schoolList:any;
     {field:"managerId",header:"المدير"},
     {field:"email",header:"الايميل"},
     {field:"nationalId",header:"الرقم الوطني"},
-   // {field:"schoolId", header:"المدرسة"},
+    {field:"schoolId", header:"المدرسة"},
   ]
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

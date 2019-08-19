@@ -27,17 +27,6 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex color="accent" appearance="outline">
-                                <mat-label>الديانة </mat-label>
-                                <mat-select matInput formControlName="religionId" placeholder="الديانة" required>
-                                    <mat-option *ngFor="let op of religionsList" [value]="op.id">
-                                        {{op.id}} | {{op.aname}}
-                                    </mat-option>
-                                    <mat-error *ngIf="validator.hasErrors(name)">
-                                        *
-                                    </mat-error>
-                                </mat-select>
-                            </mat-form-field>
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>الجنس</mat-label>
                                 <mat-select matInput formControlName="genderId" placeholder="الجنس" required>
@@ -47,49 +36,34 @@
                                 </mat-select>
                                 <mat-error *ngIf="validator.hasErrors(name)">
                                     *
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-
-
-                        <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
-
-
+                                </mat-error> 
+                            </mat-form-field> 
+                            
                             <mat-form-field fxFlex appearance="outline">
-                                <mat-label>الجنسية</mat-label>
-                                <mat-select matInput formControlName="nationalityId" placeholder="الجنسية" required>
-                                    <mat-option *ngFor="let op of nationalList" [value]="op.id">
-                                        {{op.value}} | {{op.aname}}
-                                    </mat-option>
-                                </mat-select>
-
-                                <mat-error *ngIf="validator.hasErrors(name)">
-                                    *
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field fxFlex appearance="outline">
-                                <mat-label> تاريخ الميلاد</mat-label>
-                                <input matInput [matDatepicker]="birthDate" formControlName="birthDate" type="text"
-                                    placeholder=" تاريخ الميلاد" (dateChange)="calcStudAge()" (focus)="birthDate.open()"
-                                    required>
+                                <mat-label>(dd/mm/yyyy) تاريخ الميلاد</mat-label>
+                                <input matInput  [matDatepicker]="birthDate" 
+                                 formControlName="birthDate" type="text"
+                                    placeholder=" تاريخ الميلاد" (dateChange)="calcStudAge()" required>
                                 <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
                                 <mat-datepicker #birthDate></mat-datepicker>
                                 <mat-hint [hidden]="studAge<=0"> عمر الطالب {{studAge}}</mat-hint>
                                 <mat-error *ngIf="validator.hasErrors(name)">
                                     *
                                 </mat-error>
+                               
                             </mat-form-field>
-
-
+                           
                         </div>
+
+
                         <!--Part 2-->
                    
                
                         <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>القسم</mat-label>
-                                <mat-select matInput formControlName="sectionId" placeholder="القسم" required>
+                                <mat-select matInput formControlName="sectionId" placeholder="القسم" required
+                                [(ngModel)]="sectionValue"> 
                                     <mat-option *ngFor="let op of sectionList" [value]="op.id">
                                         {{op.id}} | {{op.sectionName}}
                                     </mat-option>
@@ -130,7 +104,7 @@
                             <mat-form-field fxFlex appearance="outline">
                                 <mat-label>مكان الجولة </mat-label>
                                 <mat-select matInput formControlName="tourId" [(ngModel)]="tourValue"
-                                    (selectionChange)="onTourChange()" placeholder="مكان الجولة ">
+                                    (selectionChange)=" resetTourType(); onTourChange()" placeholder="مكان الجولة ">
                                     <mat-option *ngFor="let op of tourList" [value]="op.id">
                                         {{op.tourName}} | {{op.tourFullPrice}} | {{op.tourHalfPrice}}
                                     </mat-option>
@@ -146,14 +120,7 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <mat-form-field fxFlex appearance="outline">
-                                <mat-label> رقم الباص</mat-label>
-                                <mat-select matInput formControlName="busId" placeholder=" رقم الباص">
-                                    <mat-option *ngFor="let op of busList" [value]="op.id">
-                                        {{op.sidNo}} | {{op.driverName}} | {{op.morningSuper}} | {{op.evningSuper}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                          
 
                         </div>
                         <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">

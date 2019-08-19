@@ -17,6 +17,9 @@ export class LookupsFormComponent implements OnInit {
   returnUrl = '/lookups/index';
   edit = false;
   id: number;
+  typeId: any;
+
+
   public typeList:any[]
 
   constructor(private service:LookupsApiService,
@@ -39,6 +42,8 @@ export class LookupsFormComponent implements OnInit {
   )
 }
   ngOnInit() {
+   
+    this.typeId = this.service.sTypeId;
     this.setupUpdate();
     //this.initForm();
    // this.getTypes();
@@ -103,7 +108,7 @@ export class LookupsFormComponent implements OnInit {
 
   
   public get name(): AbstractControl {
-    return this.lookupForm.get('name');
+    return this.lookupForm.get('aname');
   }
 
 }

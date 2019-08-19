@@ -1,0 +1,24 @@
+﻿/*
+ * Dhyana (Lao) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+  font-family: 'Dhyana';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Dhyana-Regular/Dhyana-Regular.eot");
+  src: url("../fonts/Dhyana-Regular/Dhyana-Regular.eot?#iefix") format('embedded-opentype'),
+       url("../fonts/Dhyana-Regular/Dhyana-Regular.woff2") format('woff2'),
+       url("../fonts/Dhyana-Regular/Dhyana-Regular.woff") format('woff'),
+       url("../fonts/Dhyana-Regular/Dhyana-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Dhyana';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Dhyana-Bold/Dhyana-Bold.eot");
+  src: url("../fonts/Dhyana-Bold/Dhyana-Bold.eot?#iefix") format('embedded-opentype'),
+       url("../fonts/Dhyana-Bold/Dhyana-Bold.woff2") format('woff2'),
+       url("../fonts/Dhyana-Bold/Dhyana-Bold.woff") format('woff'),
+       url("../fonts/Dhyana-Bold/Dhyana-Bold.ttf") format('truetype');
+}
+ 

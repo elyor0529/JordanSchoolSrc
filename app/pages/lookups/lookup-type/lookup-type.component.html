@@ -1,5 +1,7 @@
- 
 
+<app-content-header [icon]="" [title]="" [hideBreadcrumb]="false" [hasBgImage]="false" [class]="'pb-4'">
+  </app-content-header>
+<!--
 <div>
     <mat-form-field class="mx-2">
         <mat-select   (selectionChange)="onLookupTypedChanged($event.value)"  placeholder="Lookups " 
@@ -12,9 +14,8 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    
-  
 </div>
+-->
 <div>
     <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">   
         <ng-container *ngFor="let col of cols" [matColumnDef]="col.field">

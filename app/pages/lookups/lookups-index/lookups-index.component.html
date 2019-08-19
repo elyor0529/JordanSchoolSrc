@@ -18,24 +18,29 @@
 <div fxLayout="column" class="p-2">
   <div class="p-2">
 
+      <mat-card-header fxLayoutAlign="start">
+          <mat-card-subtitle>
+            <h3>لاستعراض ثوابت النظام إختر النوع (الدول، المدن، ...)</h3>
+          </mat-card-subtitle>
+        </mat-card-header>
+
     <div class="spinner-container" *ngIf="loading">
       <mat-spinner></mat-spinner>
     </div>
     <div>
-        <mat-form-field class="mx-2">
+        <mat-form-field fxFlex="30%" appearance="outline">
+            <mat-label> النــوع </mat-label>
             <mat-select   (selectionChange)="onLookupChanged($event.value)"  placeholder="نوع الثابت " >
                <mat-option *ngFor="let op of typeList" [value]="op.id">
                  {{op.id}} | {{ op.name }} 
                 </mat-option>
             </mat-select>
 
-      
+     
 
         </mat-form-field>
               
-      <mat-form-field class="mx-5" dir="RTL" >
-          <input matInput  name="searchLookup" type="text" (keyup)="onChange($event.target.value)" placeholder="بحــث"> 
-        </mat-form-field>
+    
       </div>
       <div>
     <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8" matSort>   

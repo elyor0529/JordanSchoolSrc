@@ -13,12 +13,13 @@ import {
 } from "@angular/material";
 import { analytics } from "../../dashboard/dashboard.data";
 import { FormControl } from "@angular/forms";
-import { ReplaySubject, Subject } from "rxjs";
+import { ReplaySubject, Subject, Observable, pipe, of, from } from "rxjs";
 import { log } from "util";
 import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialog.component";
 import { UsersService } from "../../users/users.service";
 import { LoginService } from "../../login/login.service";
 import { users } from "src/app/Models/Users/users";
+import { startWith, map, filter } from "rxjs/operators";
 
 @Component({
   selector: "app-adm-index",
@@ -27,6 +28,7 @@ import { users } from "src/app/Models/Users/users";
 })
 export class AdmIndexComponent implements OnInit {
   parentList: regParents[];
+  ParentTable: regParents[];
   schoolList: any;
   loading = false;
   parentId: any;
@@ -53,6 +55,7 @@ export class AdmIndexComponent implements OnInit {
   parentTotalPrice: number;
   parentTotalDescount: number;
   parentNetTotalAmt: number;
+  parentFilterValue: any;
 
   cols = [
     { field: "id", header: "#" },
@@ -73,7 +76,10 @@ export class AdmIndexComponent implements OnInit {
     { field: "yearIdx", header: "yearIdx", type: "hidden" },
     { field: "totalPrice", header: "المبلغ المطلوب" }
   ];
-  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<Admission>();
+
+  dataSource: MatTableDataSource<Admission> = new MatTableDataSource<
+    Admission
+  >();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = this.cols
     .map(col => col.field)
@@ -112,8 +118,9 @@ export class AdmIndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.dataSource.filterPredicate = (data: Admission, filter: string) => {
-    // return data.parentId == +filter;  };
+    this.parentFilterValue = null;
+    //  this.dataSource.filterPredicate = (data: Admission, filter: string) => {
+    //    return data.parentId == +filter;  };
     this.getCurrentYear();
     //this.currentYear = this.service.sCurrentYear;
     this.service.currentMessage.subscribe(message => (this.message = message));
@@ -128,9 +135,10 @@ export class AdmIndexComponent implements OnInit {
   getParentList(parentName) {
     return this.parentService.getParentsList().subscribe(res => {
       this.parentList = res;
+      this.ParentTable = res;
       let index = this.parentList.findIndex(i => i.fatherName === parentName);
       if (index != -1) {
-        //  this.selected = this.parentList[index].id;
+          this.selected = this.parentList[index].id;
         this.onParentChanged(this.selected);
       }
     });
@@ -148,6 +156,43 @@ export class AdmIndexComponent implements OnInit {
         )
       );
   }
+
+ 
+
+  filterParents() {
+   
+    //Get the data every time filter work
+    //  this.parentService
+    //    .getParentsList()
+    //      .pipe(map(res => (
+    //     res.filter(ffx => ffx.fatherName.includes(this.parentFilterValue))
+    //   )
+    //   )
+    //   )
+    //   .subscribe(resx => {  this.parentList=resx, console.log(resx) });
+
+    //const num = of("abc", "ali", "Kali","leen","wedad");
+    //const num = from(this.ParentTable);
+
+
+    // Get the data one Time from database and store it in ofParentTable
+    const ofParentTable = of(this.ParentTable); 
+    // num.subscribe(res => console.log(res));
+    ofParentTable
+      .pipe(
+        map(x =>
+          x.filter(
+            y =>
+              y.fatherName.includes(this.parentFilterValue) ||
+              y.id.toString().includes(this.parentFilterValue)
+          )
+        )
+      )
+      .subscribe(resx => {
+        (this.parentList = resx)/*, console.log(resx);*/
+      });
+
+   }
 
   onParentChanged(filterValue: string) {
     this.selected = filterValue;
@@ -309,7 +354,7 @@ export class AdmIndexComponent implements OnInit {
     const dialogRef = this.dialog.open(AdmParentComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res => {
       parentName = res.firstName + " " + res.secondName + " " + res.familyName;
-      //console.log("id=" + res.id + "   parentName=" + parentName);
+      console.log("id=" + res.id + "   parentName=" + parentName);
       this.getParentList(parentName);
       this.calcDescount();
     });
@@ -322,6 +367,8 @@ export class AdmIndexComponent implements OnInit {
   }
 
   sumClassPrice() {
-    return this.dataSource.data.map(t => t.classPrice).reduce((acc, value) => acc + value, 0);
+    return this.dataSource.data
+      .map(t => t.classPrice)
+      .reduce((acc, value) => acc + value, 0);
   }
 }

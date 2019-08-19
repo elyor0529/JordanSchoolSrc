@@ -12,5 +12,8 @@ export class LkpSchool{
       fax:string;
       webPage:string;
       faceBook:string;
-      city: string
+      city: string;
+      arDescription: string;
+      engDescription: string;
+      poBox: string;
 }

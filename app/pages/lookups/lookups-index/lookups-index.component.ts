@@ -1,74 +1,100 @@
-import { LkpLookupType } from './../../../Models/Lookups/lkplookuptype';
-import { LookupTypes } from './../../../Models/Enum/SystemEnum';
-import { LookupTypeApiService } from './../lookup-type-api.service';
-import { LookupsApiService } from './../lookups-api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Search } from 'src/app/Models/search/search';
-import { LookupsFilter } from 'src/app/Models/Lookups/lookupsFilter';
-import { MatTableDataSource, MatPaginator, PageEvent, MatDialog } from '@angular/material';
-import { Lkplookup } from 'src/app/Models/Lookups/lkplookup';
-import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
-import { PaginatedResult } from 'src/app/Models/search/PaginatedResult';
+import { LkpLookupType } from "./../../../Models/Lookups/lkplookuptype";
+import { LookupTypes } from "./../../../Models/Enum/SystemEnum";
+import { LookupTypeApiService } from "./../lookup-type-api.service";
+import { LookupsApiService } from "./../lookups-api.service";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Search } from "src/app/Models/search/search";
+import { LookupsFilter } from "src/app/Models/Lookups/lookupsFilter";
+import {
+  MatTableDataSource,
+  MatPaginator,
+  PageEvent,
+  MatDialog
+} from "@angular/material";
+import { Lkplookup } from "src/app/Models/Lookups/lkplookup";
+import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialog.component";
+import { PaginatedResult } from "src/app/Models/search/PaginatedResult";
 
 @Component({
-  selector: 'app-lookups-index',
-  templateUrl: './lookups-index.component.html',
-  styleUrls: ['./lookups-index.component.scss']
+  selector: "app-lookups-index",
+  templateUrl: "./lookups-index.component.html",
+  styleUrls: ["./lookups-index.component.scss"]
 })
 export class LookupsIndexComponent implements OnInit {
   loading: boolean;
+  typeId: any;
   //dataSource = new MatTableDataSource();
   //brList: MatTableDataSource<Br> = new MatTableDataSource<Br>();
-  dataSource:MatTableDataSource<Lkplookup> = new MatTableDataSource<Lkplookup>();
-  dataSource2:any;
+  dataSource: MatTableDataSource<Lkplookup> = new MatTableDataSource<
+    Lkplookup
+  >();
+  dataSource2: any;
   filter: Search<LookupsFilter> = new Search<LookupsFilter>(10);
 
-  
-cols=[
-  {field:"id", header:"#"},
-  {field:"aname", header:"الاسم بالعربية"},
-  {field:"lname", header:"الاسم بالانجليزية"},
- // {field:"typeId", header:"Type ID"}
-];
-@ViewChild(MatPaginator) paginator: MatPaginator;
-public displayedColumns: string[] = this.cols.map(col => col.field).concat('actions');
+  cols = [
+    { field: "id", header: "#" },
+    { field: "aname", header: "الاسم بالعربية" },
+    { field: "lname", header: "الاسم بالانجليزية" }
+    // {field:"typeId", header:"Type ID"}
+  ];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public displayedColumns: string[] = this.cols
+    .map(col => col.field)
+    .concat("actions");
 
-public typeList:any[]
+  public typeList: any[];
 
-
-  constructor(private service: LookupsApiService,
+  constructor(
+    private service: LookupsApiService,
     private typeService: LookupTypeApiService,
-    private dialog: MatDialog) { 
-    
-    }
+    private dialog: MatDialog
+  ) {}
 
-    onChange(value:string){
-     
-      console.log(value.trim().toLowerCase());
+  onChange(value: string) {
+    console.log(value.trim().toLowerCase());
 
-      this.dataSource.filter = value.trim().toLowerCase();
+    this.dataSource.filter = value.trim().toLowerCase();
     // this.dataSource=this.dataSource2.filter(l=>l.aname ==value);
-//    this.getLookup();
-      console.log(value);
-      console.log(this.dataSource);
-
-    }
+    //    this.getLookup();
+    console.log(value);
+    console.log(this.dataSource);
+  }
   ngOnInit() {
+    // this.typeId = null;
     this.getTypes();
-    this.getLookup();
-    this.dataSource2=this.dataSource;
+
+    if (this.service.sTypeId !=null)
+    this.getLookupsOnInitiat();
+    //  this.getLookup();
+      this.dataSource2 = this.dataSource;
   }
 
- public getTypes(){
+  public getTypes() {
     return this.typeService.LookupTypes().subscribe(
-      get=>{console.log(get),this.typeList=get},
-      err=>console.log('error'),
-      ()=>console.log('Complite')
-    )
+      get => {
+        console.log(get), (this.typeList = get);
+      },
+      err => console.log("error"),
+      () => console.log("Complite")
+    );
   }
-  onLookupChanged(value){
 
-    this.dataSource.filter = value;/*
+  getLookupsOnInitiat() {
+    this.service
+      .getLookupsByType(this.service.sTypeId)
+      .subscribe(res => (this.dataSource = res));
+  }
+  onLookupChanged(value) {
+    this.typeId = value;
+    this.service.sTypeId = value;
+    this.service
+      .getLookupsByType(value)
+      .subscribe(res => (this.dataSource = res));
+
+    // this.dataSource.filter = value;
+    /*
+
+  
   //  this.filter = value;
     this.getLookup();
    //console.log(value);
@@ -88,33 +114,32 @@ public typeList:any[]
 */
   }
 
-  
-  getLookup(){
+  getLookup() {
     this.loading = true;
     this.service.ListLookups().subscribe(
-  //get=>{console.log(get), this.lookup=get},
-  result=>{console.log(result),
-    this.dataSource.data=result //new MatTableDataSource(result);
-    this.dataSource2=result
-    this.dataSource.paginator = this.paginator;
+      //get=>{console.log(get), this.lookup=get},
+      result => {
+        console.log(result), (this.dataSource.data = result); //new MatTableDataSource(result);
+        this.dataSource2 = result;
+        this.dataSource.paginator = this.paginator;
 
-    this.dataSource2.paginator = this.paginator;
-    console.log("Paginator");
-    console.log(this.dataSource);
-   // this.dataSource.sort = this.sort;
-    // this.dataSource = new MatTableDataSource(result.data);
-     this.paginator.length = result.length;
-     //this.dataSource = new MatTableDataSource<Element>(this.tablesService.getData());
-    
-  },
-  error=>console.log('error'),
-  ()=>{console.log('Complite');this.loading = false;}
-  
-    )
+        this.dataSource2.paginator = this.paginator;
+        console.log("Paginator");
+        console.log(this.dataSource);
+        // this.dataSource.sort = this.sort;
+        // this.dataSource = new MatTableDataSource(result.data);
+        this.paginator.length = result.length;
+        //this.dataSource = new MatTableDataSource<Element>(this.tablesService.getData());
+      },
+      error => console.log("error"),
+      () => {
+        console.log("Complite");
+        this.loading = false;
+      }
+    );
   }
 
-
-/*
+  /*
 getLookup() {
     this.loading = true;
     this.service.ListLookupsx(this.filter).subscribe(result => {
@@ -145,30 +170,30 @@ getLookup() {
         name: `${lookup.aname}`
       }
     });
-  
-  dialogRef.afterClosed().subscribe(result => {
-    if (result === true) {
-      this.deleteStore(lookup);
-    }
-  });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.deleteStore(lookup);
+      }
+    });
   }
 
-  
   deleteStore(lookup: Lkplookup) {
     this.loading = true;
     this.service.deleteLookup(lookup.id).subscribe(
       res => this.handleSuccess(),
-      err => {this.handleErrors(),this.loading = false},
-      () => this.loading = false
+      err => {
+        this.handleErrors(), (this.loading = false);
+      },
+      () => (this.loading = false)
     );
   }
 
-
   private handleSuccess() {
-    this.getLookup();
+    // this.getLookup();
+    if (this.typeId != null) this.onLookupChanged(this.typeId);
+    else this.getLookup();
   }
 
-  private handleErrors() {
-  }
-
+  private handleErrors() {}
 }

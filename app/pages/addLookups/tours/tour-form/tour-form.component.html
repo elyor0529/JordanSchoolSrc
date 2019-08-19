@@ -1,0 +1,91 @@
+
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل الجولات المدرسية'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2">
+    <div class="p-2">
+    <mat-panel-title> 
+        أسعار الجولات المدرسية : 
+      </mat-panel-title>
+      <mat-panel-description>
+       من خلال هذه الصفحة يمكنك إدخال أسعار الجولات المدرسية
+      </mat-panel-description>
+    </div>
+  <div class="p-2"> 
+
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+      <mat-card>  
+          <mat-card-header fxLayoutAlign="center">
+              <mat-card-subtitle>
+                <h2></h2>
+              </mat-card-subtitle>
+            </mat-card-header>
+        
+        <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+           
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>إتجاه الجولة</mat-label>
+              
+              <mat-select matInput formControlName="tourNameId" placeholder="إتجاه الجولة">
+                <mat-option *ngFor="let op of tourList" [value]="op.id">
+                  {{op.id}} | {{op.aname}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="validator.hasErrors(name)"> 
+                Required
+              </mat-error>
+          </mat-form-field>
+     
+            <mat-form-field fxFlex appearance="outline" >
+                <mat-label>سعر الجولة كاملة</mat-label>
+              <input matInput formControlName="tourFullPrice"  type="text" placeholder="سعر الجولة كاملة ">
+             
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label> سعر نصف الجولة</mat-label>
+              <input matInput formControlName="tourHalfPrice"  type="text" placeholder=" سعر نصف الجولة ">
+            </mat-form-field>
+
+            
+         
+              <mat-form-field appearance="outline"  >
+                <mat-label>المدرسة</mat-label> 
+                <mat-select matInput formControlName="schoolId" placeholder="المدرسة">
+                  <mat-option *ngFor="let op of schoolList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+                
+            </mat-form-field>
+         
+            
+          </div>
+          
+      
+          
+
+
+        </mat-card-content>
+        <mat-card-actions>
+          <a [routerLink]="returnUrl" mat-button>
+            عودة
+          </a>
+          <button mat-raised-button color="primary" type="submit" >
+            تخزين
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

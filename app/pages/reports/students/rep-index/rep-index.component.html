@@ -1,0 +1,63 @@
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'   التقارير'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+<div fxLayout="column" class="p-2">
+    
+       
+    <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+       
+         
+      
+    </div>
+    </div>
+ <mat-divider></mat-divider>   
+
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+
+    <div class="spinner-container" *ngIf="loading"> 
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">   
+      <ng-container *ngFor="let col of cols, let i = index" [matColumnDef]="col.field">
+        <!-- {{i}} -->
+        <mat-header-cell *matHeaderCellDef>
+          {{ col.header }}
+        </mat-header-cell >
+        
+       
+        <mat-cell *matCellDef="let item">
+          
+           {{ item[col.field] }}
+           
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          التقارير
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button  mat-icon-button color="info" matTooltip="بطاقة الطالب" [routerLink]="['/reports/cardRep/' + element.id  ]">
+              <mat-icon aria-hidden="false" aria-label="info">
+               info
+              </mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+      
+ 
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    </div>
+</div>

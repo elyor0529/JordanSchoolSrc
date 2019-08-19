@@ -59,7 +59,7 @@ export class AdmParentComponent implements OnInit {
       firstName: ["", [Validators.required]], //
       secondName: ["", [Validators.required]], //
       familyName: ["", [Validators.required]], //
-      religionId: [null], //
+      religionId: [null,[Validators.required]], //
       nationalityId: [null], //
       cityId: [null], //
       locality1: [null], //

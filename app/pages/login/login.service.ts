@@ -15,7 +15,10 @@ export class LoginService {
   public sLoginData: any;
 
   private apiUrl = environment.apiBaseUrl + "Users/checkLogin";
-  constructor(private http: HttpClient) {}
+  tokenCookieName = '_t';
+
+  constructor(private http: HttpClient,
+    private cookieManagerService: CookieManagerService) { }
 
   getUser(userName: string, password: string): Observable<users> {
     return this.http.get<users>(
@@ -43,7 +46,8 @@ export class LoginService {
           localStorage.setItem("token", result.token);
           // const decodedJwtData = result.token;
           //  this.loginService. = decodedJwtData;
-          // this.cookieManagerService.setCookie(this.tokenCookieName, result.token, 2);
+          this.cookieManagerService.setCookie(this.tokenCookieName, result.token, 2);
+          console.log(" tokenCookieName="+this.tokenCookieName);
           return true;
         })
       );
@@ -53,6 +57,10 @@ export class LoginService {
     this.getUser(userName, password).subscribe(res => {
       // console.log(res);
       if (res != null) {
+        const result ="";
+        this.cookieManagerService.getCookie("new");
+        console.log(" tokenCookieName=" + this.tokenCookieName);
+        
         localStorage.setItem("token", JSON.stringify(res));
       }
     });

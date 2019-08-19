@@ -41,7 +41,10 @@ export class SchoolFormComponent implements OnInit {
         lname:[''],
         webPage:[''],
         faceBook:[''],
-        cityId:['']
+        cityId: [''],
+        arDescription: [''],
+        engDescription: [''],
+        poBox:['']
       });
     }
 
@@ -49,7 +52,7 @@ export class SchoolFormComponent implements OnInit {
   submit() {
     
     if (!this.schoolForm.valid) {
-      console.log("submit2");
+     // console.log("submit2");
       this.validator.markFormTouched(this.schoolForm);
       return;
     }
