@@ -20,6 +20,7 @@ export class PaymentDialogComponent implements OnInit {
 
   public formGroup: FormGroup;
   parentList: any;
+  error:any;
   public myDate = new Date();
   public dateFormatted: string;
   voucherTypeList: Lkplookup[];
@@ -50,22 +51,23 @@ export class PaymentDialogComponent implements OnInit {
 
 
   initForm() {
-   // console.log(regParentId);
-    
+    // console.log(regParentId);
+
     this.formGroup = this.fb.group(
       {
         id: [0],
-        regParentId: [this.service.selectedParentId, [Validators.required]],
+        regParentId: [this.service.selectedParentId, [Validators.required],],
         voucherId: [1],
         voucherDate: [this.dateFormatted],
         voucherTypeId: [],
         voucherStatusId: [],
         yearId: [this.service.selectedYearId],
-        debit: [10], 
-        credit: [10],  
+        debit: [10],
+        credit: [10],
         note: ['add your note']
       }
     );
+   // this.formGroup.controls['regParentId'].disable()
   }
 
   getParentList() {
@@ -123,10 +125,10 @@ export class PaymentDialogComponent implements OnInit {
           break;
 
         case LookupTypes.VoucherStatus: this.VoucherStatusList = element; default:
-            defVal = element.findIndex(i => i.defaultValue === 1);
-            try { value = element[defVal].id; } catch (error) { };
-            this.formGroup.get("voucherStatusId").setValue(value);
-            break;
+          defVal = element.findIndex(i => i.defaultValue === 1);
+          try { value = element[defVal].id; } catch (error) { };
+          this.formGroup.get("voucherStatusId").setValue(value);
+          break;
       }
     });
   }
@@ -134,7 +136,7 @@ export class PaymentDialogComponent implements OnInit {
 
 
   submitPayment() {
-    
+
     if (!this.formGroup.valid) {
       this.validator.markFormTouched(this.formGroup);
       return;
@@ -144,12 +146,16 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   addPayment() {
+    console.log(this.formGroup.value);
+    
     this.service.addPayment(this.formGroup.value).subscribe(
       res => {
         this.event.emit(this.formGroup.value);
         this.dialogRef.close(this.formGroup.value);
       },
-      err => console.log('errrrrrr' + err)
+      err => {
+        console.log('errrrrrr' + err)
+      }
     );
   }
 

@@ -1,20 +1,19 @@
-
 <mat-card>
-    <mat-card-content>
-  
-<div fxLayoutAlign="center">
-  <table>
-    <tr>
-      <td>
-        <h2> {{currentYear}} </h2>
-      </td>
-      <td> 
-        <h2>{{schoolName}}</h2>
-      </td>
-    </tr>
-  </table>
-</div>
-</mat-card-content>
+  <mat-card-content>
+
+    <div fxLayoutAlign="center">
+      <table>
+        <tr>
+          <td>
+            <h2> {{currentYear}} </h2>
+          </td>
+          <td>
+            <h2>{{schoolName}}</h2>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-card-content>
 </mat-card>
 
 
@@ -23,43 +22,42 @@
 
 
 <mat-card>
-    <mat-card-content>
-  
-        <div fxLayout="column" class="p-1">
-            <div fxLayout.xs="column" fxLayoutGap="20px">
-                <mat-card-header fxLayoutAlign="start">
-                    <mat-card-subtitle>
-                      <h3> إختر ولي الامر
-                      </h3>
-                    </mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
-                      <mat-label>إختر ولي الامر</mat-label>
-                      <mat-select placeholder=" ولي الامر" [(value)]="selected" (selectionChange)="onParentChanged($event.value)">                   
-                        <mat-option *ngFor="let op of parentList" [value]="op.id">
-                          {{ op.fatherName }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>             
-  
-            </div>
-        </div>
-  
-    </mat-card-content>
-  </mat-card>
-  
-  <mat-divider></mat-divider>
-  
+  <mat-card-content>
 
-  
+    <div fxLayout="column" class="p-1">
+      <div fxLayout.xs="column" fxLayoutGap="20px">
+        <mat-card-header fxLayoutAlign="start">
+          <mat-card-subtitle>
+            <h3> إختر ولي الامر
+            </h3>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
+          <mat-label>إختر ولي الامر</mat-label>
+          <mat-select placeholder=" ولي الامر" [(value)]="selected" (selectionChange)="onParentChanged($event.value)">
+            <mat-option *ngFor="let op of parentList" [value]="op.id">
+              {{ op.fatherName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+
+
 <div fxLayout="column" class="p-2">
   <div class="p-2">
-<mat-label><h2>
-  مالية الطالب
- 
-
-</h2>
-</mat-label>
+    <mat-label>
+      <h2>
+        مالية الطالب
+      </h2>
+    </mat-label>
     <div class="spinner-container" *ngIf="loading">
       <mat-spinner></mat-spinner>
     </div>
@@ -70,25 +68,23 @@
           {{ col.header }}
         </mat-header-cell>
         <mat-cell *matCellDef="let item">
-
           {{ item[col.field] }}
-
         </mat-cell>
       </ng-container>
-
+      -----
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
           التفاصيل
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button color="info" matTooltip="تفاصيل البنود المالية" (click)="GetStudFeesDtl(element.studentId,element.studentName)">
+          <button mat-icon-button color="info" matTooltip="تفاصيل البنود المالية"
+            (click)="GetStudFeesDtl(element.studentId,element.studentName)">
             <mat-icon aria-hidden="false" aria-label="info">
               info
             </mat-icon>
           </button>
         </mat-cell>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
@@ -98,43 +94,43 @@
 
 
 <mat-divider></mat-divider>
-  
+
 
 
 <div fxLayout="column" class="p-2">
   <div class="p-2">
+    <mat-card>
+      <mat-card-content>
+        <mat-label>
+          <h2>
+            تفاصيل البنود المالية
 
-    
-<mat-card>
-    <mat-card-content>
-    <mat-label><h2>
-        تفاصيل البنود المالية
-       
-        </h2>
-      </mat-label>
-      <mat-label style="color: red"><h3>
-          إسم الطالب: 
-          {{studName}}
+          </h2>
+        </mat-label>
+        <mat-label style="color: red">
+          <h3>
+            إسم الطالب:
+            {{studName}}
           </h3>
         </mat-label>
 
-    <mat-table #table [dataSource]="dataSourceDtl" class="mat-elevation-z8">
-      <ng-container *ngFor="let col of colsDtl" [matColumnDef]="col.field">
-        <mat-header-cell *matHeaderCellDef>
-          {{ col.header }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let item">
+        <mat-table #table [dataSource]="dataSourceDtl" class="mat-elevation-z8">
+          <ng-container *ngFor="let col of colsDtl" [matColumnDef]="col.field">
+            <mat-header-cell *matHeaderCellDef>
+              {{ col.header }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
 
-          {{ item[col.field] }}
+              {{ item[col.field] }}
 
-        </mat-cell>
-      </ng-container>
+            </mat-cell>
+          </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumnsDtl"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumnsDtl;">
-      </mat-row>
-    </mat-table>
-    </mat-card-content>
-</mat-card>
+          <mat-header-row *matHeaderRowDef="displayedColumnsDtl"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsDtl;">
+          </mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
