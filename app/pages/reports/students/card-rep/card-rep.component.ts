@@ -5,6 +5,8 @@ import { users } from 'src/app/Models/Users/users';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from 'src/app/pages/Reg/student/student.service';
 import { StudCardData } from 'src/app/Models/Reg/Reports/StudCardData';
+import { StudentFeeService } from 'src/app/pages/financial/student-fee/student-fee.service';
+import { StudentFee } from 'src/app/Models/financial/student-fee';
 
 @Component({
   selector: 'app-card-rep',
@@ -20,10 +22,12 @@ export class CardRepComponent implements OnInit {
   yearId: any;
 
   selectedStudData: any = StudCardData;
+  studFeesList: any = StudentFee;
 
   constructor(private reportsService: ReportsService,
     private route: ActivatedRoute,
-    private service: RepService) {
+    private service: RepService,
+    private finService: StudentFeeService) {
      
     
     let data = JSON.parse(localStorage.getItem("token")) as users;
@@ -57,6 +61,9 @@ export class CardRepComponent implements OnInit {
      console.log(res);
       }, err => console.log(err),
       () => this.loading = false);
+
+      //get Fees
+      this.finService.GetStudFeesDtl(this.yearId, this.id).subscribe(res=>this.studFeesList=res )
     });
   }
 

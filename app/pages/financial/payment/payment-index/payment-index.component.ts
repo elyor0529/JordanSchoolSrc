@@ -125,14 +125,14 @@ export class PaymentIndexComponent implements OnInit {
     //     this.paymentsDataSource.data = res
     //   });
 
-    this.studentFeeService.GetStudFeesListByParent(filterValue).subscribe(res => {
-      this.studentFeesDataSource.data = res;
-      // let index = this.parentList.findIndex(p => p.id === this.parentId)
-      // this.parentName = this.parentList[index].fatherName;
-      // let name=res[0].studentName+" "+this.parentName
-      // this.GetStudFeesDtl(res[0].studentId, "")
-      // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
-    });
+    // this.studentFeeService.GetStudFeesListByParent(filterValue).subscribe(res => {
+    //   this.studentFeesDataSource.data = res;
+    //   // let index = this.parentList.findIndex(p => p.id === this.parentId)
+    //   // this.parentName = this.parentList[index].fatherName;
+    //   // let name=res[0].studentName+" "+this.parentName
+    //   // this.GetStudFeesDtl(res[0].studentId, "")
+    //   // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
+    // });
 
   }
 
