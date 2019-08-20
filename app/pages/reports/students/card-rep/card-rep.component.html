@@ -326,8 +326,42 @@
 
 
 
+    <div class="form41-gpa-info">
+        <div>
+          <label class="header-label">
+            تفاصيل المبالغ المستلمة من ولي الامر:
+          </label>
+        </div>
+      </div>
 
 
+
+     <table class="fullTable">
+       <tr>
+         <td>
+          <table class="finTable" align="center"> 
+            <tr>
+            <th>
+             البند المالي 
+            </th>
+            <th>
+              المبلغ
+            </th>
+          </tr>
+            <tr *ngFor="let x of studFeesList">
+              <td>
+                {{x.finItemName}}
+              </td>
+              <td>
+                {{x.db}}
+              </td>
+            </tr>
+          </table>
+         </td>
+       </tr>
+        </table>
+        
+    
 
   </div>
 </div>

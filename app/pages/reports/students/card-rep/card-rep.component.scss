@@ -201,4 +201,14 @@
    }
 }  
 
+.finTable {
+  border: 1px solid black;
+  width: 25%;
+  th, td {
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+ }
   

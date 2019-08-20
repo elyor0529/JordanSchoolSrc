@@ -40,8 +40,8 @@ export enum LookupTypes {
   YearType=39,//  
   VoucherType=40,
   VoucherStatus=41,
-  PaymentMethod=44,
-  Banks=44
+  PaymentMethod=45,
+  Bank=46
 }
 
   export enum MessageType {
