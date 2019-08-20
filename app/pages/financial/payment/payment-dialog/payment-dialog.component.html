@@ -89,6 +89,16 @@
                      <input matInput formControlName="debit" type="text" placeholder="  المبلغ المستلم   ">
                   </mat-form-field> -->
 
+
+                  <mat-form-field fxFlex color="accent" appearance="outline">
+                     <mat-label>   طريقة الدفع </mat-label>
+                     <mat-select matInput formControlName="paymentMethodId" placeholder="   طريقة الدفع" required>
+                        <mat-option *ngFor="let op of PaymentMethodList" [value]="op.id">
+                           {{op.id}} | {{op.aname}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+
                </mat-card>
             </div>
          </div>

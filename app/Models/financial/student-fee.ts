@@ -3,6 +3,7 @@ export class StudentFee {
     studentId: number;
     yearId: number;
     finItemId: number;
+    paymentId:number;
     value: number;
     //
     studentName: string;

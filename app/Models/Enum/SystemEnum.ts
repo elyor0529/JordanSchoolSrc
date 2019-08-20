@@ -39,7 +39,9 @@ export enum LookupTypes {
   VPType = 38, // نوع البند المالي   : نسبة/قيمة
   YearType=39,//  
   VoucherType=40,
-  VoucherStatus=41
+  VoucherStatus=41,
+  PaymentMethod=42,
+  Bank=43
 }
 
   export enum MessageType {

@@ -64,7 +64,8 @@ export class PaymentIndexComponent implements OnInit {
   studentFeesDtlCols = [
     { field: "finItemName", header: "  البند المالي " },
     { field: "db", header: "عليه  " },
-    { field: "cr", header: " له " },
+    { field: "cr", header: " له  " },
+    { field: "paymentId", header: " رقم الدفعة " }
   ];
   @ViewChild(MatPaginator) paginatorDtl: MatPaginator;
   public studentFeesDtlDisplayedColumns: string[] = this.studentFeesDtlCols.map(col => col.field); 
@@ -125,6 +126,7 @@ export class PaymentIndexComponent implements OnInit {
     //     this.paymentsDataSource.data = res
     //   });
 
+
     // this.studentFeeService.GetStudFeesListByParent(filterValue).subscribe(res => {
     //   this.studentFeesDataSource.data = res;
     //   // let index = this.parentList.findIndex(p => p.id === this.parentId)
@@ -133,6 +135,16 @@ export class PaymentIndexComponent implements OnInit {
     //   // this.GetStudFeesDtl(res[0].studentId, "")
     //   // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
     // });
+
+    this.studentFeeService.GetStudFeesListByParent(this.currentYearId,filterValue).subscribe(res => {
+      this.studentFeesDataSource.data = res;
+      // let index = this.parentList.findIndex(p => p.id === this.parentId)
+      // this.parentName = this.parentList[index].fatherName;
+      // let name=res[0].studentName+" "+this.parentName
+      // this.GetStudFeesDtl(res[0].studentId, "")
+      // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
+    });
+
 
   }
 

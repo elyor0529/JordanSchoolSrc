@@ -10,5 +10,9 @@ export class Payment {
     voucherStatusDesc: string;
     debit: number;
     credit: number;
-    note: string
+    note: string;
+    paymentMethodDesc : string;
+    transferNo:string;
+    transferDate: Date;
+    visaCardNo:string;
 }
