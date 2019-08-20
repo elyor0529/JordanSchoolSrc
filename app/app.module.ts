@@ -47,7 +47,7 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
-import { TextMaskModule } from 'angular2-text-mask';
+//import { TextMaskModule } from 'angular2-text-mask';
  
 @NgModule({
   imports: [
@@ -71,8 +71,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule,
-    TextMaskModule
+    NgxMatSelectSearchModule//,
+   // TextMaskModule
     
     
    ],
