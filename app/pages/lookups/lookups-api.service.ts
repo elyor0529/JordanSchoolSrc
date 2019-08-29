@@ -19,7 +19,7 @@ export class LookupsApiService {
   public sTypeId: any;
 
   private apiUrl = environment.apiBaseUrl + 'LkpLookup';
-  //apiUrl='http://localhost:64838/api/LkpLookup';
+  //apiUrl='http://localhost:61262/api/LkpLookup';
   //GetByParentId
   lookupFilter: LookupFilter;
   constructor(private http:HttpClient,  private dialog: MatDialog) {
