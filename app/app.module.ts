@@ -47,6 +47,8 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
+import { GridModule } from '@progress/kendo-angular-grid';
+
 //import { TextMaskModule } from 'angular2-text-mask';
  
 @NgModule({
@@ -71,7 +73,8 @@ import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
     BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule//,
+    NgxMatSelectSearchModule,
+    GridModule//,
    // TextMaskModule
     
     
