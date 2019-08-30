@@ -34,7 +34,7 @@ export class StudentFeeIndexComponent implements OnInit {
 
   cols = [
     { field: "studentId", header: "#" },
-    { field: "studentName", header: "  الطالب    " },
+    //{ field: "studentName", header: "  الطالب    " },
     { field: "db", header: "عليه  " },
     { field: "cr", header: " له " },
     { field: "total", header: "  المجموع   " }
@@ -115,7 +115,7 @@ export class StudentFeeIndexComponent implements OnInit {
       this.dataSource.data = res;
       let index = this.parentList.findIndex(p => p.id === this.parentId)
       this.parentName = this.parentList[index].fatherName;
-      let name=res[0].studentName+" "+this.parentName
+     // let name=res[0].studentName+" "+this.parentName
       this.GetStudFeesDtl(res[0].studentId, "")
       console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
     });

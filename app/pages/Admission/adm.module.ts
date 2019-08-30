@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdmDialogComponent } from './adm-dialog/adm-dialog.component';
 import { LoginService } from '../login/login.service';
 import { AdmParentComponent } from './adm-parent/adm-parent.component';
-import { TextMaskModule } from 'angular2-text-mask';
+//import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -36,8 +36,9 @@ import { TextMaskModule } from 'angular2-text-mask';
     // BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule,
-    TextMaskModule
+    NgxMatSelectSearchModule
+    // ,
+    // TextMaskModule
 
   ],
   providers:[AdmService,LoginService]

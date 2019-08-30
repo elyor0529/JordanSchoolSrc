@@ -16,7 +16,7 @@ export class CallApiService {
   constructor(private http:HttpClient) { }
 
   private apiUrl = environment.apiBaseUrl + 'LkpLookup';
-  //apiUrl='http://localhost:52579/api/LkpLookup';
+  //apiUrl='http://localhost:61262/api/LkpLookup';
 /*
   getAPi(): Observable<lkplookup[]>{
     return this.http.get<lkplookup[]>(this.apiUrl);

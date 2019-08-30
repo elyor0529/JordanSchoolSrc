@@ -44,10 +44,11 @@ export class PaymentService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, environment.httpOptions)
   }
 
+  
+
   updatePayment(id:number, model:Payment):Observable<void>{
     return this.http.put<void>(`${this.apiUrl}/${id}`,model,environment.httpOptions);
   }
-
  
 
 

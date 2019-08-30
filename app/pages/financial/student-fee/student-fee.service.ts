@@ -9,7 +9,8 @@ import { Observable } from "rxjs";
 })
 export class StudentFeeService {
   private apiUrl = environment.apiBaseUrl + "StudentFee";
-
+  public selectedParentId:any;
+  public selectedYearId:any;
   constructor(private http: HttpClient) {}
 
   getStudentFeeList(): Observable<StudentFee[]> {
@@ -52,4 +53,10 @@ export class StudentFeeService {
       environment.httpOptions
     );
   }
+
+
+  getStudentFeeById(id: number): Observable<StudentFee> {
+    return this.http.get<StudentFee>(`${this.apiUrl}/${id}`, environment.httpOptions);
+  }
+
 }

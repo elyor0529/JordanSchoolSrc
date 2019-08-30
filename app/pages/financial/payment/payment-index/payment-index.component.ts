@@ -18,10 +18,6 @@ import { users } from 'src/app/Models/Users/users';
   styleUrls: ['./payment-index.component.scss']
 })
 export class PaymentIndexComponent implements OnInit {
-
-
-
-  paymentsDataSource: MatTableDataSource<Payment>;
   studentFeesDataSource:MatTableDataSource<StudentFee>;
   studentFeesDtlDataSource:MatTableDataSource<StudentFee>;
   loading = false;
@@ -34,22 +30,6 @@ export class PaymentIndexComponent implements OnInit {
   schoolId:any;
    
 
-  paymentcols = [
-    { field: "id", header: "#" },
-    //  { field: "regParentId", header: "    رقم الاب    " },
-    //{ field: "fatherName", header: "ولي الأمر" },
-    // { field: "yearDesc", header: " السنة  " },
-    { field: "voucherId", header: "  رقم الوصل    " },
-    //  { field: "voucherTypeId", header: " نوع الوصل  " },
-    { field: "voucherTypeDesc", header: " نوع الوصل " },
-    //  { field: "voucherStatusId", header: " حالة الوصل  " },
-    { field: "voucherStatusDesc", header: " حالة الوصل " },
-    { field: "debit", header: " عليه  " },
-    // { field: "credit", header: " له  " }//,
-    // { field: "note", header: " ملاحظة  " }
-  ]
-  public paymentDisplayedColumns: string[] = this.paymentcols.map(col => col.field).concat('actions');
-  
   studentFeesCols = [
     { field: "studentId", header: "#" },
     { field: "studentName", header: "  الطالب    " },
@@ -75,14 +55,13 @@ export class PaymentIndexComponent implements OnInit {
   
   constructor(
     public appSettings: AppSettings,
-    private service: PaymentService,
+   // private paymentService: PaymentService,
     private studentFeeService: StudentFeeService,
     private parentService: RegParentService,
     private dialog: MatDialog,
     private yearService: YearService
 
   ) {
-    this.paymentsDataSource = new MatTableDataSource<Payment>();
     this.studentFeesDataSource = new MatTableDataSource<StudentFee>();
     this.studentFeesDtlDataSource = new MatTableDataSource<StudentFee>();
     this.settings = this.appSettings.settings;
@@ -91,83 +70,31 @@ export class PaymentIndexComponent implements OnInit {
     this.schoolName = data.schoolName;
     this.currentYear = data.yearName;
     this.currentYearId = data.yearId;
-    this.service.selectedYearId=this.currentYearId;
+    this.studentFeeService.selectedYearId=this.currentYearId;
   }
 
 
   getYearsList() {
     return this.yearService.getYearsList().subscribe(result => this.yearsList = result);
   }
-
-  getPaymentList() {
-    this.service.getPaymentList().subscribe(result => {
-      this.paymentsDataSource.data = result
-    },
-      err => console.log("error in getPaymentList"),
-      () => console.log("Comlit getPaymentList")
-    )
-  }
-
-
-
- 
-
   getParentList() {
     return this.parentService
       .getParentsList()
       .subscribe(res => (this.parentList = res));
   }
 
-
   onParentChanged(filterValue: number) {
-    //this.dataSource.filter = filterValue + "";
-    this.service.selectedParentId = filterValue;
-    // this.service.getByParentIdYearId().subscribe(
-    //   res => {
-    //     this.paymentsDataSource.data = res
-    //   });
-
-
-    // this.studentFeeService.GetStudFeesListByParent(filterValue).subscribe(res => {
-    //   this.studentFeesDataSource.data = res;
-    //   // let index = this.parentList.findIndex(p => p.id === this.parentId)
-    //   // this.parentName = this.parentList[index].fatherName;
-    //   // let name=res[0].studentName+" "+this.parentName
-    //   // this.GetStudFeesDtl(res[0].studentId, "")
-    //   // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
-    // });
-
+    this.studentFeeService.selectedParentId = filterValue;
     this.studentFeeService.GetStudFeesListByParent(this.currentYearId,filterValue).subscribe(res => {
       this.studentFeesDataSource.data = res;
-      // let index = this.parentList.findIndex(p => p.id === this.parentId)
-      // this.parentName = this.parentList[index].fatherName;
-      // let name=res[0].studentName+" "+this.parentName
-      // this.GetStudFeesDtl(res[0].studentId, "")
-      // console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
     });
-
-
   }
-
 
   GetStudFeesDtl(studId,studName) {
     return this.studentFeeService
       .GetStudFeesDtl(this.currentYearId, studId)
       .subscribe(res => {
         this.studentFeesDtlDataSource.data = res
-        
-      //  let name=studName+" "+this.parentName
-        //  this.studName = name;
-       
-      });
-  }
-
-  onYearChanged(filterValue: number) {
-   // this.dataSource.filter = filterValue + "";
-    this.service.selectedYearId = filterValue;
-    this.service.getByParentIdYearId().subscribe(
-      res => {
-        this.paymentsDataSource.data = res
       });
   }
 
@@ -179,24 +106,23 @@ export class PaymentIndexComponent implements OnInit {
     dialogConfig.data = { id: 0, };
     const dialogRef = this.dialog.open(PaymentDialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(res => {
-      this.getPaymentList();
     }
     );
   }
 
-  updatePayment(paymentId) {
+  updatePayment(studentFeeId) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.direction = "rtl";
-    dialogConfig.data = { id: paymentId };
+    dialogConfig.data = { id: studentFeeId };
     const dialogRef = this.dialog.open(PaymentDialogComponent, dialogConfig);
   }
 
-  openDeleteDialog(model: Payment) {
+  openDeleteDialog(model: StudentFee) {
     const dialogoRef = this.dialog.open(DeleteDialogComponent, {
       data:
       {
-        name: `${model.voucherTypeDesc}`
+        name: `${model.finItemDesc}`
       }
     });
     dialogoRef.afterClosed().subscribe(
@@ -206,9 +132,10 @@ export class PaymentIndexComponent implements OnInit {
       }
     );
   }
-  deletePayment(model: Payment) {
+
+  deletePayment(model: StudentFee) {
     this.loading = true;
-    this.service.deletePayment(model.id).subscribe(
+    this.studentFeeService.deleteStudentFee(model.id).subscribe(
       res => this.handleSuccess(),
       err => {
         this.handleErrors()
@@ -222,14 +149,14 @@ export class PaymentIndexComponent implements OnInit {
 
 
   private handleSuccess() {
-    this.getPaymentList();
+   // this.getPaymentList();
   }
 
   private handleErrors() {
 
   }
   ngOnInit() {
-    this.getPaymentList();
+   // this.getPaymentList();
     this.getParentList();
     this.getYearsList();
   }

@@ -38,7 +38,7 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
 import { FavoritesComponent } from './theme/components/favorites/favorites.component';
 import { MainFormModule } from './forms/display-components/main-form.module';
 import { FormExampleComponent } from './pages/form-example/form-example.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { HttpModule } from '@angular/http';
 import { ScannerComponent } from './pages/scanner/scanner.component';
 import { ScannerSelectDeviceDialogComponent } from './pages/scanner/scanner-select-device-dialog/scanner-select-device-dialog.component';
@@ -47,9 +47,10 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
+
 import { TextMaskModule } from 'angular2-text-mask';
 
- 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -73,7 +74,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatSelectModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule,
-    TextMaskModule
+    GridModule//,
+   // TextMaskModule
     
     
    ],

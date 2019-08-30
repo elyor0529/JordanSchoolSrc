@@ -8,17 +8,24 @@ import { RouterModule } from '@angular/router';
 import { paymentRoutes } from './payment.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentService } from './payment.service';
-import {   MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { MatSelectModule, MatFormFieldModule, DateAdapter, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppSettings } from 'src/app/app.settings';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from 'src/app/app.module';
+import { DateFormat } from './date-format';
 
 @NgModule({
   declarations: [
-    PaymentIndexComponent, 
-    PaymentFormComponent, 
+    PaymentIndexComponent,
+    PaymentFormComponent,
     PaymentDialogComponent
   ],
-  entryComponents:[
+  entryComponents: [
     PaymentDialogComponent
   ],
 
@@ -30,8 +37,23 @@ import { AppSettings } from 'src/app/app.settings';
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    GridModule,
+    DropDownListModule,
+   // BrowserAnimationsModule,
+    MatDatepickerModule, MatNativeDateModule
   ],
-  providers:[PaymentService,AppSettings, DatePipe]
+  providers: [
+    PaymentService, AppSettings, DatePipe,
+    { provide: DateAdapter, useClass: DateFormat }
+
+  ]
 })
-export class PaymentModule { }
+export class PaymentModule {
+
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    dateAdapter.setLocale('en-in'); // DD/MM/YYYY
+  }
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule);

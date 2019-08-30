@@ -13,6 +13,6 @@ export class Payment {
     note: string;
     paymentMethodDesc : string;
     transferNo:string;
-    transferDate: Date;
+  //  transferDate: Date;
     visaCardNo:string;
 }
