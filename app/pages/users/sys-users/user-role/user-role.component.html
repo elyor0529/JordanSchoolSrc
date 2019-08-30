@@ -1,0 +1,67 @@
+
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل مستخدم'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2"> 
+  <div class="p-2"> 
+
+ 
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+       
+       
+<!--Card 1-->     
+<div class="p-2" >   
+<mat-card>        
+<mat-card-content fxLayout="column" fxLayoutAlign="center">
+    <mat-card-header fxLayoutAlign="start">                
+        <mat-card-subtitle ><h2 style="text-decoration:underline">  صلاحيات المستخدم</h2></mat-card-subtitle>
+    </mat-card-header>
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+           
+             
+
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label> الصلاحيات</mat-label>
+                  <mat-select matInput formControlName="roleId" placeholder=" الصلاحيات">
+                    <mat-option *ngFor="let op of roleList" [value]="op.id">
+                      {{op.id}} | {{op.name}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+           
+          </div>
+        </mat-card-content>
+     
+        <!--Card 1 Part2-->   
+       
+        
+      </mat-card>
+    </div>
+        
+     <!--Card 3-->
+     
+    <mat-card>
+        <mat-card-actions>
+          <a [routerLink]="returnUrl" mat-button>
+            عودة
+          </a>
+          <button mat-raised-button color="primary" type="submit" >
+            تخزين
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>
+

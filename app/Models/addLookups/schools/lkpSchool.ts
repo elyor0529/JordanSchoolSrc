@@ -16,4 +16,6 @@ export class LkpSchool{
       arDescription: string;
       engDescription: string;
       poBox: string;
+      imageFile: any;
+      imageId: number;
 }

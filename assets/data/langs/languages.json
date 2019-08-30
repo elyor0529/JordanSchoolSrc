@@ -1,0 +1,14 @@
+[
+    {
+        "key": "en-US",
+        "alt": "United States",
+        "title": "English",
+        "dir": "ltr"
+    },
+    {
+        "key": "ar",
+        "alt": "Arabic",
+        "title": "العربية",
+        "dir": "rtl"
+    }
+]

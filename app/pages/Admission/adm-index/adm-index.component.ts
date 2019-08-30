@@ -52,6 +52,7 @@ export class AdmIndexComponent implements OnInit {
   currentYear: any;
   currentYearId: number;
   schoolName: any;
+  schoolId: any;
   parentTotalPrice: number;
   parentTotalDescount: number;
   parentNetTotalAmt: number;
@@ -72,7 +73,7 @@ export class AdmIndexComponent implements OnInit {
     { field: "tourPrice", header: "مبلغ الباص" },
     { field: "yearId", header: "yearId", type: "hidden" },
     { field: "studentBrotherSeq", header: "ترتيب الابناء" },
-    { field: "descountValue", header: "قيمة الخصم" },
+   // { field: "descountValue", header: "قيمة الخصم" },
     { field: "yearIdx", header: "yearIdx", type: "hidden" },
     { field: "totalPrice", header: "المبلغ المطلوب" }
   ];
@@ -104,6 +105,7 @@ export class AdmIndexComponent implements OnInit {
     this.loginService.sSchoolName = data.schoolName;
 
     this.schoolName = this.loginService.sSchoolName;
+    this.schoolId=data.schoolId;
 
     // console.log("xxsLoginData=" + this.schoolName);
 
@@ -205,7 +207,7 @@ export class AdmIndexComponent implements OnInit {
     //  this.service.currentParentIdParam.subscribe(p => this.parentId = p);
     //this.dataSource.filter = filterValue+"";
     //this.dataSource.
-    this.service.getByParent(filterValue).subscribe(res => {
+    this.service.getByParentAndSchool(filterValue, this.schoolId).subscribe(res => {
       this.dataSource.data = res;
       //   res[0]!=null? this.fatherName=res[0].parentId:this.fatherName="";
       // console.log('** '+this.fatherName);

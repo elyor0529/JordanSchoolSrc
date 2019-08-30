@@ -126,12 +126,15 @@
 
               <mat-form-field fxFlex appearance="outline">
                 <mat-label> رقم خلوي الاب </mat-label>
-                <input matInput formControlName="fatherMobile" type="text" placeholder="    رقم خلوي الاب">
-              </mat-form-field>
+                <input matInput #fatherMobile formControlName="fatherMobile" type="text" maxlength="10" minlength="10" placeholder="    رقم خلوي الاب">
+                <mat-hint align="end">{{fatherMobile.value.length}} / 10</mat-hint>
+                
+              </mat-form-field> 
 
               <mat-form-field fxFlex appearance="outline">
                 <mat-label> رقم خلوي الام </mat-label>
-                <input matInput formControlName="motherMobile" type="text" placeholder="    رقم خلوي الام">
+                <input matInput #motherMobile  formControlName="motherMobile" type="text" maxlength="10" minlength="10" placeholder="     رقم خلوي الام">
+                <mat-hint align="end">{{motherMobile.value.length}} / 10</mat-hint>
               </mat-form-field>
 
               <mat-form-field fxFlex appearance="outline">

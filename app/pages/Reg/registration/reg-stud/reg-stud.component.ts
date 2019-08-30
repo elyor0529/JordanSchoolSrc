@@ -6,9 +6,10 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { StudReg } from 'src/app/Models/Reg/YearlyStudReg/StudReg';
 import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
 import { RegParentService } from '../../parents/reg-parent.service';
-import { Class } from 'src/app/Models/addLookups/classes/class';
+
 import { users } from 'src/app/Models/Users/users';
 import { StudRegVw } from 'src/app/Models/Reg/YearlyStudReg/StudRegVw';
+import { lkpClass } from 'src/app/Models/addLookups/classes/lkpClass';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class RegStudComponent implements OnInit {
   
  
   public displayedColumns = ['id', 'firstName', 'className', 'nextClassName', 'nextClassPrice',
-     'tourPrice', 'descountValue',
+     'tourPrice', //'descountValue',
   'approvedId'].concat("actions");;
   // public displayedColumns: string[] = this.cols
   // .map(col => col.field)
@@ -41,7 +42,7 @@ export class RegStudComponent implements OnInit {
   parentId: any;
   loading = false;
   selected: any;
-  classList: Class[];
+  classList: lkpClass[];
   newClass: any;
   ConfirmStudRegMsg: any;
   ConfirmStudRegId: any;

@@ -9,6 +9,8 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:15783/api/',
   //apiBaseUrl: 'http://myschool:97/api/',
+  jsonAPI: '/assets/data',
+  urlPrefix: '',
   httpOptions: {
     headers: new HttpHeaders({
     })

@@ -1,0 +1,54 @@
+
+
+ 
+  <mat-card> 
+      <mat-dialog-content>
+      <div fxLayout fxLayout.xs="column" >   
+  <h3> الصف: </h3>
+  
+  <input tabindex="-1" matInput  type="text" placeholder="  الصف " [(ngModel)]="this.data.className" [readOnly]="true">
+    
+  <h3>  السنة: </h3>
+  
+  <input tabindex="-1"  matInput type="text" placeholder="  السنة " [(ngModel)]="this.Tokendata.yearName" [readOnly]="true">
+</div>
+</mat-dialog-content>
+
+</mat-card>
+
+<mat-divider></mat-divider>
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+  <mat-dialog-content>
+
+                  <mat-card>
+                      <div fxLayout fxLayout.xs="column" >
+
+                         
+
+                          <mat-form-field fxFlex color="accent" appearance="outline">
+                              <mat-label> رسوم الصف </mat-label>
+                              <input  tabindex="1"  matInput formControlName="classFees" type="text" placeholder=" رسوم الصف "
+                                  required>
+                              <mat-error *ngIf="validator.hasErrors(name)">
+                                  *
+                              </mat-error>
+                          </mat-form-field>
+ 
+                      </div>
+
+                  </mat-card>                        
+  </mat-dialog-content>
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions> 
+
+      <button mat-raised-button tabindex="-1" color="warn" (click)="closeDialog()">
+          عودة 
+      </button>
+      <button [type]="submit" mat-raised-button color="primary" (click)="submit2()">
+          تخزين
+      </button>
+  </mat-dialog-actions>
+
+</form>

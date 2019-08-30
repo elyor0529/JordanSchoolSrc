@@ -2,7 +2,7 @@ import { log } from "util";
 import { AdmFormComponent } from "./../adm-form/adm-form.component";
 import { Admission } from "./../../../Models/Admission/admission";
 import { BusService } from "./../../addLookups/Buses/bus.service";
-import { Class } from "./../../../Models/addLookups/classes/class";
+
 import { AdmService } from "./../adm.service";
 import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
 import {
@@ -30,6 +30,8 @@ import {
 } from "@angular/material";
 import { SectionService } from "../../addLookups/sections/section.service";
 import { formatDate } from "@angular/common";
+import { users } from 'src/app/Models/Users/users';
+import { lkpClass } from 'src/app/Models/addLookups/classes/lkpClass';
 
  
 @Component({
@@ -69,10 +71,11 @@ export class AdmDialogComponent implements OnInit {
   TermsList: Lkplookup[];
   sectionList: LkpSection[];
   classSeqList: Lkplookup[];
-  classList: Class[];
+  classList: lkpClass[];
   tourList: lkpTour[];
   busList: LkpBus[];
   tourTypeList: Lkplookup[];
+  schoolId: any;
 
   constructor(
     private router: Router,
@@ -88,6 +91,12 @@ export class AdmDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<AdmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+
+
+    let schoolData = JSON.parse(localStorage.getItem("token")) as users;
+    
+    this.schoolId = schoolData.schoolId;
+    
     console.log("data");
     console.log(data);
     this.classPrice = 0;
@@ -120,7 +129,7 @@ export class AdmDialogComponent implements OnInit {
 
   getClassList() {
     return this.classService
-      .classList()
+      .GetClassBySchool(this.schoolId)
       .subscribe(res => (this.classList = res));
   }
   getTourList() {
@@ -151,7 +160,7 @@ export class AdmDialogComponent implements OnInit {
       firstName: [null, [Validators.required]],
       parentId: [this.parentId],
       studNo: [null],
-      schoolId: [13, [Validators.required]],
+      schoolId: [this.schoolId, [Validators.required]],
       sectionId: [null, [Validators.required]],
      // nationalityId: [null, [Validators.required]],
       fatherName: [this.fatherName],
@@ -333,7 +342,8 @@ export class AdmDialogComponent implements OnInit {
   onClassChange() {
     try {
       let Index = this.classList.findIndex(i => i.id === this.classValue);
-      let amtPrice = this.classList[Index].amt;
+      let amtPrice = this.classList[Index].classFees != null ?
+        Number(this.classList[Index].classFees) : 0;
       this.sectionValue = this.classList[Index].sectionId;
       this.classPrice = amtPrice;
       this.totalPrice = this.tourPrice + this.classPrice;

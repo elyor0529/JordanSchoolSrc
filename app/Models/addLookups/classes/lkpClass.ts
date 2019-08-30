@@ -1,4 +1,4 @@
-export class Class{
+export class lkpClass{
 
 
     id: number;
@@ -7,8 +7,9 @@ export class Class{
     capacity:number;
     age:number;
     schoolId:number;
-    sectionId;number;
+    sectionId: number;
+    sectionName: string;
     yearId:number;
     amt:number;
-   
+    classFees: string;
 }

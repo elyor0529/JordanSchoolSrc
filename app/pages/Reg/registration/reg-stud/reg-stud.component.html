@@ -193,11 +193,11 @@
           <td mat-footer-cell *matFooterCellDef>{{getTotalTourPrice()}} </td>
         </ng-container>
           
-      <ng-container matColumnDef="descountValue">
+      <!-- <ng-container matColumnDef="descountValue">
           <th mat-header-cell *matHeaderCellDef>    خصم الاخوة </th>
           <td mat-cell *matCellDef="let transaction"> {{transaction.descountValue}} </td>
           <td mat-footer-cell *matFooterCellDef>{{getDescountValue()}} </td>
-        </ng-container>
+        </ng-container> -->
       <ng-container matColumnDef="approvedId">
           <th mat-header-cell *matHeaderCellDef> المقعد محجوز </th>
           <td mat-cell *matCellDef="let transaction"> {{transaction.approvedId>=1?'نعم':'لا'}} </td>

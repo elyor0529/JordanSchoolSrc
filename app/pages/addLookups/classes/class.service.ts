@@ -1,36 +1,55 @@
-import { Class } from './../../../Models/addLookups/classes/class';
-import { Observable } from 'rxjs';
+
+import { Observable, pipe, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { environment } from 'src/environments/environment';
 import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { lkpClass } from 'src/app/Models/addLookups/classes/lkpClass';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassService {
 
+  public sSchoolId = null;
+  
+
   private apiUrl = environment.apiBaseUrl + 'LkpClass';
   constructor(private http:HttpClient) { }
 
-  classList():Observable<Class[]>{
-    return this.http.get<Class[]>(this.apiUrl,environment.httpOptions);
+  classList():Observable<lkpClass[]>{
+    return this.http.get<lkpClass[]>(this.apiUrl, environment.httpOptions);
+   
+  }
+  GetClassBySchool(schoolId): Observable<lkpClass[]>{
+    return this.http.get<lkpClass[]>(`${this.apiUrl + "/GetClassBySchool"}/${schoolId}`,
+      environment.httpOptions)
+      .pipe(
+        map(response => response),
+        catchError((e: any) =>{ console.log("erorrrrrrrrs");
+          //do your processing here
+          return throwError(e);
+         // return Observable.throw;
+        }),
+      );      
+
   }
 
-  /*
-  addSection(model: LkpSection):Observable<LkpSection>{
-    return this.http.post<LkpSection>(this.apiUrl,model,environment.httpOptions);
+  
+  addClass(model: lkpClass):Observable<lkpClass>{
+    return this.http.post<lkpClass>(this.apiUrl,model,environment.httpOptions);
   }
 
-  deleteSection(id:number):Observable<void>{
+  deleteClass(id:number):Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${id}`,environment.httpOptions)
   }
-  updateSection(id:number, model:LkpSection):Observable<void>{
+  updateClass(id:number, model:lkpClass):Observable<void>{
     return this.http.put<void>(`${this.apiUrl}/${id}`,model,environment.httpOptions);
   }
-getSection(id:number):Observable<LkpSection>{
-return this.http.get<LkpSection>(`${this.apiUrl}/${id}`,environment.httpOptions);
+getClass(id:number):Observable<lkpClass>{
+return this.http.get<lkpClass>(`${this.apiUrl}/${id}`,environment.httpOptions);
 }
-*/
+
 }

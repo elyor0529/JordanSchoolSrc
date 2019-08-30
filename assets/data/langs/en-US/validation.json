@@ -1,0 +1,6 @@
+{
+    "required": "Field is required",
+    "minlength": "Field length must be alteast :minlength character",
+    "maxlength": "Field length can't exceed :maxlength character",
+    "email": "Please enter a valid email"
+}

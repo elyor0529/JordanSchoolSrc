@@ -1,6 +1,6 @@
 <div class="sidenav-menu-outer" [perfectScrollbar]="psConfig" [disabled]="settings.fixedSidenavUserContent">    
     <div fxLayout="column" fxLayoutAlign="center center" class="user-block" [class.py-3]="settings.menuType != 'mini'" [class.py-2]="settings.menuType == 'mini'">
-        <img src="assets/img/users/user.jpg" alt="user-image">
+        <img [src]='image' alt="user-image">
         <h2 *ngIf="settings.menuType != 'mini'" class="mt-2">{{schoolName}}</h2>
         <p *ngIf="settings.menuType == 'default'" class="secondary-text-color">{{currentYear}}</p>
     </div>

@@ -48,6 +48,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
 import { TextMaskModule } from 'angular2-text-mask';
+
  
 @NgModule({
   imports: [
@@ -90,13 +91,14 @@ import { TextMaskModule } from 'angular2-text-mask';
     FlagsMenuComponent,
     FullScreenComponent,
     ApplicationsComponent,
-    MessagesComponent,
+    MessagesComponent, 
     UserMenuComponent,
     FavoritesComponent,
     FormExampleComponent,
     ScannerComponent,
     ScannerSelectDeviceDialogComponent,
-    ScannerAppDialogComponent   
+    ScannerAppDialogComponent,
+       
   ],
   
   entryComponents:[

@@ -7,6 +7,7 @@ import { ViewChild } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 
+
 @Component({
   selector: 'app-school-index',
   templateUrl: './school-index.component.html',
@@ -26,6 +27,7 @@ cols=[
   {field:"city", header:"المدينة"},
   
   {field:"arDescription", header:"الوصف"},
+ // {field:"imageFile", header:"LOGO",type:"image"},
   //{field:"mobile",header:"الموبايل"},
  // {field:"fax",header:"فاكس"},
   //{field:"address", header:"العنون"},

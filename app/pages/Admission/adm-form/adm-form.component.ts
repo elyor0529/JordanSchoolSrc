@@ -1,6 +1,5 @@
 import { Admission } from './../../../Models/Admission/admission';
 import { BusService } from './../../addLookups/Buses/bus.service';
-import { Class } from './../../../Models/addLookups/classes/class';
 import { AdmService } from './../adm.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
@@ -15,6 +14,7 @@ import { ClassService } from '../../addLookups/classes/class.service';
 import { TourService } from '../../addLookups/tours/tour.service';
 import { lkpTour } from 'src/app/Models/addLookups/tours/lkpTour';
 import { LkpBus } from 'src/app/Models/addLookups/bus/lkpBus';
+import { lkpClass } from 'src/app/Models/addLookups/classes/lkpClass';
 
 @Component({
   selector: 'app-adm-form',
@@ -50,7 +50,7 @@ export class AdmFormComponent implements OnInit {
   TermsList:Lkplookup[];
   sectionList:LkpSection[];
   classSeqList:Lkplookup[];
-  classList:Class[];
+  classList:lkpClass[];
   tourList: lkpTour[];
   busList: LkpBus[];
   tourTypeList:Lkplookup[];

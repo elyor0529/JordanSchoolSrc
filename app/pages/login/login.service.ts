@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CookieManagerService } from "src/app/shared/services/cookie-manager.service";
 import { map } from "rxjs/internal/operators/map";
+import { Menu } from 'src/app/theme/components/menu/menu.model';
 @Injectable({
   providedIn: "root"
 })
@@ -15,6 +16,8 @@ export class LoginService {
   public sLoginData: any;
 
   private apiUrl = environment.apiBaseUrl + "Users/checkLogin";
+  private menuApiUrl = environment.apiBaseUrl + "Users/GetUserMenu";
+
   tokenCookieName = '_t';
 
   constructor(private http: HttpClient,
@@ -26,6 +29,7 @@ export class LoginService {
       environment.httpOptions
     );
   }
+
 
   getLogin(userName: string, password: string) {
     console.log("=====GetLogin Service");
@@ -72,8 +76,17 @@ export class LoginService {
       this.sSchoolId = data.schoolId;
       this.sSchoolName = data.schoolName;
     }
+
+
+    
    // console.log("login:" + this.sSchoolName);
   }
+
+  
+  getUserMenu(userId): Observable<Menu> {
+    return this.http.get<Menu>(`${this.menuApiUrl}/${userId}`,environment.httpOptions);
+  }
+  
   /*
 
        localStorage.setItem ( 'token' , result.token );

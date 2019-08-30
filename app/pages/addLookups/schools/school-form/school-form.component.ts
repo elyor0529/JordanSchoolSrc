@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ValidationBase } from 'src/app/validationBase';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-school-form',
@@ -18,12 +19,14 @@ export class SchoolFormComponent implements OnInit {
   returnUrl = '/schools/index';
   id: number;
   cityList:any;
+  image: any;
 
   constructor( private fb: FormBuilder,
     public validator: ValidationBase,
     private router: Router,
     private service: SchoolService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer) {
       this.getCity();
       this.initForm();
      }
@@ -121,6 +124,12 @@ export class SchoolFormComponent implements OnInit {
       this.loading = true;
       this.service.getSchool(this.id).subscribe(res => {
         this.schoolForm = this.validator.patchForm(this.schoolForm, res);
+        
+        
+        let objectURL = 'data:image/jpeg;base64,' + res.imageFile;
+        this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        
+
       }, err => console.log(err),
       () => this.loading = false);
     });

@@ -1,3 +1,4 @@
+import { MenuService } from './../../theme/components/menu/menu.service';
 import { UsersService } from './../users/users.service';
 import { User } from "./../users/user.model";
 import { Component } from "@angular/core";
@@ -8,6 +9,7 @@ import { AppSettings } from "../../app.settings";
 import { Settings } from "../../app.settings.model";
 import { LoginService } from "./login.service";
 import { users } from "src/app/Models/Users/users";
+import { Menu } from 'src/app/theme/components/menu/menu.model';
 
 @Component({
   selector: "app-login",
@@ -56,12 +58,30 @@ export class LoginComponent {
         console.log(res);
         if (res != null) {
           localStorage.setItem("token", JSON.stringify(res));
+
+          let userId = res.id;
+          console.log("userId="+userId)
+
+         
+
+         // let y = [new Menu(1, "yyyyyxcx", "", "", "folder_shared", "", true, 0)];
+          // localStorage.setItem("MenuToken", JSON.stringify(y));      
+          this.service.getUserMenu(userId).subscribe(menuList => {
+            localStorage.setItem("MenuToken", JSON.stringify(menuList));
+            this.router.navigate(["../dashboard"]);
+           
+          });
+          
+          // let data = JSON.parse(localStorage.getItem("MenuToken")) as Menu;
+          // console.log(data.title);
+         
+          
           // let data = (JSON.parse(localStorage.getItem('token'))) as users;
           // this.service.sUserId = data.id;
           // this.service.sSchoolId = data.schoolId;
           // this.service.sSchoolName = data.schoolName;
           // console.log(this.service.sSchoolName);
-          this.router.navigate(["../dashboard"]);
+         
         } else {
           this.msgLogin = "يرجى التحقق من إسم المستخدم أو كلمة المرور";
           this.loading = false;
@@ -69,7 +89,11 @@ export class LoginComponent {
         }
       },
         err => this.loading = false,
-      ()=>this.loading = false);
+        () => {
+        this.loading = false;
+         
+        
+        });
 
       this.service.login(userName, password);
       //let data = JSON.parse(localStorage.getItem("token")) as users;

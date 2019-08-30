@@ -50,11 +50,18 @@ admDelete(id:number):Observable<void>{
 getStud(id:number):Observable<Admission>{
   return this.http.get<Admission>(`${this.apiUrl}/${id}`,environment.httpOptions);
 } 
+
+  
+getStudParent(id:string):Observable<regParents[]>{
+  return this.http.get<regParents[]>(`${this.apiUrl+"/ParentName"}/${id}`,environment.httpOptions);
+}
+
 getByParent(id:string):Observable<Admission[]>{
   return this.http.get<Admission[]>(`${this.apiUrl+"/RegChildrens"}/${id}`,environment.httpOptions);
 }
-getStudParent(id:string):Observable<regParents[]>{
-  return this.http.get<regParents[]>(`${this.apiUrl+"/ParentName"}/${id}`,environment.httpOptions);
+  
+getByParentAndSchool(id:string, schoolId):Observable<Admission[]>{
+  return this.http.get<Admission[]>(`${this.apiUrl+"/RegChildrensBySchool"}/${id}/${schoolId}`,environment.httpOptions);
 }
 getCurrentYear():Observable<AcdimicYears>{
   return this.http.get<AcdimicYears>(`${this.CurrentYearApiUrl+"/CurrentYear"}`,environment.httpOptions);

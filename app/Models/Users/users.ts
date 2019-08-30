@@ -1,3 +1,5 @@
+import { usersSchool } from './usersSchool';
+
 export class users{
 
     id: number;
@@ -11,4 +13,6 @@ export class users{
     schoolLName: string;
     yearId: number;
     yearName: string;
+    usersSchool: usersSchool;
+    roleName: string;
 }

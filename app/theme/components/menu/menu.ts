@@ -1,7 +1,13 @@
 import { Menu } from './menu.model';
 
-export const verticalMenuItems = [ 
-    new Menu (1, 'Dashboard', '/', null, 'dashboard', null, false, 0),
+
+export const y = [
+    new Menu (300, 'ثوابت النظام', '/lookups', null, 'apps',  null, true, 0),    
+    new Menu (301, 'ثوابت النظام', '/lookups/index', null, 'branding_watermark',  null, false, 300),   
+]
+             
+export const verticalMenuItems = [   
+    new Menu (1, 'الصفحة الرئيسية', '/dashboard', null, 'dashboard', null, false, 0),
   /*  new Menu (992, 'Users', '/users', null, 'supervisor_account', null, false, 0), 
     new Menu (993, 'UI Features', null, null, 'computer', null, true, 0),   
     new Menu (994, 'Buttons', '/ui/buttons', null, 'keyboard', null, false, 3),  

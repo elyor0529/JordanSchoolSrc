@@ -71,7 +71,8 @@ export class PaymentIndexComponent implements OnInit {
   public studentFeesDtlDisplayedColumns: string[] = this.studentFeesDtlCols.map(col => col.field); 
   public settings: Settings;
 
-
+  selected: any;
+  
   constructor(
     public appSettings: AppSettings,
     private service: PaymentService,
