@@ -40,7 +40,7 @@ const createFormGroup = dataItem => new FormGroup({
   'chequeDate': new FormControl(dataItem.chequeDate),
   'chequeValue': new FormControl(dataItem.chequeValue, Validators.required),
   'bankId': new FormControl(dataItem.bankId),
-  'paymentId': new FormControl(dataItem.paymentId)
+  'studentFeeId': new FormControl(dataItem.studentFeeId)
 
 
 });
@@ -258,6 +258,10 @@ export class PaymentDialogComponent implements OnInit {
 
 
   addPayment() {
+
+    this.chequesArray = this.PaymentformGroup.get('cheques') as FormArray;
+    this.chequesArray.push(this.chequeFormGroup.value);
+    
     this.studentFeeService.addStudentFee(this.PaymentformGroup.value).subscribe(
       res => {
         this.event.emit(this.PaymentformGroup.value);
@@ -267,6 +271,8 @@ export class PaymentDialogComponent implements OnInit {
         console.log('errrrrrr' + err)
       }
     );
+
+
   }
 
   updatePayment() {
@@ -292,7 +298,7 @@ export class PaymentDialogComponent implements OnInit {
     if (!this.id == null)
       this.getPaymentChequeList();
 
-    this.docClickSubscription = this.renderer.listen('document', 'click', this.onDocumentClick.bind(this));
+   // this.docClickSubscription = this.renderer.listen('document', 'click', this.onDocumentClick.bind(this));
   }
 
   public ngOnDestroy(): void {
@@ -306,9 +312,9 @@ export class PaymentDialogComponent implements OnInit {
     this.chequeFormGroup = this.fb.group({
       id: [0],
       chequeNo: [10],
-      chequeDate: [],
-      chequeValue: [],
-      bankId: [],
+      chequeDate: ["1.1.2019"],
+      chequeValue: [21],
+      bankId: [1],
       studentFeeId: [this.id]
     });
 
@@ -317,6 +323,7 @@ export class PaymentDialogComponent implements OnInit {
     this.isNew = true;
 
     this.grid.addRow(this.chequeFormGroup);
+    console.log(this.PaymentformGroup.value);
   }
 
 
@@ -367,8 +374,9 @@ export class PaymentDialogComponent implements OnInit {
     console.log('saveCurrent');
     if (this.chequeFormGroup) {
       this.chequesArray = this.PaymentformGroup.get('cheques') as FormArray;
+      
      // debugger;
-      this.chequesArray.push(this.chequeFormGroup);
+      this.chequesArray.push(this.chequeFormGroup.value);
       // this.chequesService.addPaymentCheque(this.chequeFormGroup.value).subscribe(
       //   res => {
       //   },
@@ -379,7 +387,7 @@ export class PaymentDialogComponent implements OnInit {
 
       console.log('saveCurrent chequeFormGroup');
       console.log(this.chequeFormGroup);
-      console.log(this.chequeFormGroup.value);
+      console.log(this.chequeFormGroup);
       console.log('saveCurrent chequeFormGroup');
       console.log('is new   ' + this.isNew);
 
