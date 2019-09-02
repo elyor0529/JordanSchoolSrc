@@ -142,9 +142,9 @@ export class AdmDialogComponent implements OnInit {
   getBusList() {
     return this.busService.busList().subscribe(res => (this.busList = res));
   }
-  getSectionList() {
+  getSectionList() { 
     return this.sectionService
-      .sectionList()
+      .sectionBySchoolList(this.schoolId)
       .subscribe(res => (this.sectionList = res));
   }
 
@@ -420,24 +420,21 @@ export class AdmDialogComponent implements OnInit {
       console.log("age=" + this.studAge);
     }
 
-    let index = this.classList.findIndex(i => i.age === this.studAge);
+    var index;
+    let gender = Number(this.formGroup.get("genderId").value);
+    
+    if (gender == 44) { gender = 1 };
+    if (gender == 45) { gender = 2 };
+    
+    index = this.classList.findIndex(i => i.age === this.studAge && i.classGender === gender); 
+    if (index == -1) { index = this.classList.findIndex(i => i.age === this.studAge); }
     try {
-      console.log("Try");
-      // if (this.classList[Index] == null) {
-      //Index = this.classList.findIndex(i => i.age === 0);
-      // classAge = 0;
-      // }
-      // else {
       classAge = this.classList[index].id;
       this.classValue = classAge;
-
-      // }
     } catch (error) {
       console.log("Catch");
       index = this.classList.findIndex(i => i.age === 0);
-      // classAge = this.classList[index].id;
     }
-    //this.formGroup.get("classId").setValue(classAge);
     this.classValue = classAge;
     this.onClassChange();
     console.log(

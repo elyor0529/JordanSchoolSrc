@@ -10,6 +10,8 @@ import { RegParentService } from '../../parents/reg-parent.service';
 import { users } from 'src/app/Models/Users/users';
 import { StudRegVw } from 'src/app/Models/Reg/YearlyStudReg/StudRegVw';
 import { lkpClass } from 'src/app/Models/addLookups/classes/lkpClass';
+import { startWith, map, filter } from "rxjs/operators";
+import { ReplaySubject, Subject, Observable, pipe, of, from } from "rxjs";
 
 
 @Component({
@@ -23,8 +25,8 @@ export class RegStudComponent implements OnInit {
   
  
   public displayedColumns = ['id', 'firstName', 'className', 'nextClassName', 'nextClassPrice',
-     'tourPrice', //'descountValue',
-  'approvedId'].concat("actions");;
+     'tourPrice','brotherDescountName', 'descountValue','brotherDescountType',
+  'approvedId'].concat("actions");
   // public displayedColumns: string[] = this.cols
   // .map(col => col.field)
   // .concat("actions");
@@ -49,7 +51,9 @@ export class RegStudComponent implements OnInit {
   currentYear: any;
   currentYearId: number;
   schoolName: any;
-  schoolId:any;
+  schoolId: any;
+  parentFilterValue: any;
+  ParentTable: any;
 
   // cols = [
   //   { field: "id", header: "#" },
@@ -98,6 +102,9 @@ export class RegStudComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    this.parentFilterValue = null;
+
   }
 
   getParentChildrens() {
@@ -106,6 +113,7 @@ export class RegStudComponent implements OnInit {
   getParentList() {
     return this.parentService.getParentsList().subscribe(res => {
       this.parentList = res;
+      this.ParentTable = res;
     });
   }
   onParentChanged(filterValue: string) {
@@ -168,6 +176,25 @@ export class RegStudComponent implements OnInit {
   }
     
   
+
+  filterParents() {
+    const ofParentTable = of(this.ParentTable); 
+    ofParentTable
+      .pipe(
+        map(x => 
+          x.filter(
+            y =>
+              y.fatherName.includes(this.parentFilterValue) ||
+              y.id.toString().includes(this.parentFilterValue)
+          )
+        )
+      )
+      .subscribe(resx => {
+        (this.parentList = resx) 
+      });
+
+   }
+
 }
 
 

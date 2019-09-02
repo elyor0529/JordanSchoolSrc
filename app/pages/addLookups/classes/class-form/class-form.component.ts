@@ -26,6 +26,7 @@ export class ClassFormComponent implements OnInit {
   schoolId = this.service.sSchoolId;
   sectionList: LkpSection[];
   schoolList: LkpSchool[];
+  classGenderList = [{ id: 0, desc: "جميعا" }, { id: 1, desc: "الاولاد" }, { id: 2, desc: "البنات" }];
 
   constructor( private router: Router,
     public validator: ValidationBase,
@@ -67,7 +68,8 @@ export class ClassFormComponent implements OnInit {
       capacity: [0, [Validators.max(999)]],
       age: [0,[Validators.max(20)]],
       schoolId: [this.schoolId],
-      sectionId: [null]    
+      sectionId: [null],    
+      classGender:[0]
 
     });
   }

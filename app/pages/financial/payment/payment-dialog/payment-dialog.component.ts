@@ -1,3 +1,4 @@
+import { StudCardData } from 'src/app/Models/Reg/Reports/StudCardData';
 import { Component, OnInit, EventEmitter, Output, Inject, ViewChild, Renderer2, Renderer } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -16,6 +17,9 @@ import { GridComponent, AddEvent } from '@progress/kendo-angular-grid';
 import { AdmService } from 'src/app/pages/Admission/adm.service';
 import { StudentFeeService } from '../../student-fee/student-fee.service';
 import { FinItemService } from '../../fin-item/fin-item.service';
+import { RepService } from 'src/app/pages/reports/rep.service';
+import { RepModule } from 'src/app/pages/reports/rep.module';
+import { users } from 'src/app/Models/Users/users';
 
 const hasClass = (el, className) => new RegExp(className).test(el.className);
 
@@ -92,6 +96,14 @@ export class PaymentDialogComponent implements OnInit {
   @Output() event = new EventEmitter<Payment>(true);
 
 
+  parentId: any;
+  parentName: any;
+  studId: any;
+  studInfo: StudCardData;
+  yearId: any;
+  sectionName: any;
+  className: any;
+  classSeqName: any;
 
   // paymentChequesCols = [
   //   { field: "id", header: "#" },
@@ -103,21 +115,28 @@ export class PaymentDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private fb2: FormBuilder,
     private datePipe: DatePipe,
     public validator: ValidationBase,
     private studentFeeService: StudentFeeService,
     private finItemService: FinItemService,
     private admService: AdmService,
     private lookupService: LookupsApiService,
-    // private service: PaymentService,
+    public service: PaymentService,
+    private repService: RepService,
     private chequesService: PaymentChequeService,
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    ///////
     private renderer: Renderer2
-    //////////
+
   ) {
+
+
+     
+
+    let tokenData = JSON.parse(localStorage.getItem("token")) as users;
+    this.yearId = tokenData.yearId;
+   
+
     this.dateFormatted = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.initForm();
     this.paymentChequesDataSource = new MatTableDataSource<PaymentCheque>();
@@ -128,12 +147,15 @@ export class PaymentDialogComponent implements OnInit {
     this.PaymentformGroup = this.fb.group(
       {
         id: [0],
+        parentId:[this.service.sParentId],
         studentId: [],
-        yearId: [this.studentFeeService.selectedYearId],
+        yearId: [this.service.sYearId],
         finItemId: [],
         debit: [0],
-        credit: [0],
-        //   regParentId: [this.service.selectedParentId, [Validators.required],],
+        credit: [0], 
+        sectionId: [null],
+        sectionId2: [null],
+        sectionId3:[null],
         finItemVoucherSequence: [1],//to be generated 
         voucherDate: [this.dateFormatted],
         paymentMethodId: [],
@@ -149,29 +171,14 @@ export class PaymentDialogComponent implements OnInit {
   }
 
 
-
-  // createCheque(): FormGroup {
-  //   return this.fb.group({
-  //     id: [0],
-  //     chequeNo: [10],
-  //     chequeDate: [],
-  //     chequeValue: [],
-  //     bankId: [],
-  //     studentFeeId: [this.id]
-  //   });
-  // }
-
-
-
-
   get cheques() {
     return this.PaymentformGroup.get('cheques') as FormArray;
   }
-
+ 
   getChildrenList() {
-    return this.admService.getByParent(this.studentFeeService.selectedParentId)
+    return this.admService.getByParent(this.service.sParentId)
       .subscribe(res => (this.childrenList = res));
-  }
+  } 
 
   getFinItemList() {
     return this.finItemService.getFinItemList()
@@ -307,17 +314,6 @@ export class PaymentDialogComponent implements OnInit {
 
 
 
-    /*
-        this.chequeFormGroup = createFormGroup({
-          'chequeNo': 10,
-          'chequeDate': '',
-          'chequeValue': 10,
-          'bankId': 1,
-          'paymentId': 7,
-          // 'id':5,
-        });*/
-
-
     this.isNew = true;
 
     this.grid.addRow(this.chequeFormGroup);
@@ -343,15 +339,6 @@ export class PaymentDialogComponent implements OnInit {
     console.log('cancelHandler');
     this.closeEditor();
   }
-
-
-
-
-  // public groupChange(groups: GroupDescriptor[]): void {
-  //   this.groups = groups;
-  //   //  this.view = groupBy(this.chequesService.products(), this.groups);
-  // }
-
 
 
 
@@ -400,6 +387,15 @@ export class PaymentDialogComponent implements OnInit {
     }
   }
 
-  //////////////////
+  onStudChange() {
+    return this.repService.getStudCardDataVw(this.yearId, this.studId)
+      .subscribe(res => {
+      this.studInfo = res;
+        this.sectionName = res.sectionName;
+        this.className = res.className;
+        this.classSeqName=res.classSeqName
+      })
+    
+  }
 
 }

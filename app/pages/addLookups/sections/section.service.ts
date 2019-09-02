@@ -18,6 +18,10 @@ export class SectionService {
     return this.http.get<LkpSection[]>(this.apiUrl,environment.httpOptions);
   }
 
+  sectionListBySchool(schoolId: number):Observable<LkpSection[]>{
+    return this.http.get<LkpSection[]>(this.apiUrl+"/GetSectionBySchool/"+schoolId,environment.httpOptions);
+  }
+
   sectionBySchoolList(schoolId):Observable<LkpSection[]>{
     return this.http.get<LkpSection[]>(`${this.apiUrl+"/GetSectionBySchool"}/${schoolId}`,environment.httpOptions);
   }

@@ -12,4 +12,5 @@ export class lkpClass{
     yearId:number;
     amt:number;
     classFees: string;
+    classGender: number;
 }

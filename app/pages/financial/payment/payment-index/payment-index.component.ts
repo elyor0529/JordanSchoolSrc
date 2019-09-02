@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatDialogConfig, MatDialog, MatPaginator } from '@angular/material';
 import { Payment } from 'src/app/Models/financial/payment';
@@ -11,6 +12,10 @@ import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialo
 import { StudentFee } from 'src/app/Models/financial/student-fee';
 import { StudentFeeService } from '../../student-fee/student-fee.service';
 import { users } from 'src/app/Models/Users/users';
+import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
+import { of } from 'rxjs'; 
+import { startWith, map, filter } from "rxjs/operators";
+import { finStudCard } from 'src/app/Models/financial/finStudCard';
 
 @Component({
   selector: 'app-payment-index',
@@ -19,16 +24,21 @@ import { users } from 'src/app/Models/Users/users';
 })
 export class PaymentIndexComponent implements OnInit {
   studentFeesDataSource:MatTableDataSource<StudentFee>;
-  studentFeesDtlDataSource:MatTableDataSource<StudentFee>;
+  studentFeesDtlDataSource: MatTableDataSource<StudentFee>;
+  dataSourceFinstudCard: finStudCard[];
+  
   loading = false;
-  parentList: any;
+  parentList: regParents[];
   yearsList: any;
   parentId: any;
   currentYearId: number;
   currentYear: any;
   schoolName: any;
   schoolId:any;
-   
+  selected: any;
+  parentFilterValue: any;
+  ngxParentList: regParents[];
+  
 
   studentFeesCols = [
     { field: "studentId", header: "#" },
@@ -49,14 +59,34 @@ export class PaymentIndexComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginatorDtl: MatPaginator;
   public studentFeesDtlDisplayedColumns: string[] = this.studentFeesDtlCols.map(col => col.field); 
+
+  colsCard = [
+    { field: "firstName", header: "إسم الطالب" },
+    { field: "s9", header: "  الخصومات (إذا وجدت) " },
+    { field: "s10", header: "الرصيد السابق  " },
+   
+    { field: "s6", header: "  رسوم التسجيل " },
+    { field: "s7", header: "  الرسوم الدراسية " },
+    { field: "s8", header: " رسوم الباص " },
+    
+    { field: "sumDepit", header: "  مجموع الرسوم " },
+    { field: "sumCredit", header: "  مجموع المدفوعات " },
+    { field: "amtRemainder", header: "  المبلغ المتبقي " },
+    
+  ];
+  @ViewChild(MatPaginator) paginatorCard: MatPaginator;
+  public displayedColumnsCard: string[] = this.colsCard.map(col => col.field);
+
+  public displayedColumns = ['firstName', 's9', 's10','s6','s7','s8','sumDepit','sumCredit','amtRemainder']
+  .concat("actions");
+  
   public settings: Settings;
 
-  selected: any;
   
   constructor(
     public appSettings: AppSettings,
    // private paymentService: PaymentService,
-    private studentFeeService: StudentFeeService,
+    private studentFeeService: PaymentService,
     private parentService: RegParentService,
     private dialog: MatDialog,
     private yearService: YearService
@@ -64,13 +94,17 @@ export class PaymentIndexComponent implements OnInit {
   ) {
     this.studentFeesDataSource = new MatTableDataSource<StudentFee>();
     this.studentFeesDtlDataSource = new MatTableDataSource<StudentFee>();
+    this.dataSourceFinstudCard = [];
+
     this.settings = this.appSettings.settings;
     let data = JSON.parse(localStorage.getItem("token")) as users;
     this.schoolId = data.schoolId;
     this.schoolName = data.schoolName;
     this.currentYear = data.yearName;
     this.currentYearId = data.yearId;
-    this.studentFeeService.selectedYearId=this.currentYearId;
+    this.studentFeeService.sYearId=data.yearId;
+    this.studentFeeService.selectedYearId = this.currentYearId;
+    
   }
 
 
@@ -80,13 +114,23 @@ export class PaymentIndexComponent implements OnInit {
   getParentList() {
     return this.parentService
       .getParentsList()
-      .subscribe(res => (this.parentList = res));
+      .subscribe(res => { this.parentList = res; this.ngxParentList=res;});
   }
 
   onParentChanged(filterValue: number) {
-    this.studentFeeService.selectedParentId = filterValue;
+  //  this.studentFeeService.selectedParentId = filterValue;
+    this.studentFeeService.sParentId = filterValue; 
+   // this.parentId = this.service.sParentName;
+ 
+    let Index = this.parentList.findIndex(i => i.id === filterValue);
+    if (Index != -1) { this.studentFeeService.sParentName = this.parentList[Index].fatherName; }
+
+    this.parentId = filterValue;
+    this.getFinStudCard();
+    console.log("filterValue="+filterValue)
     this.studentFeeService.GetStudFeesListByParent(this.currentYearId,filterValue).subscribe(res => {
       this.studentFeesDataSource.data = res;
+      
     });
   }
 
@@ -159,6 +203,49 @@ export class PaymentIndexComponent implements OnInit {
    // this.getPaymentList();
     this.getParentList();
     this.getYearsList();
+    this.parentFilterValue = null;
   }
+
+  
+  filterParents() {
+    const ngxParentTable = of(this.ngxParentList);
+    ngxParentTable.pipe(
+      map(p => p.filter(x => x.fatherName.includes(this.parentFilterValue) ||
+        x.id.toString().includes(this.parentFilterValue)))
+    ).subscribe(res=>this.parentList=res)
+
+  }
+
+getFinStudCard() {
+    return this.studentFeeService.FinStdCard(this.currentYearId,this.parentId).subscribe(res => this.dataSourceFinstudCard = res);
+  }
+
+  getamtRemainder() {
+    return this.dataSourceFinstudCard.map(t => t.amtRemainder).reduce((acc, value) => acc + value, 0);
+  }
+
+  getsumDepit() {
+    return this.dataSourceFinstudCard.map(t => t.sumDepit).reduce((acc, value) => acc + value, 0);
+  }
+
+  getsumCredit() {
+    return this.dataSourceFinstudCard.map(t => t.sumCredit).reduce((acc, value) => acc + value, 0);
+  }
+  getS9() {
+    return this.dataSourceFinstudCard.map(t => t.s9).reduce((acc, value) => acc + value, 0);
+  }
+  getS10() {
+    return this.dataSourceFinstudCard.map(t => t.s10).reduce((acc, value) => acc + value, 0);
+  }
+  getS6() {
+    return this.dataSourceFinstudCard.map(t => t.s6).reduce((acc, value) => acc + value, 0);
+  }
+  getS7() { 
+    return this.dataSourceFinstudCard.map(t => t.s7).reduce((acc, value) => acc + value, 0);
+  }
+  getS8() {
+    return this.dataSourceFinstudCard.map(t => t.s8).reduce((acc, value) => acc + value, 0);
+  }
+  
 
 }

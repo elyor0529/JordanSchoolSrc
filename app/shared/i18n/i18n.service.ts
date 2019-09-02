@@ -19,7 +19,7 @@ export class I18nService {
     this.data = this.state.asObservable();
     this.validationState = new BehaviorSubject<any>({});
     this.initLanguage(localStorage.getItem('locale') || 'en-US');
-    this.fetch(this.currentLanguage.key);
+   // this.fetch(this.currentLanguage.key);
   }
 
   private initLanguage(locale: string) {
@@ -33,21 +33,21 @@ export class I18nService {
     }
   }
 
-  private fetch(locale: any) {
-    this.jsonApiService.fetch(`/langs/${locale}/text.json`)
-      .subscribe((data: any) => {
-        localStorage.setItem('locale', locale);
-        this.data = data;
-        this.state.next(data);
-      }, err => { }, () => {
-        this.jsonApiService.fetch(`/langs/${locale}/validation.json`)
-          .subscribe((data: any) => {
-            localStorage.setItem('locale', locale);
-            this.validationData = data;
-            this.validationState.next(data);
-          });
-      });
-  }
+  // private fetch(locale: any) {
+  //   this.jsonApiService.fetch(`/langs/${locale}/text.json`)
+  //     .subscribe((data: any) => {
+  //       localStorage.setItem('locale', locale);
+  //       this.data = data;
+  //       this.state.next(data);
+  //     }, err => { }, () => {
+  //       this.jsonApiService.fetch(`/langs/${locale}/validation.json`)
+  //         .subscribe((data: any) => {
+  //           localStorage.setItem('locale', locale);
+  //           this.validationData = data;
+  //           this.validationState.next(data);
+  //         });
+  //     });
+  // }
 
   public getTranslation(phrase: string): string {
     return this.data && this.data[phrase] ? this.data[phrase] : phrase;
@@ -55,6 +55,6 @@ export class I18nService {
 
   setLanguage(language) {
     this.currentLanguage = language;
-    this.fetch(language.key);
+   // this.fetch(language.key);
   }
 }

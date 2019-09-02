@@ -89,7 +89,17 @@
                 <mat-error *ngIf="validator.hasErrors(name)">
                   يجب أن لا يتجاوز عمر الطالب 20 عاما
               </mat-error> 
-              </mat-form-field>           
+              </mat-form-field>   
+              <mat-form-field fxFlex appearance="outline" >
+                <mat-label> الجنس</mat-label>
+                <mat-select matInput formControlName="classGender" placeholder=" الجنس">
+                  <mat-option *ngFor="let op of classGenderList" [value]="op.id">
+                    {{op.id}} | {{op.desc}}
+                    </mat-option>
+                </mat-select>
+              <mat-hint>هذا الصف للأولاد/البنات/جميعا</mat-hint>
+              
+            </mat-form-field>          
           </div>
        </mat-card-content>
         

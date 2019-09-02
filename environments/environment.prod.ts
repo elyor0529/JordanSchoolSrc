@@ -4,6 +4,7 @@ export const environment = {
   production: true,
 
   apiBaseUrl: 'http://localhost:15783/api/',
+  urlPrefix: '',
   httpOptions: {
     headers: new HttpHeaders({
     })

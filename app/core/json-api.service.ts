@@ -9,30 +9,30 @@ export class JsonApiService {
   constructor(private http: HttpClient) { }
 
 
-  public fetch(url): Observable<any> {
-    return this.http.get(this.getBaseUrl() + environment.jsonAPI + url);
-  }
+  // public fetch(url): Observable<any> {
+  //   return this.http.get(this.getBaseUrl() + environment.jsonAPI + url);
+  // }
 
 
-  public fetchLanguages(): Observable<any> {
-    return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/langs/languages.json');
-  }
+  // public fetchLanguages(): Observable<any> {
+  //   return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/langs/languages.json');
+  // }
 
 
-  public fetchKeys(): Observable<any> {
-    return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/langs/replaceKeys.json');
-  }
+  // public fetchKeys(): Observable<any> {
+  //   return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/langs/replaceKeys.json');
+  // }
 
-  public fetchMenu(): Observable<any> {
-    return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/menu-items.json');
-  }
+  // public fetchMenu(): Observable<any> {
+  //   return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/menu-items.json');
+  // }
 
-  public fetchSettings(): Observable<any> {
-    return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/settings/settings.json');
-  }
+  // public fetchSettings(): Observable<any> {
+  //   return this.http.get(this.getBaseUrl() + environment.jsonAPI + '/settings/settings.json');
+  // }
 
-  public getBaseUrl() {
-    const path = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + this.urlPrefix;
-    return path;
-  } 
+  // public getBaseUrl() {
+  //   const path = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + this.urlPrefix;
+  //   return path;
+  // } 
 }

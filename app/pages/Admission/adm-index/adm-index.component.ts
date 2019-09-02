@@ -57,6 +57,7 @@ export class AdmIndexComponent implements OnInit {
   parentTotalDescount: number;
   parentNetTotalAmt: number;
   parentFilterValue: any;
+ 
 
   cols = [
     { field: "id", header: "#" },
@@ -66,14 +67,14 @@ export class AdmIndexComponent implements OnInit {
     { field: "className", header: "  الصف" },
     { field: "classPrice", header: "سعر الصف" },
     { field: "classSeqName", header: "الشعبة" },
-    // { field: "descountType", header: "نوع الخصم" },
+     { field: "descountType", header: "نوع الخصم" },
     //{ field: "descountValue", header: "قيمة الخصم" },
     { field: "tourName", header: " المنطقة" },
     { field: "tourTypeName", header: " إشتراك الباص" },
     { field: "tourPrice", header: "مبلغ الباص" },
     { field: "yearId", header: "yearId", type: "hidden" },
     { field: "studentBrotherSeq", header: "ترتيب الابناء" },
-   // { field: "descountValue", header: "قيمة الخصم" },
+    { field: "descountValue", header: "قيمة الخصم" },
     { field: "yearIdx", header: "yearIdx", type: "hidden" },
     { field: "totalPrice", header: "المبلغ المطلوب" }
   ];
