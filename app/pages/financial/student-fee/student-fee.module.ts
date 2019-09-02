@@ -7,6 +7,7 @@ import { StudentFeeIndexComponent } from './student-fee-index/student-fee-index.
 import { StudentFeeFormComponent } from './student-fee-form/student-fee-form.component';
 import { studentFeeRoutes } from './student-fee.routing';
 import { StudentFeeService } from './student-fee.service';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { StudentFeeService } from './student-fee.service';
     SharedModule,
     RouterModule.forChild(studentFeeRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule
   ],
   providers: [StudentFeeService]
 })

@@ -1,3 +1,4 @@
+
 import { regParents } from './../../../../Models/Reg/Parents/reg-parents';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { StudentFee } from "src/app/Models/financial/student-fee";
@@ -8,6 +9,9 @@ import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialo
 import { StudentFeeService } from "../student-fee.service";
 import { RegParentService } from "src/app/pages/Reg/parents/reg-parent.service";
 import { users } from 'src/app/Models/Users/users';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { finStudCard } from 'src/app/Models/financial/finStudCard';
 
 @Component({
   selector: "app-student-fee-index",
@@ -17,6 +21,7 @@ import { users } from 'src/app/Models/Users/users';
 export class StudentFeeIndexComponent implements OnInit {
   dataSource: MatTableDataSource<StudentFee>;
   dataSourceDtl: MatTableDataSource<StudentFee>;
+  dataSourceFinstudCard: MatTableDataSource<finStudCard>;
   dataSource2: any;
   loading = false;
   finItemList: any;
@@ -26,11 +31,13 @@ export class StudentFeeIndexComponent implements OnInit {
   parentId: any;
   studName: any;
   parentName: any;
-  
+
   currentYear: any;
   currentYearId: number;
   schoolName: any;
-  schoolId:any;
+  schoolId: any;
+  parentFilterValue: any;
+  ngxParentList: regParents[];
 
   cols = [
     { field: "studentId", header: "#" },
@@ -42,14 +49,32 @@ export class StudentFeeIndexComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = this.cols.map(col => col.field).concat('actions');
 
-  
+
   colsDtl = [
     { field: "finItemName", header: "  البند المالي " },
     { field: "db", header: "عليه  " },
     { field: "cr", header: " له " },
   ];
   @ViewChild(MatPaginator) paginatorDtl: MatPaginator;
-  public displayedColumnsDtl: string[] = this.colsDtl.map(col => col.field); 
+  public displayedColumnsDtl: string[] = this.colsDtl.map(col => col.field);
+
+  
+  colsCard = [
+    { field: "firstName", header: "إسم الطالب" },
+    { field: "s9", header: "  الخصومات (إذا وجدت) " },
+    { field: "s10", header: "الرصيد السابق  " },
+   
+    { field: "s6", header: "  رسوم التسجيل " },
+    { field: "s7", header: "  الرسوم الدراسية " },
+    { field: "s8", header: " رسوم الباص " },
+    
+    { field: "sumDepit", header: "  مجموع الرسوم " },
+    { field: "sumCredit", header: "  مجموع المدفوعات " },
+    { field: "amtRemainder", header: "  المبلغ المتبقي " },
+    
+  ];
+  @ViewChild(MatPaginator) paginatorCard: MatPaginator;
+  public displayedColumnsCard: string[] = this.colsCard.map(col => col.field);
 
   constructor(
     private service: StudentFeeService,
@@ -60,8 +85,9 @@ export class StudentFeeIndexComponent implements OnInit {
     this.getParentList();
     this.dataSource = new MatTableDataSource<StudentFee>();
     this.dataSourceDtl = new MatTableDataSource<StudentFee>();
+    this.dataSourceFinstudCard = new MatTableDataSource<finStudCard>();
 
-    
+
     let data = JSON.parse(localStorage.getItem("token")) as users;
     // this.loginService.sUserId = data.id;
     // this.loginService.sSchoolId = data.schoolId;
@@ -84,40 +110,48 @@ export class StudentFeeIndexComponent implements OnInit {
 
   GetStudFeesListByParent(id) {
     return this.service
-      .GetStudFeesListByParent(this.currentYearId,id)
+      .GetStudFeesListByParent(this.currentYearId, id)
       .subscribe(res => {
         this.dataSource.data = res;
-        
+
       });
   }
 
-  GetStudFeesDtl(studId,studName) {
+  GetStudFeesDtl(studId, studName) {
     return this.service
       .GetStudFeesDtl(this.currentYearId, studId)
       .subscribe(res => {
         this.dataSourceDtl.data = res
-        
-       let name=studName+" "+this.parentName
-         this.studName = name;
-       
+
+        let name = studName + " " + this.parentName
+        this.studName = name;
+
       });
   }
+
+  getFinStudCard() {
+    return this.service.FinStdCard(this.currentYearId,this.parentId).subscribe(res => this.dataSourceFinstudCard.data = res);
+  }
+
+
   getParentList() {
     return this.parentService.getParentsList().subscribe(res => {
       this.parentList = res;
-      
+      this.ngxParentList = res;
+
     });
   }
   onParentChanged(filterValue) {
     this.selected = filterValue;
     this.parentId = filterValue;
+    this.getFinStudCard();
     this.service.GetStudFeesListByParent(this.currentYearId, filterValue).subscribe(res => {
       this.dataSource.data = res;
       let index = this.parentList.findIndex(p => p.id === this.parentId)
       this.parentName = this.parentList[index].fatherName;
-     // let name=res[0].studentName+" "+this.parentName
+      // let name=res[0].studentName+" "+this.parentName
       this.GetStudFeesDtl(res[0].studentId, "")
-      console.log("index="+index+"  parentId="+this.parentId+"  name="+name)
+      console.log("index=" + index + "  parentId=" + this.parentId + "  name=" + name)
     });
   }
 
@@ -153,9 +187,22 @@ export class StudentFeeIndexComponent implements OnInit {
     this.getStudentFeeList();
   }
 
-  private handleErrors() {}
+  private handleErrors() { }
 
   ngOnInit() {
+    this.parentFilterValue = null;
     // this.getStudentFeeList();
+  }
+
+
+  filterParents() {
+    const ngxParentTable = of(this.ngxParentList);
+    console.log(this.parentFilterValue);
+    console.log(ngxParentTable);
+    ngxParentTable.pipe(
+      map(p => p.filter(x => x.fatherName.includes(this.parentFilterValue) ||
+        x.id.toString().includes(this.parentFilterValue)))
+    ).subscribe(res=>this.parentList=res)
+
   }
 }

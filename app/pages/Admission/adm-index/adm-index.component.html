@@ -32,7 +32,6 @@
         <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
           <mat-label>إختر ولي الامر</mat-label>
           <mat-select placeholder=" ولي الامر" [(value)]="selected" 
-         
           (selectionChange)="onParentChanged($event.value)" >
           <mat-option>
             <ngx-mat-select-search [(ngModel)]="parentFilterValue" (ngModelChange)="filterParents()">
@@ -41,7 +40,6 @@
             <mat-option *ngFor="let op of parentList" [value]="op.id">
              {{op.id}} | {{ op.fatherName }}
             </mat-option>
-
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex="20%" appearance="standard">

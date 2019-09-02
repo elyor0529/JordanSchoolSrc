@@ -1,3 +1,4 @@
+import { finStudCard } from './../../../Models/financial/finStudCard';
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
@@ -57,6 +58,13 @@ export class StudentFeeService {
 
   getStudentFeeById(id: number): Observable<StudentFee> {
     return this.http.get<StudentFee>(`${this.apiUrl}/${id}`, environment.httpOptions);
+  }
+
+  FinStdCard(yearId: number,parentId: number): Observable<finStudCard[]> {
+    return this.http.get<finStudCard[]>(
+      `${this.apiUrl + "/FinStudCard"}/${yearId}/${parentId}`,
+      environment.httpOptions
+    );
   }
 
 }

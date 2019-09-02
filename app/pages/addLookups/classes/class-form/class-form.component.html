@@ -1,0 +1,124 @@
+
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل صف'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2"> 
+  <div class="p-2"> 
+  
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+       
+      
+<!--Card 1-->     
+<div class="p-2" >   
+<mat-card>        
+<mat-card-content fxLayout="column" fxLayoutAlign="center">
+    <mat-card-header fxLayoutAlign="start">                
+        <mat-card-subtitle ><h2 style="text-decoration:underline">معلومات  الصف</h2></mat-card-subtitle>
+    </mat-card-header>
+
+    <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>المدرسة </mat-label>
+        <mat-select matInput formControlName="schoolId" placeholder=" المدرسة"
+        (selectionChange)="onSchoolChange($event.value)" [(ngModel)]="schoolId">
+          <mat-option *ngFor="let op of schoolList" [value]="op.id">
+            {{op.id}} | {{op.aname}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>القسم </mat-label>
+      <mat-select matInput formControlName="sectionId" placeholder=" القسم">
+        <mat-option *ngFor="let op of sectionList" [value]="op.id">
+          {{op.id}} | {{op.sectionName}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+    </div>
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label>   اسم الصف بالعربية</mat-label>
+                <input  matInput formControlName="aname"   type="text" placeholder="الاسم بالعربية  ">
+                <mat-error *ngIf="validator.hasErrors(name)"> 
+                  Required
+                </mat-error>
+              </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline" >
+                <mat-label> الاسم بالانجليزية</mat-label>
+              <input matInput formControlName="lname"   type="text" placeholder=" الاسم بالانجليزية ">
+              
+            </mat-form-field>
+
+           
+           
+          </div>
+        </mat-card-content>
+     
+        <!--Card 1 Part2-->   
+       <mat-card-content>
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+            
+              <mat-form-field fxFlex appearance="outline" >
+                  <mat-label>سعة الصف</mat-label>
+                <input matInput formControlName="capacity"  type="number" placeholder=" سعة الصف "
+                maxlength="3" minlength="1" >
+               
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  الحد الاقصى لسعة الصف = 999
+              </mat-error> 
+              </mat-form-field>
+
+              <mat-form-field fxFlex appearance="outline" >
+                  <mat-label> العمر</mat-label>
+                <input matInput formControlName="age"  type="number" placeholder="  عمر الصف "
+                maxlength="2" minlength="1" max="20">
+                <mat-hint>العمر الممسموح به من 1 - 20</mat-hint>
+                <mat-error *ngIf="validator.hasErrors(name)">
+                  يجب أن لا يتجاوز عمر الطالب 20 عاما
+              </mat-error> 
+              </mat-form-field>   
+              <mat-form-field fxFlex appearance="outline" >
+                <mat-label> الجنس</mat-label>
+                <mat-select matInput formControlName="classGender" placeholder=" الجنس">
+                  <mat-option *ngFor="let op of classGenderList" [value]="op.id">
+                    {{op.id}} | {{op.desc}}
+                    </mat-option>
+                </mat-select>
+              <mat-hint>هذا الصف للأولاد/البنات/جميعا</mat-hint>
+              
+            </mat-form-field>          
+          </div>
+       </mat-card-content>
+        
+      </mat-card>
+    </div>
+        
+     <!--Card 3-->
+     
+    <mat-card>
+        <mat-card-actions>
+          <a [routerLink]="returnUrl" mat-button>
+            عودة
+          </a>
+          <button mat-raised-button color="primary" type="submit" >
+            تخزين
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>
+

@@ -2,11 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user.model';
+import { users } from 'src/app/Models/Users/users';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UsersService {
     public url = "api/users";
-    constructor(public http:HttpClient) { }
+
+    apiUrl = environment.apiBaseUrl + "Users";
+    
+    constructor(private http:HttpClient) { }
+    
+
+    
+    xgetUsersList():Observable<users>{
+        return this.http.get<users>(this.apiUrl,environment.httpOptions);
+    }
     
     getUsers(): Observable<User[]> {
         return this.http.get<User[]>(this.url);

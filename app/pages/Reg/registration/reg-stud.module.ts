@@ -6,11 +6,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { regStudRoute } from './reg-stud.routing';
 import { RegStudService } from './reg-stud.service';
+import { GetParentComponent } from './get-parent/get-parent.component';
+import { MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
 
     declarations:[
-        RegStudComponent
+        RegStudComponent,
+        GetParentComponent
 
     ],
 
@@ -19,7 +23,10 @@ CommonModule,
 SharedModule,
 RouterModule.forChild(regStudRoute),
 FormsModule,
-ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        NgxMatSelectSearchModule
 
     ],
 providers:[RegStudService]

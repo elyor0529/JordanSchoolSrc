@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Student } from 'src/app/Models/Reg/Students/students';
+import { users } from 'src/app/Models/Users/users';
 
 
 
@@ -19,9 +20,14 @@ import { Student } from 'src/app/Models/Reg/Students/students';
 
      apiUrl= environment.apiBaseUrl+"AdmStud";
 
+  private url = environment.apiBaseUrl + "Users";
+  
     constructor(private http:HttpClient){}
 
 
+    getUsers(): Observable<users> {
+      return this.http.get<users>(this.url, environment.httpOptions);
+  }
 getStudentList():Observable<Student>{
     return this.http.get<Student>(this.apiUrl,environment.httpOptions);
     }

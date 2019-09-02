@@ -37,6 +37,7 @@ import { ContentHeaderComponent } from './content-header/content-header.componen
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { I18nModule } from './i18n/i18n.module';
  
 
 @NgModule({
@@ -77,6 +78,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
+    I18nModule
   ],
   exports: [
     FlexLayoutModule,

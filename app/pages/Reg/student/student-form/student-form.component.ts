@@ -116,7 +116,6 @@ export class StudentFormComponent implements OnInit {
     }
 
     //Update
-
     setupUpdate() {
       this.route.params.subscribe(params => {
         if (!params.id) {

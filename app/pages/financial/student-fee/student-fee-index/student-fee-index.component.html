@@ -33,10 +33,12 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-form-field fxFlex="20%" class="mat-select" appearance="outline">
-          <mat-label>إختر ولي الامر</mat-label>
+          <mat-label>إختر ولي الامر</mat-label>   
           <mat-select placeholder=" ولي الامر" [(value)]="selected" (selectionChange)="onParentChanged($event.value)">
+            <ngx-mat-select-search [(ngModel)]="parentFilterValue" (ngModelChange)="filterParents()">
+            </ngx-mat-select-search>
             <mat-option *ngFor="let op of parentList" [value]="op.id">
-              {{ op.fatherName }}
+              {{op.id}} | {{ op.fatherName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -96,6 +98,40 @@
 <mat-divider></mat-divider>
 
 
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+    <mat-card>
+      <mat-card-content>
+        <mat-label>
+          <h2>
+            تفاصيل البنود المالية
+
+          </h2>
+        </mat-label>
+        <mat-table #table [dataSource]="dataSourceFinstudCard" class="mat-elevation-z8">
+          <ng-container *ngFor="let col of colsCard" [matColumnDef]="col.field">
+            <mat-header-cell *matHeaderCellDef>
+              {{ col.header }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+
+              {{ item[col.field] }}
+
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsCard"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsCard;">
+          </mat-row>
+        </mat-table>
+        </mat-card-content>
+        </mat-card>
+        </div>
+</div>
+
+
+        
 
 <div fxLayout="column" class="p-2">
   <div class="p-2">

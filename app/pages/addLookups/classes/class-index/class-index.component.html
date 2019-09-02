@@ -1,3 +1,91 @@
-<p>
-  class-index works!
-</p>
+
+<app-content-header 
+[icon]="'directions_bus'" 
+[title]="'الصفوف المدرسية'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+
+<div fxLayout="column" class="p-2">
+    <div fxLayout="30%" fxLayout.xs="column" fxLayoutGap="50px">
+        
+          <mat-form-field appearance="outline"  >
+              <mat-label>المدرسة</mat-label>
+              <mat-select  placeholder="المدرسة" [value]="schoolId"
+              (selectionChange)="onSchoolListChange($event.value)">
+                <mat-option *ngFor="let op of schoolList" [value]="op.id">
+                  {{op.id}} | {{op.aname}}
+                  </mat-option>
+              </mat-select>
+              
+          </mat-form-field>
+    </div>
+    </div>
+ <mat-divider></mat-divider> 
+
+  
+<mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
+  <div fxLayout="row">
+    <button mat-raised-button [disabled]="!schoolId"  color="accent" [routerLink]="['../add']">
+      <mat-icon>add_circle_outline</mat-icon> صف جديد
+    </button>
+
+  </div>
+</mat-toolbar>
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2">
+
+    <div class="spinner-container" *ngIf="loading"> 
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">   
+      <ng-container *ngFor="let col of cols" [matColumnDef]="col.field">
+        <mat-header-cell *matHeaderCellDef>
+          {{ col.header }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          
+              {{ item[col.field] }}
+           
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          Actions
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+         
+          <a mat-icon-button matTooltip="تعديل" [routerLink]="['/classes/edit/' + element.id  ]">
+            <mat-icon aria-hidden="true" aria-label="Files">
+              edit
+            </mat-icon>
+          </a> 
+
+          <button mat-icon-button color="warn" matTooltip="حذف" (click)="openDeleteDialog(element)">
+              <mat-icon aria-hidden="true" aria-label="Delete">
+                delete
+              </mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="رسوم الصف" (click)="openPriceDialog(element.id, element.aname)">
+              <mat-icon aria-hidden="true" aria-label="رسوم الصف">
+                monetization_on
+              </mat-icon>
+            </button>
+
+        </mat-cell>
+      </ng-container>
+ 
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    </div>
+</div>

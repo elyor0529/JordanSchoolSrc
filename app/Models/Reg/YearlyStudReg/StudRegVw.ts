@@ -32,5 +32,6 @@ export class StudRegVw {
   note: string;
   totalPrice: number;
   newClassId: number;
+  brotherDescountName: string
   
 }

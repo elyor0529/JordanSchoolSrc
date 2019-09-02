@@ -19,7 +19,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from 'src/app/app.module';
 import { DateFormat } from './date-format';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     PaymentIndexComponent,
     PaymentFormComponent,
@@ -41,7 +41,11 @@ import { DateFormat } from './date-format';
     GridModule,
     DropDownListModule,
    // BrowserAnimationsModule,
-    MatDatepickerModule, MatNativeDateModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   providers: [
     PaymentService, AppSettings, DatePipe,
