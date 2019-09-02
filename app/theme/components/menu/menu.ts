@@ -93,6 +93,7 @@ export const verticalMenuItems = [
     //Reports
     new Menu (600, 'التقارير ', null, null, 'library_books',  null, true, 0),
     new Menu (601, 'التقارير', '/reports/index', null, 'library_books',  null, false, 600),
+    new Menu (602, 'اسماء الطلاب حسب الشعب', '/reports/ClassStudentsList', null, 'library_books',  null, false, 600),
 
 ]
 

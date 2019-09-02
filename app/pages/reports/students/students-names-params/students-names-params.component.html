@@ -1,0 +1,27 @@
+<mat-card>
+  <h4>Basic mat-select</h4>
+  <mat-form-field>
+    <mat-label>  classes</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let class of classList" [value]="class.id">
+        {{class.aname}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+
+
+<!-- 
+<mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
+  <mat-label> الطالب </mat-label>
+  <mat-select matInput formControlName="studentId" placeholder=" الطالب  " required>
+     <mat-option>
+        <ngx-mat-select-search placeholder="  الطالب  ">
+        </ngx-mat-select-search>
+     </mat-option>
+     <mat-option *ngFor="let op of childrenList" [value]="op.id">
+        {{ op.firstName }}
+     </mat-option>
+  </mat-select>
+</mat-form-field> -->

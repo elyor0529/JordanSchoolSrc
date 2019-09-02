@@ -6,13 +6,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RepService } from './rep.service';
 import { repRoutes } from './rep.routing';
 import { CardRepComponent } from './students/card-rep/card-rep.component';
+import { StudentsNamesRepComponent } from './students/students-names-rep/students-names-rep.component';
+import { StudentsNamesParamsComponent } from './students/students-names-params/students-names-params.component';
 
 
 
 @NgModule({
   declarations: [
     RepIndexComponent,
-    CardRepComponent
+    CardRepComponent,
+    StudentsNamesRepComponent,
+    StudentsNamesParamsComponent
   ],
   entryComponents:[
   ],
