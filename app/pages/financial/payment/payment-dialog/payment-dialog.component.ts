@@ -12,8 +12,6 @@ import { Payment } from 'src/app/Models/financial/payment';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
 import { PaymentChequeService } from '../payment-cheque.service';  
 import { PaymentCheque } from 'src/app/Models/financial/payment-cheque';
-import { groupBy, GroupDescriptor } from '@progress/kendo-data-query'; 
-import { GridComponent, AddEvent } from '@progress/kendo-angular-grid';
 import { AdmService } from 'src/app/pages/Admission/adm.service';
 import { StudentFeeService } from '../../student-fee/student-fee.service';
 import { FinItemService } from '../../fin-item/fin-item.service';
@@ -54,10 +52,10 @@ const createFormGroup = dataItem => new FormGroup({
 export class PaymentDialogComponent implements OnInit {
 
   //////test inline
-  public groups: GroupDescriptor[] = [];
+  // public groups: GroupDescriptor[] = [];
   view: PaymentCheque[];
   viewList: PaymentCheque;
-  @ViewChild(GridComponent) private grid: GridComponent;
+  // @ViewChild(GridComponent) private grid: GridComponent;
   private editedRowIndex: number;
   private isNew = false;
   private docClickSubscription: any;
@@ -65,13 +63,13 @@ export class PaymentDialogComponent implements OnInit {
     return this.editedRowIndex !== undefined || this.isNew;
   }
 
-  public groupChange2(groups: GroupDescriptor[]): void {
-    this.groups = groups;
-    console.log('groupChange');
+  // public groupChange2(groups: GroupDescriptor[]): void {
+  //   this.groups = groups;
+  //   console.log('groupChange');
 
-    // this.view = groupBy(this.paymentChequesDataSource.data, this.groups);
-    console.log('groupChange' + this.view);
-  }
+  //   // this.view = groupBy(this.paymentChequesDataSource.data, this.groups);
+  //   console.log('groupChange' + this.view);
+  // }
   ////////////////////////////////////////////// test inline
 
   public PaymentformGroup: FormGroup;
@@ -322,7 +320,7 @@ export class PaymentDialogComponent implements OnInit {
 
     this.isNew = true;
 
-    this.grid.addRow(this.chequeFormGroup);
+    // this.grid.addRow(this.chequeFormGroup);
     console.log(this.PaymentformGroup.value);
   }
 
@@ -336,7 +334,7 @@ export class PaymentDialogComponent implements OnInit {
     this.saveCurrent();
     this.chequeFormGroup = createFormGroup(dataItem);
     this.editedRowIndex = rowIndex;
-    this.grid.editRow(rowIndex, this.chequeFormGroup);
+    // this.grid.editRow(rowIndex, this.chequeFormGroup);
   }
 
 
@@ -351,7 +349,7 @@ export class PaymentDialogComponent implements OnInit {
 
   private closeEditor(): void {
     console.log('closeEditor');
-    this.grid.closeRow(this.editedRowIndex);
+    // this.grid.closeRow(this.editedRowIndex);
     this.isNew = false;
     console.log('isNew = false');
     this.editedRowIndex = undefined;

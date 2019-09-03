@@ -57,7 +57,7 @@ export const routes: Routes = [
             {path:'reports',loadChildren:'./pages/reports/rep.module#RepModule', data:{breadcrumb:'  التقارير'}},
             
 
-        ]
+        ] 
     },
     { path: 'landing', loadChildren: './pages/landing/landing.module#LandingModule' },
     { path: 'login', loadChildren: './pages/login/login.module#LoginModule' },

@@ -1,14 +1,42 @@
-<mat-card>
-  <h4>Basic mat-select</h4>
-  <mat-form-field>
-    <mat-label>  classes</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let class of classList" [value]="class.id">
-        {{class.aname}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-card>
+<div>
+  <h4>اختر الصف والشعبة     </h4>
+  <mat-card>
+    <mat-form-field>
+      <mat-label> الصف الدراسي</mat-label>
+      <mat-select>
+        <ngx-mat-select-search>
+        </ngx-mat-select-search>
+        <mat-option *ngFor="let class of classList" [value]="class.id">
+          {{class.aname}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label> الصف الدراسي</mat-label>
+        <mat-select>
+          <ngx-mat-select-search>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let class of classList" [value]="class.id">
+            {{class.aname}}
+          </mat-option>
+        </mat-select> 
+      </mat-form-field>
+
+  </mat-card>
+
+  <mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
+      <div fxLayout="row">
+        <a mat-raised-button color="accent" >
+            <!-- (click)="addNewPayment()" -->
+          <mat-icon>add_circle_outline</mat-icon> طباعة
+        </a>
+      </div>
+    </mat-toolbar>
+
+</div>
+
 
 
 

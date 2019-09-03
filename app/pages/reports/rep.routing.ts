@@ -7,7 +7,7 @@ import { StudentsNamesParamsComponent } from './students/students-names-params/s
 
 export const repRoutes: Routes = [
   { path:'',
-  children:[
+  children:[ 
     {path:'', redirectTo:'index'},
     { path: 'index', component: RepIndexComponent },
     {path:'cardRep/:id', component:CardRepComponent},
@@ -17,3 +17,4 @@ export const repRoutes: Routes = [
 ];
 
 //export const TourRoutes = RouterModule.forChild(routes);
+    
