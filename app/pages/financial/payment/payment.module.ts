@@ -26,7 +26,7 @@ import { DateFormat } from './date-format';
     PaymentDialogComponent
   ],
   entryComponents: [
-    PaymentDialogComponent
+    PaymentDialogComponent, PaymentFormComponent
   ],
 
   imports: [

@@ -16,6 +16,7 @@ import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
 import { of } from 'rxjs'; 
 import { startWith, map, filter } from "rxjs/operators";
 import { finStudCard } from 'src/app/Models/financial/finStudCard';
+import { PaymentFormComponent } from '../payment-form/payment-form.component';
 
 @Component({
   selector: 'app-payment-index',
@@ -150,6 +151,22 @@ export class PaymentIndexComponent implements OnInit {
     dialogConfig.data = { id: 0, };
     const dialogRef = this.dialog.open(PaymentDialogComponent, dialogConfig)
     dialogRef.afterClosed().subscribe(res => {
+      console.log(this.studentFeeService.sParentId);
+      this.onParentChanged(this.studentFeeService.sParentId);
+    }
+    );
+  }
+
+  
+  payCheck() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.direction = "rtl";
+    dialogConfig.data = { id: 0, };
+    const dialogRef = this.dialog.open(PaymentFormComponent, dialogConfig)
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(this.studentFeeService.sParentId);
+     
     }
     );
   }

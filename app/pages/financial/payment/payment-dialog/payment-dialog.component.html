@@ -1,7 +1,11 @@
-<mat-card>
-   <mat-card-content>
 
-      <div fxLayoutAlign="center">
+<form [formGroup]="PaymentformGroup" (ngSubmit)="submit()" novalidate="novalidate">
+   
+   <mat-dialog-content>
+     
+
+            <mat-card>
+      <div class="form">
          <table>
             <tr>
                <td>
@@ -15,14 +19,7 @@
             </tr>
          </table>
       </div>
-   </mat-card-content>
-</mat-card>
-
-<form [formGroup]="PaymentformGroup" (ngSubmit)="submit()" novalidate="novalidate">
-   <mat-dialog-content>
-      <div fxLayout="column" class="p-2">
-
-            <mat-card>
+      <div class="form">
                   <mat-form-field fxFlex class="mat-select" appearance="outline">
                      <mat-label> الطالب </mat-label>
                      <mat-select matInput  formControlName="studentId" [(ngModel)]="studId" placeholder="الطالب" required
@@ -31,7 +28,7 @@
                            {{ op.firstName }}
                         </mat-option>
                      </mat-select>
-                  </mat-form-field>
+                  </mat-form-field> 
                   <mat-form-field fxFlex appearance="outline">
                         <mat-label> القسم </mat-label>
                         <input matInput  formControlName="sectionId" readonly [(ngModel)]="sectionName" type="text" placeholder="  القسم">
@@ -44,50 +41,57 @@
                   <mat-label> الشعبة </mat-label>
                   <input matInput  formControlName="sectionId3" readonly [(ngModel)]="classSeqName" type="text" placeholder="  الشعبة">
             </mat-form-field>  
-
-               </mat-card>
       </div>
+               
+      
 
-      <div fxLayout="column" class="p-2">    
-      <mat-card>
-         <mat-form-field fxFlex class="mat-select" appearance="outline">
-  <mat-label>  نوع القبض </mat-label>
-  <mat-select matInput formControlName="finItemId" placeholder="   نوع القبض  "   required>
-     <mat-option>                     
-     </mat-option>
-     <mat-option *ngFor="let op of finItemList" [value]="op.id">
-        {{ op.arDesc }}
-     </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field fxFlex color="accent" appearance="outline" readonly>
-   <mat-label>رقم الفاتورة</mat-label>
-   <input matInput formControlName="finItemVoucherSequence" type="text" placeholder="  رقم الفاتورة ">
-</mat-form-field>
-<mat-form-field fxFlex color="accent" appearance="outline">
-   <mat-label> المبلغ  </mat-label>
-   <input matInput formControlName="credit" type="text" placeholder="  المبلغ    ">
-</mat-form-field>
-</mat-card>
-<mat-card>
-   <mat-form-field fxFlex color="accent" appearance="outline">
-      <mat-label> طريقة القبض </mat-label>
-      <mat-select matInput formControlName="paymentMethodId" placeholder="   طريقة القبض" required
-         [(ngModel)]="optionValue">
-         <mat-option *ngFor="let op of PaymentMethodList" [value]="op.id">
-            {{op.id}} | {{op.aname}}
-         </mat-option>
-      </mat-select>
+
+      <div  class="form">   
+           
+                  <div>   
+        
+<mat-form-field fxFlex="100%" color="accent" appearance="outline">
+      <mat-label> البيــــــان  </mat-label>
+      <input matInput formControlName="note" type="text" placeholder="  البيان    ">
    </mat-form-field>
-   <mat-form-field fxFlex color="accent" appearance="outline">
-      <mat-label> التاريخ</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="voucherDate" readonly>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-   </mat-form-field>
-</mat-card>
-      </div>
-            <div fxLayout="column" class="p-2">
+</div>
+<div>
+    
+      <mat-form-field fxFlex class="mat-select" appearance="outline"  >
+            <mat-label>  نوع القبض </mat-label>
+            <mat-select matInput formControlName="finItemId" placeholder="   نوع القبض  "   required>
+               <mat-option *ngFor="let op of finItemList; let i = index" [value]="op.id" >
+                  {{ op.arDesc }}
+               </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field fxFlex color="accent" appearance="outline"  >
+             <mat-label> المبلغ  </mat-label>
+             <input matInput formControlName="credit" type="text" placeholder="  المبلغ    ">
+          </mat-form-field>
+
+
+      <mat-form-field fxFlex color="accent" appearance="outline">
+            <mat-label> طريقة القبض </mat-label>
+            <mat-select matInput formControlName="paymentMethodId" placeholder="   طريقة القبض" required
+               [(ngModel)]="optionValue">
+               <mat-option *ngFor="let op of PaymentMethodList" [value]="op.id">
+                  {{op.id}} | {{op.aname}}
+               </mat-option>
+            </mat-select>
+         </mat-form-field>
+         <mat-form-field fxFlex color="accent" appearance="outline">
+            <mat-label> التاريخ</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="voucherDate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+</div>
+
+</div>
+
+            <div>
          <div>
             <ng-container *ngIf="optionValue == '1203'">
                <mat-card>
@@ -120,6 +124,16 @@
 
 
       </div>
+   </mat-card>
+   
+  
+         <div>
+            <ng-container *ngIf="optionValue == '1201'">
+               <mat-card>
+                 <app-payment-form></app-payment-form>
+               </mat-card>
+            </ng-container>
+         </div>
    </mat-dialog-content>
 
 
@@ -131,6 +145,11 @@
       <button [type]="submit" mat-raised-button color="primary" (click)="submitPayment()">
          تخزين
       </button>
+
+      <button mat-raised-button tabindex="-1" color="warn" (click)="payCheck()">
+         شيكات
+      </button>
+
    </mat-dialog-actions>
 </form>
 
