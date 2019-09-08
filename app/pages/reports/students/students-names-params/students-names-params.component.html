@@ -1,0 +1,55 @@
+<div>
+  <h4>اختر الصف والشعبة     </h4>
+  <mat-card>
+    <mat-form-field>
+      <mat-label> الصف الدراسي</mat-label>
+      <mat-select>
+        <ngx-mat-select-search>
+        </ngx-mat-select-search>
+        <mat-option *ngFor="let class of classList" [value]="class.id">
+          {{class.aname}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label> الصف الدراسي</mat-label>
+        <mat-select>
+          <ngx-mat-select-search>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let class of classList" [value]="class.id">
+            {{class.aname}}
+          </mat-option>
+        </mat-select> 
+      </mat-form-field>
+
+  </mat-card>
+
+  <mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
+      <div fxLayout="row">
+        <a mat-raised-button color="accent" >
+            <!-- (click)="addNewPayment()" -->
+          <mat-icon>add_circle_outline</mat-icon> طباعة
+        </a>
+      </div>
+    </mat-toolbar>
+
+</div>
+
+
+
+
+<!-- 
+<mat-form-field fxFlex="60%" class="mat-select" appearance="outline">
+  <mat-label> الطالب </mat-label>
+  <mat-select matInput formControlName="studentId" placeholder=" الطالب  " required>
+     <mat-option>
+        <ngx-mat-select-search placeholder="  الطالب  ">
+        </ngx-mat-select-search>
+     </mat-option>
+     <mat-option *ngFor="let op of childrenList" [value]="op.id">
+        {{ op.firstName }}
+     </mat-option>
+  </mat-select>
+</mat-form-field> -->

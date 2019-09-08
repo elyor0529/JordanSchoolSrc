@@ -11,8 +11,6 @@ import { PaymentService } from './payment.service';
 import { MatSelectModule, MatFormFieldModule, DateAdapter, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppSettings } from 'src/app/app.settings';
-import { GridModule } from '@progress/kendo-angular-grid';
-import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -38,8 +36,8 @@ import { DateFormat } from './date-format';
     MatSelectModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule,
-    GridModule,
-    DropDownListModule,
+    // GridModule,
+    // DropDownListModule,
    // BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,

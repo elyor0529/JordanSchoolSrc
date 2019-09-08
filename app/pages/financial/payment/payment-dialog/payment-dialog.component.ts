@@ -13,8 +13,6 @@ import { Payment } from 'src/app/Models/financial/payment';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import { PaymentChequeService } from '../payment-cheque.service';  
 import { PaymentCheque } from 'src/app/Models/financial/payment-cheque';
-import { groupBy, GroupDescriptor } from '@progress/kendo-data-query'; 
-import { GridComponent, AddEvent } from '@progress/kendo-angular-grid';
 import { AdmService } from 'src/app/pages/Admission/adm.service';
 import { StudentFeeService } from '../../student-fee/student-fee.service';
 import { FinItemService } from '../../fin-item/fin-item.service';
@@ -55,10 +53,10 @@ const createFormGroup = dataItem => new FormGroup({
 export class PaymentDialogComponent implements OnInit {
 
   //////test inline
-  public groups: GroupDescriptor[] = [];
+  // public groups: GroupDescriptor[] = [];
   view: PaymentCheque[];
   viewList: PaymentCheque;
-  @ViewChild(GridComponent) private grid: GridComponent;
+  // @ViewChild(GridComponent) private grid: GridComponent;
   private editedRowIndex: number;
   private isNew = false;
   private docClickSubscription: any;
@@ -66,13 +64,14 @@ export class PaymentDialogComponent implements OnInit {
     return this.editedRowIndex !== undefined || this.isNew;
   }
 
-  public groupChange2(groups: GroupDescriptor[]): void {
-    this.groups = groups;
-    console.log('groupChange');
+  // public groupChange2(groups: GroupDescriptor[]): void {
+  //   this.groups = groups;
+  //   console.log('groupChange');
 
-    // this.view = groupBy(this.paymentChequesDataSource.data, this.groups);
-    console.log('groupChange' + this.view);
-  }
+  //   // this.view = groupBy(this.paymentChequesDataSource.data, this.groups);
+  //   console.log('groupChange' + this.view);
+  // }
+  ////////////////////////////////////////////// test inline
 
   public PaymentformGroup: FormGroup;
   public chequeFormGroup: FormGroup;

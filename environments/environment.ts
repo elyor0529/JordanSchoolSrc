@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:15783/api/',
+  apiBaseUrl: 'http://localhost:49274/api/',
   //apiBaseUrl: 'http://myschool:97/api/',
   jsonAPI: '/assets/data',
   urlPrefix: '',
