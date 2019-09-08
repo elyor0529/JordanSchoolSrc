@@ -1,3 +1,58 @@
-<p>
-  payment-form works!
-</p>
+<mat-card>
+    <mat-card-content>
+ 
+    </mat-card-content>
+ </mat-card>
+ 
+ <form [formGroup]="formGroup" (ngSubmit)="submit()" novalidate="novalidate">
+      <div fxLayout="column" class="p-2">  
+            <mat-card>
+    <mat-dialog-content>
+    
+ 
+        
+          
+ <mat-form-field fxFlex color="accent" appearance="outline">
+       <mat-label> قيمة الشيك  </mat-label>
+       <input matInput formControlName="chequeValue" type="text" placeholder="  قيمة الشيك    ">
+  </mat-form-field>
+  <mat-form-field fxFlex color="accent" appearance="outline">
+      <mat-label>  رقم الشيك  </mat-label>
+      <input matInput formControlName="chequeNo" type="text" placeholder="  رقم الشيك    ">
+ </mat-form-field>
+ <mat-form-field fxFlex color="accent" appearance="outline">
+    <mat-label>  تاريخ الشيك  </mat-label>
+    <input matInput formControlName="chequeDate" type="text" placeholder="  تاريخ الشيك    ">
+</mat-form-field>
+<mat-form-field fxFlex color="accent" appearance="outline">
+    <mat-label>  البنك المسحوب عليه  </mat-label>
+    <input matInput formControlName="bankId" type="text" placeholder="   البنك    ">
+</mat-form-field>
+
+
+
+ 
+ 
+    </mat-dialog-content>
+ 
+    <button mat-raised-button tabindex="-1" color="warn" (click)="addCheque()">
+         تخزين
+      </button>
+ 
+    <mat-dialog-actions>
+       <button mat-raised-button tabindex="-1" color="warn" >
+          عودة
+       </button>
+       <!-- <button [type]="submit" mat-raised-button color="primary">
+          تخزين
+       </button> -->
+ 
+      </mat-dialog-actions>
+
+      
+ </mat-card>
+      </div>
+   
+ </form>
+ 
+ 

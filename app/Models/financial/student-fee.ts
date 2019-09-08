@@ -15,7 +15,8 @@ export class StudentFee {
     PaymentMethodDesc:string;
     TransferNo:string;
     TransferDate:Date;
-    VisaCardNo : string;
+    VisaCardNo: string;
+    note: string;
 
     //
   

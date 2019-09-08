@@ -1,3 +1,4 @@
+import { PaymentFormComponent } from './../payment-form/payment-form.component';
 import { StudCardData } from 'src/app/Models/Reg/Reports/StudCardData';
 import { Component, OnInit, EventEmitter, Output, Inject, ViewChild, Renderer2, Renderer } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
@@ -9,7 +10,7 @@ import { LookupsApiService } from 'src/app/pages/lookups/lookups-api.service';
 import { ValidationBase } from 'src/app/validationBase';
 import { PaymentService } from '../payment.service';
 import { Payment } from 'src/app/Models/financial/payment';
-import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
 import { PaymentChequeService } from '../payment-cheque.service';  
 import { PaymentCheque } from 'src/app/Models/financial/payment-cheque';
 import { AdmService } from 'src/app/pages/Admission/adm.service';
@@ -103,15 +104,8 @@ export class PaymentDialogComponent implements OnInit {
   className: any;
   classSeqName: any;
 
-  // paymentChequesCols = [
-  //   { field: "id", header: "#" },
-  //   { field: "chequeNo", header: "  رقم الوصل    " }
-  // ]
-  // public paymentChequesDisplayedColumns: string[] = this.paymentChequesCols.map(col => col.field);
-
-
-
   constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private datePipe: DatePipe,
     public validator: ValidationBase,
@@ -161,6 +155,7 @@ export class PaymentDialogComponent implements OnInit {
         transferNo: [],
         transferDate: [],
         visaCardNo: [],
+        note:[null],
         cheques: this.fb.array([
          // this.createCheque()
         ])
@@ -257,9 +252,6 @@ export class PaymentDialogComponent implements OnInit {
 
   addPayment() {
 
-    this.chequesArray = this.PaymentformGroup.get('cheques') as FormArray;
-    this.chequesArray.push(this.chequeFormGroup.value);
-    
     this.studentFeeService.addStudentFee(this.PaymentformGroup.value).subscribe(
       res => {
         this.event.emit(this.PaymentformGroup.value);
@@ -295,103 +287,13 @@ export class PaymentDialogComponent implements OnInit {
     this.getLookups();
     if (!this.id == null)
       this.getPaymentChequeList();
+ }
 
-   // this.docClickSubscription = this.renderer.listen('document', 'click', this.onDocumentClick.bind(this));
-  }
-
-  public ngOnDestroy(): void {
-    this.docClickSubscription();
-  }
-
-
-  public addHandler(): void {
-  //  this.closeEditor();
-    console.log('addHandler');
-    this.chequeFormGroup = this.fb.group({
-      id: [0],
-      chequeNo: [10],
-      chequeDate: ["1.1.2019"],
-      chequeValue: [21],
-      bankId: [1],
-      studentFeeId: [this.id]
-    });
-
-
-
-    this.isNew = true;
-
-    // this.grid.addRow(this.chequeFormGroup);
-    console.log(this.PaymentformGroup.value);
-  }
-
-
-  public cellClickHandler({ isEdited, dataItem, rowIndex }): void {
-    console.log('cellClickHandler');
-    if (isEdited || (this.chequeFormGroup && !this.chequeFormGroup.valid)) {
-      return;
-    }
-
-    this.saveCurrent();
-    this.chequeFormGroup = createFormGroup(dataItem);
-    this.editedRowIndex = rowIndex;
-    // this.grid.editRow(rowIndex, this.chequeFormGroup);
-  }
+  
 
 
 
 
-  public cancelHandler(): void {
-    console.log('cancelHandler');
-    this.closeEditor();
-  }
-
-
-
-  private closeEditor(): void {
-    console.log('closeEditor');
-    // this.grid.closeRow(this.editedRowIndex);
-    this.isNew = false;
-    console.log('isNew = false');
-    this.editedRowIndex = undefined;
-    this.chequeFormGroup = undefined;
-  }
-
-
-  private onDocumentClick(e: any): void {
-    console.log('onDocumentClick');
-    if (this.chequeFormGroup && this.chequeFormGroup.valid &&
-      !matches(e.target, '#productsGrid tbody *, #productsGrid .k-grid-toolbar .k-button')) {
-      console.log('onDocumentClick is valid');
-      this.saveCurrent();
-    }
-  }
-
-
-
-  private saveCurrent(): void {
-    console.log('saveCurrent');
-    if (this.chequeFormGroup) {
-      this.chequesArray = this.PaymentformGroup.get('cheques') as FormArray;
-      
-     // debugger;
-      this.chequesArray.push(this.chequeFormGroup.value);
-      // this.chequesService.addPaymentCheque(this.chequeFormGroup.value).subscribe(
-      //   res => {
-      //   },
-      //   err => {
-      //     console.log('error in chequeFormGroup save' + err)
-      //   }
-      // );
-
-      console.log('saveCurrent chequeFormGroup');
-      console.log(this.chequeFormGroup);
-      console.log(this.chequeFormGroup);
-      console.log('saveCurrent chequeFormGroup');
-      console.log('is new   ' + this.isNew);
-
-      this.closeEditor();
-    }
-  }
 
   onStudChange() {
     return this.repService.getStudCardDataVw(this.yearId, this.studId)
@@ -402,6 +304,20 @@ export class PaymentDialogComponent implements OnInit {
         this.classSeqName=res.classSeqName
       })
     
+  }
+
+  
+  payCheck() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.direction = "rtl";
+    dialogConfig.data = { id: 0, };
+    const dialogRef = this.dialog.open(PaymentFormComponent, dialogConfig)
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(this.service.sParentId);
+     
+    }
+    );
   }
 
 }
