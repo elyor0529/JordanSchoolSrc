@@ -9,7 +9,7 @@ import { CardRepComponent } from './students/card-rep/card-rep.component';
 import { StudentsNamesRepComponent } from './students/students-names-rep/students-names-rep.component';
 import { StudentsNamesParamsComponent } from './students/students-names-params/students-names-params.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     CommonModule,
     SharedModule,
     RouterModule.forChild(repRoutes),
-    NgxMatSelectSearchModule 
+    NgxMatSelectSearchModule,
+    FormsModule
 
   ],
   providers:[RepService]

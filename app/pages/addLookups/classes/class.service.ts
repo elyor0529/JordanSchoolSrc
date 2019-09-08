@@ -37,6 +37,21 @@ export class ClassService {
 
   }
 
+
+  GetClassBySection(sectionId): Observable<lkpClass[]>{
+    return this.http.get<lkpClass[]>(`${this.apiUrl + "/GetClassBySection"}/${sectionId}`,
+      environment.httpOptions)
+      .pipe(
+        map(response => response),
+        catchError((e: any) =>{ console.log("erorrrrrrrrs");
+          //do your processing here
+          return throwError(e);
+         // return Observable.throw;
+        }),
+      );      
+
+  }
+
   
   addClass(model: lkpClass):Observable<lkpClass>{
     return this.http.post<lkpClass>(this.apiUrl,model,environment.httpOptions);

@@ -16,6 +16,7 @@ import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
 import { of } from 'rxjs'; 
 import { startWith, map, filter } from "rxjs/operators";
 import { finStudCard } from 'src/app/Models/financial/finStudCard';
+// import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-payment-index',
@@ -111,6 +112,8 @@ export class PaymentIndexComponent implements OnInit {
   getYearsList() {
     return this.yearService.getYearsList().subscribe(result => this.yearsList = result);
   }
+
+
   getParentList() {
     return this.parentService
       .getParentsList()
@@ -209,6 +212,10 @@ export class PaymentIndexComponent implements OnInit {
   
   filterParents() {
     const ngxParentTable = of(this.ngxParentList);
+
+    console.log('this.ngxParentList');
+    console.log(this.ngxParentList);
+
     ngxParentTable.pipe(
       map(p => p.filter(x => x.fatherName.includes(this.parentFilterValue) ||
         x.id.toString().includes(this.parentFilterValue)))

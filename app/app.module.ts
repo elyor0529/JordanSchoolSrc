@@ -47,7 +47,8 @@ import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LoginService } from './pages/login/login.service';
 import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
-
+import {enableProdMode} from '@angular/core';
+enableProdMode();
 import { TextMaskModule } from 'angular2-text-mask';
 
 

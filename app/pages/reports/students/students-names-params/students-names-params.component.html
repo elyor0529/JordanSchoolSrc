@@ -1,39 +1,79 @@
+<!-- <app-content-header [icon]="'store_mall_directory'" [title]="'   حسب الشعب'" [hideBreadcrumb]="false"
+  [hasBgImage]="true" [class]="'pb-4'">
+</app-content-header> -->
+
+<mat-card>
+  <mat-card-content>
+
+    <div fxLayoutAlign="center">
+      <table>
+        <tr>
+          <td>
+            <h2> كشف الطلاب في الشعبة </h2>
+          </td>
+          <td>
+            <h2> {{currentYear}} </h2>
+          </td>
+          <td>
+            <h2>{{schoolName}}</h2>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
 <div>
-  <h4>اختر الصف والشعبة     </h4>
+  <h4>اختر الصف والشعبة </h4>
   <mat-card>
+
+      <mat-form-field>
+          <mat-label>  القسم  </mat-label>
+          <mat-select (selectionChange)="onSectionChanged($event.value)">
+            <ngx-mat-select-search [(ngModel)]="sectionFilterValue" (ngModelChange)="filterSections()">
+            </ngx-mat-select-search>
+            <mat-option *ngFor="let section of sectionList" [value]="section.id">
+              {{section.sectionName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
     <mat-form-field>
       <mat-label> الصف الدراسي</mat-label>
       <mat-select>
-        <ngx-mat-select-search>
+        <ngx-mat-select-search [(ngModel)]="classFilterValue" (ngModelChange)="filterClasses()">
         </ngx-mat-select-search>
         <mat-option *ngFor="let class of classList" [value]="class.id">
-          {{class.aname}}
+          {{class.id}} | {{class.aname}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-
-    <mat-form-field>
-        <mat-label> الصف الدراسي</mat-label>
-        <mat-select>
-          <ngx-mat-select-search>
-          </ngx-mat-select-search>
-          <mat-option *ngFor="let class of classList" [value]="class.id">
-            {{class.aname}}
-          </mat-option>
-        </mat-select> 
-      </mat-form-field>
-
   </mat-card>
 
-  <mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
-      <div fxLayout="row">
-        <a mat-raised-button color="accent" >
-            <!-- (click)="addNewPayment()" -->
-          <mat-icon>add_circle_outline</mat-icon> طباعة
-        </a>
-      </div>
-    </mat-toolbar>
+  <!-- <mat-toolbar color="basic" fxLayout="row" fxLayoutAlign="space-between center" class="px-2 user-toolbar">
+    <div fxLayout="row">
+      <a mat-raised-button color="primary" [routerLink]="['/reports/ClassStudentsListRep']">
+        <mat-icon>print</mat-icon> طباعة
+      </a>
+    </div>
+  </mat-toolbar> -->
+
+  <students-names-rep classId="1">
+  </students-names-rep>
+  <!-- <button  mat-icon-button color="info" matTooltip="بطاقة الطالب" [routerLink]="['/reports/ClassStudentsListRep']">
+    <mat-icon aria-hidden="false" aria-label="info">
+     info
+    </mat-icon>
+  </button>
+
+  <a mat-icon-button matTooltip="طبتعة" [routerLink]="['/financial/finItem/edit/' + element.id  ]">
+    <mat-icon aria-hidden="true" aria-label="Files">
+      edit
+    </mat-icon>
+  </a> -->
 
 </div>
 

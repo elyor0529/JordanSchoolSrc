@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BlankComponent implements OnInit {
 
   constructor() { }
-
+ 
   ngOnInit() {
   }
 

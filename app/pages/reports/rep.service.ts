@@ -8,6 +8,7 @@ import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
 import { AcdimicYears } from 'src/app/Models/addLookups/years/AcdimicYears';
 import { StudCardData } from 'src/app/Models/Reg/Reports/StudCardData';
 
+
 @Injectable({
   providedIn: 'root'
 })
